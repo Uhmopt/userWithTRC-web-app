@@ -100,17 +100,21 @@
 
       // filter: brightness(0) contrast(calc(var(--sel)));
     }
+
+    .label {
+      filter: sepia(var(--hl));
+    }
+
     &.active {
-      color: $primary-color;
+      .label {
+        color: $primary-color;
+        filter: none;
+      }
       .icon {
         color: $primary-color;
         fill: $primary-color;
         filter: none;
       }
-    }
-
-    .label {
-      filter: sepia(var(--hl));
     }
 
     &:focus {
