@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const menuItems = [
-  { name: 'home', label: '🏠' },
-  { name: 'search', label: '🔍' },
+  { name: 'Home', label: '🏠' },
+  { name: 'Revenue', label: '🔍' },
   { name: '', label: '' },
-  { name: 'notification', label: '🔔' },
-  { name: 'profile', label: '👱' },
+  { name: 'Invite firiend', label: '🔔' },
+  { name: 'Contact', label: '👱' },
 ]
 
 export default function FooterBar() {

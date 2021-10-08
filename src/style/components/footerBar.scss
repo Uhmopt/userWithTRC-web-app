@@ -98,7 +98,14 @@
 
     &::before {
       font-size: 2em;
-      filter: brightness(0) contrast(calc(var(--sel)));
+      @if val(--sel) {
+        color: hsl(0, 0%, calc(50%));
+        fill: hsl(0, 0%, calc(50%));
+      } @else {
+        color: $primary-color;
+        fill: $primary-color;
+      }
+      // filter: brightness(0) contrast(calc(var(--sel)));
       content: attr(data-ico);
     }
 
