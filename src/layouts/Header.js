@@ -1,5 +1,6 @@
 import { ArrowBack, Logout } from '@mui/icons-material'
 import { Container, IconButton } from '@mui/material'
+import Logo from 'components/Logo'
 import UserAvatar from 'components/UserAvatar'
 import React from 'react'
 
@@ -17,7 +18,9 @@ export default function Header({
               <ArrowBack className="text-white" />
             </IconButton>
           </div>
-          <div>Logo</div>
+          <div>
+            <Logo variant="text" />
+          </div>
           <div>
             {Boolean(isHome) ? (
               <IconButton onClick={onSignOut} color="default">
