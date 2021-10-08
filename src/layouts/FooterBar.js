@@ -1,12 +1,13 @@
+import CustomSvgs from 'components/CustomSvgs'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const menuItems = [
-  { name: 'Home', label: '🏠' },
-  { name: 'Revenue', label: '🔍' },
-  { name: '', label: '' },
-  { name: 'Invite firiend', label: '🔔' },
-  { name: 'Contact', label: '👱' },
+  { label: 'Home', icon: <CustomSvgs className="icon" label="Home" /> },
+  { label: 'Revenue', icon: '🔍' },
+  { label: '', icon: '' },
+  { label: 'Invite firiend', icon: '🔔' },
+  { label: 'Contact', icon: '👱' },
 ]
 
 export default function FooterBar() {
@@ -21,19 +22,23 @@ export default function FooterBar() {
         {menuItems.map((item, itemIndex) => (
           <Link
             key={itemIndex}
-            className="nav-item"
+            className={`nav-item ${
+              selectedMenuIndex === itemIndex ? 'active' : ''
+            } `}
             to="#"
             onClick={(e) => handleClickMenu(e, itemIndex)}
-            data-ico={item?.label ?? ''}
             style={{ '--i': itemIndex }}
           >
-            {item?.name ?? ''}
+            {item?.icon ?? ''}
+            <div className="label">{item?.label ?? ''}</div>
           </Link>
         ))}
       </nav>
       <div className="both right"></div>
 
-      <div className="middle-button-container">Up</div>
+      <div className="middle-button-container">
+        <CustomSvgs name="UpgradeUser" />
+      </div>
     </div>
   )
 }

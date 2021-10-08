@@ -94,19 +94,26 @@
     text-align: center;
     text-decoration: none;
     text-transform: capitalize;
-    filter: sepia(var(--hl));
 
-    &::before {
+    .icon {
       font-size: 2em;
-      @if val(--sel) {
-        color: hsl(0, 0%, calc(50%));
-        fill: hsl(0, 0%, calc(50%));
-      } @else {
+
+      color: hsl(0, 0%, calc(50%));
+      fill: hsl(0, 0%, calc(50%));
+      filter: grayscale(1);
+
+      // filter: brightness(0) contrast(calc(var(--sel)));
+    }
+    &.active {
+      .icon {
         color: $primary-color;
         fill: $primary-color;
+        filter: none;
       }
-      // filter: brightness(0) contrast(calc(var(--sel)));
-      content: attr(data-ico);
+    }
+
+    .label {
+      filter: sepia(var(--hl));
     }
 
     &:focus {
@@ -123,10 +130,10 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: -($d / 4);
+    top: -($d * 0.25);
     background-color: $primary-color;
-    width: $d * 2 / 3;
-    height: $d * 2 / 3;
+    width: $d * 0.7;
+    height: $d * 0.7;
     border-radius: 50%;
     color: white;
     fill: white;
