@@ -2,5 +2,5 @@ import React from 'react'
 import Layout from '../../layouts'
 
 export default function Home() {
-  return <Layout></Layout>
+  return <Layout isHome={true}></Layout>
 }
