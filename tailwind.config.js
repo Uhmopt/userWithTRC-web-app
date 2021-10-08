@@ -34,6 +34,9 @@ module.exports = {
       fontSize: {
         xs: ['.75rem', 'inherit'],
       },
+      boxShadow: {
+        default: '4px 0px 6px rgba(0, 0, 0, 0.3);',
+      },
     },
     cursor: {
       crosshair: 'crosshair',

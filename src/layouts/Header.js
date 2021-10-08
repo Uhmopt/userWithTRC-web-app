@@ -1,8 +1,9 @@
 import { ArrowBack, Logout } from '@mui/icons-material'
-import { Container, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 import Logo from 'components/Logo'
 import UserAvatar from 'components/UserAvatar'
 import React from 'react'
+import CustomContainer from './CustomContainer'
 
 export default function Header({
   onBack = () => {},
@@ -11,8 +12,8 @@ export default function Header({
 }) {
   return (
     <div className="fixed top-0 z-30 w-full">
-      <Container maxWidth="sm">
-        <div className="p-2 flex justify-between items-center bg-blue-500">
+      <CustomContainer>
+        <div className="p-2 flex justify-between items-center bg-blue-500 shadow-default">
           <div>
             <IconButton onClick={onBack} color="default">
               <ArrowBack className="text-white" />
@@ -31,7 +32,7 @@ export default function Header({
             )}
           </div>
         </div>
-      </Container>
+      </CustomContainer>
     </div>
   )
 }

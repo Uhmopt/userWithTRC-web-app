@@ -1,0 +1,133 @@
+@use 'sass:math';
+
+.footer-bar {
+  $d: 7.5em;
+  $p: 0.2 * $d;
+  $r: $p * math.sqrt(2);
+  $o: 0.5 * $p;
+
+  @property --k {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: true;
+  }
+
+  display: flex;
+  justify-content: center;
+  border-radius: 0.8 * $r;
+  filter: drop-shadow($global-shadow);
+  -webkit-filter: drop-shadow($global-shadow);
+  -moz-filter: drop-shadow($global-shadow);
+  -ms-filter: drop-shadow($global-shadow);
+  -o-filter: drop-shadow($global-shadow);
+
+  position: relative;
+
+  .both {
+    flex-grow: 1;
+    content: ' ';
+    background-color: white;
+  }
+  .left {
+    border-radius: 0.8 * $r 0 0 0;
+  }
+  .right {
+    border-radius: 0 0.8 * $r 0 0;
+  }
+
+  nav,
+  a {
+    display: grid;
+  }
+
+  nav {
+    box-shadow: $global-shadow;
+    background: white;
+    grid-auto-flow: column;
+    padding: 0 $p;
+    --mask: linear-gradient(red 0 0),
+      radial-gradient(
+          circle at 0 #{$r},
+          transparent calc(#{$r} + -0.5px),
+          gold calc(#{$r} + 0.5px)
+        )
+        calc((var(--k) + 0.5) *#{$d} + #{$p} + #{-1.5 * $r}) 0 / #{$r $o} no-repeat,
+      radial-gradient(
+          circle at 100% #{$r},
+          transparent calc(#{$r} + -0.5px),
+          gold calc(#{$r} + 0.5px)
+        )
+        calc((var(--k) + 0.5) *#{$d} + #{$p} + #{0.5 * $r}) 0 / #{$r $o} no-repeat,
+      radial-gradient(
+        circle at calc((var(--k) + 0.5) *#{$d} + #{$p}) #{0.5 * $o},
+        white calc(#{0.5 * $o} + -1px),
+        transparent #{0.5 * $o}
+      ),
+      radial-gradient(
+        circle at calc((var(--k) + 0.5) *#{$d} + #{$p}) #{-$o},
+        blue calc(#{$r} + -0.5px),
+        transparent calc(#{$r} + 0.5px)
+      );
+    mask: var(--mask);
+    -webkit-mask: var(--mask);
+    -webkit-mask-composite: xor, source-over, source-over;
+    mask-composite: exclude, add, add;
+    font: 0.625em/ 1.5 ubuntu, sans-serif;
+    transition: --k 0.35s cubic-bezier(0.5, -0.5, 0.5, 1.5);
+  }
+
+  .nav-item {
+    --dif: calc(var(--i) - var(--k)); // 0 if they're equal, !== 0 otherwise
+    --abs: max(-1 * var(--dif), var(--dif)); // 0 if i === k, otherwise > 0
+    --not-sel: min(1, var(--abs)); // 1 if dif in abs value > 0, 0 otherwise
+    --sel: calc(1 - var(--not-sel)); // complementary
+    box-sizing: border-box;
+    place-content: center;
+    padding-top: $p;
+    width: $d;
+    height: $d;
+    @if val(--not-sel) {
+      color: hsl(0, 0%, calc(50%));
+    } @else {
+      color: $primary-color;
+    }
+    text-align: center;
+    text-decoration: none;
+    text-transform: capitalize;
+    filter: sepia(var(--hl));
+
+    &::before {
+      font-size: 2em;
+      filter: brightness(0) contrast(calc(var(--sel)));
+      content: attr(data-ico);
+    }
+
+    &:focus {
+      outline: none;
+    }
+    &:focus,
+    &:hover {
+      --hl: 1;
+    }
+  }
+
+  .middle-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -($d / 4);
+    background-color: $primary-color;
+    width: $d * 2 / 3;
+    height: $d * 2 / 3;
+    border-radius: 50%;
+    color: white;
+    fill: white;
+    box-shadow: $global-shadow;
+
+    &:hover {
+      background-color: $primary-hover-color;
+      box-shadow: $global-hover-shadow;
+    }
+  }
+}
