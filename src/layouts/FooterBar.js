@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const menuItems = [
-  { label: 'Home', icon: <CustomSvgs className="icon" label="Home" /> },
-  { label: 'Revenue', icon: <CustomSvgs name="Revenue" className="icon m-auto" label="Revenue" /> },
+  { label: 'Home', icon: <CustomSvgs className="icon" /> },
+  { label: 'Revenue', icon: <CustomSvgs name="Revenue" className="icon m-auto" /> },
   { label: '', icon: '' },
-  { label: 'Invite friend', icon: <CustomSvgs name="Invite" className="icon m-auto" label="Invite" /> },
-  { label: 'Contact', icon: <CustomSvgs name="Contact" className="icon m-auto" label="Contact" /> },
+  { label: 'Invite friend', icon: <CustomSvgs name="Invite" className="icon m-auto" /> },
+  { label: 'Contact', icon: <CustomSvgs name="Contact" className="icon m-auto" /> },
 ]
 
 export default function FooterBar() {
