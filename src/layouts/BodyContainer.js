@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function BodyContainer({ children = <></> }) {
   return (
-    <div id="page_container" className="min-h-screen py-6">
+    <div id="page_container" className="bg-white min-h-screen p-8">
       {children}
     </div>
   )

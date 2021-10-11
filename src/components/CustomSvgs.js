@@ -1,3 +1,4 @@
+import Logo from 'assets/images/svgs/Logo.svg'
 import Home from 'assets/images/svgs/Home.svg'
 import Invite from 'assets/images/svgs/Invite.svg'
 import Revenue from 'assets/images/svgs/Revenue.svg'
@@ -8,6 +9,7 @@ import React from 'react'
 const svgs = {
   UpgradeUser,
   Home,
+  Logo,
   Revenue,
   Invite,
   Contact

@@ -7,18 +7,18 @@ import Header from './Header'
 export default function Layout({
   onBack = () => {},
   onSignOut = () => {},
-  isHome = false,
+  isLogin = false,
   children = <></>,
 }) {
   return (
     <div id="out_body" className="bg-gradient-to-b from-blue-50 to-green-50">
-      <Header onBack={onBack} onSignOut={onSignOut} isHome={Boolean(isHome)} />
+      <Header onBack={onBack} onSignOut={onSignOut} isLogin={Boolean(isLogin)} />
       <CustomContainer>
         <div className="min-h-screen">
           <BodyContainer>{children}</BodyContainer>
         </div>
       </CustomContainer>
-      <Footer />
+      <Footer isLogin={Boolean(isLogin)} />
     </div>
   )
 }

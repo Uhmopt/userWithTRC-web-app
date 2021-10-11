@@ -4,6 +4,12 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
+      colors: {
+        main: "#2F80ED",
+        title: "#6C7585",
+        light: "#EDF2FE",
+        warnning: "#FF6F6F"
+      },
       screens: {
         sm: '600px',
         md: '960px',
