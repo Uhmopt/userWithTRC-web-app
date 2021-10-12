@@ -1,5 +1,5 @@
 import React from 'react'
-import FlagSelect from 'components/FlagSelect'
+import LangSelect from 'components/LangSelect'
 
 export default function MainTitle({
   title = '',
@@ -21,7 +21,7 @@ export default function MainTitle({
         </div>
         {isSelectLang ? (
           <div className=" mt-10">
-            <FlagSelect className="pt-5" />
+            <LangSelect className="pt-5" />
           </div>
         ) : null}
       </div>

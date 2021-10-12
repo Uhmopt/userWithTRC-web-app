@@ -17,7 +17,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function FlagSelect() {
+export default function LangSelect() {
   const [lang, setLang] = React.useState('GB')
   const handleChange = (event) => {
     setLang(event.target.value)
