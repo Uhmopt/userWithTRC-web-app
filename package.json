@@ -2,8 +2,8 @@
   "name": "presnap",
   "version": "0.1.0",
   "engines": {
-    "node": "12.14.0",
-    "npm": "6.13.4"
+    "node": "14.17.5",
+    "npm": "6.14.14"
   },
   "private": true,
   "dependencies": {
