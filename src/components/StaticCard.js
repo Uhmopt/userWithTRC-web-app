@@ -1,13 +1,14 @@
-import { Card } from '@mui/material'
+import { CardContent } from '@mui/material'
 import React from 'react'
 
-export default function NoticeCard({ text = '' }) {
+export default function StaticCard({ content1 = '', content2 = '' }) {
+  const className = content2?"grid grid-cols-2 divide-x divide-main":'';
   return (
-      <Card className="bg-white rounded-md flex justify-between p-2">
-        <div class="grid grid-cols-2 divide-x divide-green-500">
-          <div>1</div>
-          <div>2</div>
-        </div>
-      </Card>
+    <CardContent className="bg-white rounded-md shadow-md text-center">
+      <div className={className}>
+        {content1}
+        {content2}
+      </div>
+    </CardContent>
   )
 }

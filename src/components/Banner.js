@@ -2,6 +2,7 @@ import React from 'react'
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Info } from '@mui/icons-material'
 import { IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export default function Banner({
   icon = '',
@@ -11,7 +12,7 @@ export default function Banner({
 }) {
   return (
     <div>
-      <IconButton className="float-right p-3"><LogoutIcon className="text-white w-10 h-10"/></IconButton>
+      <Link to="sign-in"><IconButton className="float-right p-3"><LogoutIcon className="text-white w-10 h-10"/></IconButton></Link>
       <div className="bg-cover bg-center bg-home h-52 pt-8 w-full text-white">
         <div className="text-center">
           {icon}

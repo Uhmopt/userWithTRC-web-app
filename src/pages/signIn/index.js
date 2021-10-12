@@ -71,8 +71,8 @@ export default function SignIn() {
           />
         </Grid>
       </Grid>
-      <div className="pt-8 text-main flex justify-between" >
-        <div className="hover:cursor-pointer"
+      <div className="pt-8 text-main flex justify-between items-center" >
+        <div className="hover:cursor-pointer flex items-center"
           onClick={() => {
             setCurrentState({
               ...currentState,
@@ -88,7 +88,6 @@ export default function SignIn() {
           <label id="remember-me">Remember me</label>
         </div>
         <Link to={`forgot-password`} className="text-green-500">
-          {' '}
           Forgot password
         </Link>
       </div>

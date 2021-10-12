@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function CardTable({ startIcon = '' }) {
+export default function CardTable({ cards='', cardData=[] }) {
   return (
-    <div className="pt-4">
-      
+    <div className="mb-24">
+
     </div>
   )
 }
