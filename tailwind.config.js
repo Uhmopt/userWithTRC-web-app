@@ -50,6 +50,7 @@ module.exports = {
     cursor: {
       crosshair: 'crosshair',
       'zoom-in': 'zoom-in',
+      pointer: 'pointer',
     },
   },
   variants: {

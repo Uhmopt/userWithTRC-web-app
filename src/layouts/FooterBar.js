@@ -39,9 +39,9 @@ export default function FooterBar() {
         ))}
       </nav>
       <div className="both right"></div>
-      <div className="cursor-pointer middle-button-container" onClick={()=>{handleClickUpgrade()}}>
+      <Link to="#" className="middle-button-container" onClick={()=>{handleClickUpgrade()}}>
         <CustomSvgs name="UpgradeUser" />
-      </div>
+      </Link>
     </div>
   )
 }
