@@ -3,7 +3,7 @@ import Layout from '../../layouts'
 import Banner from 'components/Banner'
 import CustomSvgs from 'components/CustomSvgs'
 import MainTitle from 'components/MainTitle'
-import LevelCard from 'components/LevelCard'
+import LevelCard from 'components/DetailCard'
 import { CardContent } from '@mui/material'
 
 export default function Home() {
@@ -33,24 +33,27 @@ export default function Home() {
     </div>
     <MainTitle title={<div><label className="text-title">Total People:</label> 1000</div>} isLogin={true}/>
     <div className="mb-24">
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
-      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
+      <LevelCard startIcon = {<CustomSvgs name="Level1" alt="Level1" className="mx-auto self-center" />}/>
     </div>
   </Layout>
 }

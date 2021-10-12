@@ -1,7 +1,7 @@
 import { ArrowBack, Logout } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 import Logo from 'components/Logo'
-import UserAvatar from 'components/UserAvatar'
+import LevelIcon from 'components/LevelIcon'
 import React from 'react'
 import CustomContainer from './CustomContainer'
 
@@ -28,7 +28,7 @@ export default function Header({
                 <Logout className="text-white" />
               </IconButton>
             ) : (
-              <UserAvatar />
+              <LevelIcon />
             )}
           </div>
         </div>
