@@ -30,62 +30,65 @@ export default function Register() {
       <div className="pt-8 w-full">
         <CustomInput
           isEmail={true}
-          pName="email"
-          pLabel="Email"
-          pComment="Please enter your email"
-          pIcon={<MailIcon className="text-main" />}
-          pValue={currentState.email}
-          inputChange={handleChange}
+          name="email"
+          type="email"
+          label="Email"
+          placeholder="Please enter your email"
+          startIcon={<MailIcon className="text-main" />}
+          value={currentState.email}
+          onChange={handleChange}
         />
       </div>
       <div className="pt-8 w-full">
         <CustomInput
           isPassword={true}
-          pName="password"
-          pLabel="Password"
-          pComment="Please enter your password"
-          pIcon={<LockIcon className="text-main" />}
-          pValue={currentState.password}
-          inputChange={handleChange}
+          name="password"
+          type="password"
+          label="Password"
+          placeholder="Please enter your password"
+          startIcon={<LockIcon className="text-main" />}
+          value={currentState.password}
+          onChange={handleChange}
         />
       </div>
       <div className="pt-8 w-full">
         <CustomInput
           isPassword={true}
-          pName="rePassword"
-          pLabel="Confirm Password"
-          pComment="Please confirm password"
-          pIcon={<LockIcon className="text-main" />}
-          pValue={currentState.rePassword}
-          inputChange={handleChange}
+          name="rePassword"
+          type="password"
+          label="Confirm Password"
+          placeholder="Please confirm password"
+          startIcon={<LockIcon className="text-main" />}
+          value={currentState.rePassword}
+          onChange={handleChange}
         />
       </div>
       <Grid container className="pt-8 w-full">
         <Grid item xs={7}>
           <CustomInput
-          pLabel="Verification Code"
-          pName="verifyCode"
-          pComment="Please enter the code"
-          pValue={currentState.verifyCode}
-          inputChange={handleChange}
+          label="Verification Code"
+          name="verifyCode"
+          placeholder="Please enter the code"
+          value={currentState.verifyCode}
+          onChange={handleChange}
           />
         </Grid>
         <Grid item xs={1}></Grid>
         <Grid item xs={4} className="pt-6">
           <CustomInput
-          pName="vCode"
-          pValue={currentState.vCode}
-          inputChange={handleChange}
+          name="vCode"
+          value={currentState.vCode}
+          onChange={handleChange}
           />
         </Grid>
       </Grid>
       <div className="pt-8 w-full">
         <CustomInput
-          pLabel="Invites"
-          pName="invites"
-          pComment="Optional"
-          pValue={currentState.invites}
-          inputChange={handleChange}
+          label="Invites"
+          name="invites"
+          placeholder="Optional"
+          value={currentState.invites}
+          onChange={handleChange}
         />
       </div>
       <div className="pt-8">

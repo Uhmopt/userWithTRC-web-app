@@ -24,23 +24,25 @@ export default function ResetPassword() {
       <div className="pt-8 w-full">
         <CustomInput
           isPassword={true}
-          pName="password"
-          pLabel="Password"
-          pComment="Please enter your password"
-          pIcon={<LockIcon className="text-main" />}
-          pValue={currentState.password}
-          inputChange={handleChange}
+          name="password"
+          type="password"
+          label="Password"
+          placeholder="Please enter your password"
+          startIcon={<LockIcon className="text-main" />}
+          value={currentState.password}
+          onChange={handleChange}
         />
       </div>
       <div className="pt-8 w-full">
         <CustomInput
           isPassword={true}
-          pName="rePassword"
-          pLabel="Confirm Password"
-          pComment="Please confirm password"
-          pIcon={<LockIcon className="text-main" />}
-          pValue={currentState.rePassword}
-          inputChange={handleChange}
+          name="rePassword"
+          type="password"
+          label="Confirm Password"
+          placeholder="Please confirm password"
+          startIcon={<LockIcon className="text-main" />}
+          value={currentState.rePassword}
+          onChange={handleChange}
         />
       </div>
       <div className="pt-8">

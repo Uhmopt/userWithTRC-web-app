@@ -31,41 +31,43 @@ export default function SignIn() {
       <div className="pt-8 w-full">
         <CustomInput
           isEmail={true}
-          pName="email"
-          pLabel="Email"
-          pComment="Please enter your email"
-          pIcon={<MailIcon className="text-main" />}
-          pValue={currentState.email}
-          inputChange={handleChange}
+          name="email"
+          type="email"
+          label="Email"
+          placeholder="Please enter your email"
+          startIcon={<MailIcon className="text-main" />}
+          value={currentState.email}
+          onChange={handleChange}
         />
       </div>
       <div className="pt-8 w-full">
         <CustomInput
           isPassword={true}
-          pName="password"
-          pLabel="Password"
-          pComment="Please enter your password"
-          pIcon={<LockIcon className="text-main" />}
-          pValue={currentState.password}
-          inputChange={handleChange}
+          name="password"
+          label="Password"
+          type="password"
+          placeholder="Please enter your password"
+          startIcon={<LockIcon className="text-main" />}
+          value={currentState.password}
+          onChange={handleChange}
         />
       </div>
       <Grid container className="pt-8 w-full">
         <Grid item xs={7}>
           <CustomInput
-            pLabel="Verification Code"
-            pName="verifyCode"
-            pComment="Please enter the code"
-            pValue={currentState.verifyCode}
-            inputChange={handleChange}
+            label="Verification Code"
+            name="verifyCode"
+            placeholder="Please enter the code"
+            value={currentState.verifyCode}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={1}></Grid>
         <Grid item xs={4} className="pt-6">
           <CustomInput
-            pName="vCode"
-            pValue={currentState.vCode}
-            inputChange={handleChange}
+            name="vCode"
+            value={currentState.vCode}
+            onChange={handleChange}
           />
         </Grid>
       </Grid>
@@ -91,9 +93,11 @@ export default function SignIn() {
         </Link>
       </div>
       <div className="pt-8">
-        <Button variant="contained" size="large" type="submit" fullWidth>
-          Login
-        </Button>
+        <Link to={`home`}>
+          <Button type="button" variant="contained" size="large" fullWidth>
+            Login
+          </Button>
+        </Link>
       </div>
       <div className="pt-8 text-main text-center m-auto">
         <label className="text-title">Don't you have a account?</label>

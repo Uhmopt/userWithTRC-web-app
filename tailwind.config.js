@@ -43,6 +43,9 @@ module.exports = {
       boxShadow: {
         default: '4px 0px 6px rgba(0, 0, 0, 0.3);',
       },
+      backgroundImage: {
+        'home': "url('/src/assets/images/pngs/home.png')",
+      }
     },
     cursor: {
       crosshair: 'crosshair',

@@ -3,6 +3,7 @@ import Home from 'assets/images/svgs/Home.svg'
 import Invite from 'assets/images/svgs/Invite.svg'
 import Revenue from 'assets/images/svgs/Revenue.svg'
 import Contact from 'assets/images/svgs/Contact.svg'
+import Level1 from 'assets/images/svgs/Level1.svg'
 import UpgradeUser from 'assets/images/svgs/UpgradeUser.svg'
 import React from 'react'
 
@@ -12,7 +13,8 @@ const svgs = {
   Logo,
   Revenue,
   Invite,
-  Contact
+  Contact,
+  Level1
 }
 
 export default function CustomSvgs({ name = '', alt = '', ...props }) {

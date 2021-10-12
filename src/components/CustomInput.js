@@ -1,54 +1,51 @@
 import { InputAdornment, TextField } from '@mui/material'
+import validate from 'lib/validate'
 import React, { useState } from 'react'
 
 export default function CustomInput({
-  pIcon = '',
-  pComment = '',
-  pLabel = '',
-  pName = '',
-  pValue = '',
+  startIcon = '',
+  placeholder = '',
+  label = '',
+  name = '',
+  value = '',
   isPassword = false,
   isEmail = false,
-  inputChange,
+  onChange = () => {},
+  type = 'text',
 }) {
   const [isValid, setIsValid] = useState(true)
   const handleChange = (e) => {
-    inputChange(e)
-    console.log(e.target.name)
-    if (e.target.name === 'email') {
-      var pattern = new RegExp(
-        /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i,
-      )
-      if (!pattern.test(e.target.value)) {
-        setIsValid(false)
-      } else {
-        setIsValid(true)
-      }
+    if (type === 'email') {
+      setIsValid( validate( e.target.value ) );
+    }
+    if (typeof onChange === 'function') {
+      onChange(e)
     }
   }
   return (
     <div className="w-full">
-      <label className="text-base text-main">{pLabel}</label>
+      <label className="text-base text-main">{label}</label>
       <TextField
         error
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start">{pIcon}</InputAdornment>
+            <InputAdornment position="start">{startIcon}</InputAdornment>
           ),
           disableUnderline: true,
           fullWidth: true,
           className: 'm-2',
         }}
-        value={pValue}
-        name={pName}
-        type={isPassword ? 'password' : isEmail ? 'emal' : 'text'}
-        placeholder={pComment}
+        value={value ?? ''}
+        name={name ?? ''}
+        // type={isPassword ? 'password' : isEmail ? 'emal' : 'text'}
+        type={type || 'text'}
+        placeholder={placeholder}
         onChange={handleChange}
-        className={`bg-light rounded-md focus:ring-2`}
+        className={`bg-light rounded-md border border-transparent`}
         variant="standard"
         fullWidth
       />
-      {isEmail && !isValid ? (
+      {(type === 'email') && !isValid ? (
         <label className="text-base text-red-400">
           Please enter the valid email address
         </label>

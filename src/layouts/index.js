@@ -8,14 +8,22 @@ export default function Layout({
   onBack = () => {},
   onSignOut = () => {},
   isLogin = false,
+  banner = '',
   children = <></>,
 }) {
   return (
     <div id="out_body" className="bg-gradient-to-b from-blue-50 to-green-50">
-      <Header onBack={onBack} onSignOut={onSignOut} isLogin={Boolean(isLogin)} />
+      {!banner ? (
+        <Header
+          onBack={onBack}
+          onSignOut={onSignOut}
+          isLogin={Boolean(isLogin)}
+        />
+      ) : null}
       <CustomContainer>
         <div className="min-h-screen">
-          <BodyContainer>{children}</BodyContainer>
+          {banner}
+          <BodyContainer isLogin={isLogin}>{children}</BodyContainer>
         </div>
       </CustomContainer>
       <Footer isLogin={Boolean(isLogin)} />

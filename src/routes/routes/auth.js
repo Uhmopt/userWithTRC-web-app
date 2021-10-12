@@ -3,7 +3,7 @@ import Register from 'pages/register'
 import ForgotPassword from 'pages/forgotPassword'
 import ResetPassword from 'pages/resetPassword'
 
-const routes = [
+const auth = [
   // page for auth
   {
     path: `/sign-in`,
@@ -31,4 +31,4 @@ const routes = [
   },
 ]
 
-export default routes
+export default auth
