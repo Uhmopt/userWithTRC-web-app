@@ -12,11 +12,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 
 export default function Payment() {
   const [currentState, setCurrentState] = useState({
-    email: '',
-    verifyCode: '',
-    id: '',
-    theme: '',
-    contact: '',
+    hash: ''
   })
   const onChange = (e) => {
     setCurrentState({
@@ -69,7 +65,7 @@ export default function Payment() {
       </div>
       <div className="py-10"></div>
       <div>
-        <Link to={`#`}>
+        <Link to={`highest-level`}>
           <Button
             type="button"
             variant="contained"

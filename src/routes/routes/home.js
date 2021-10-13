@@ -5,6 +5,7 @@ import Upgrade from 'pages/upgrade'
 import ContactUs from 'pages/contactUs'
 import Invite from 'pages/invite'
 import Payment from 'pages/payment'
+import HighestLevel from 'pages/highestLevel'
 
 const home = [
   // page for auth
@@ -49,6 +50,12 @@ const home = [
     exact: true,
     auth: false,
     component: Payment,
+  },
+  {
+    path: `/highest-level`,
+    exact: true,
+    auth: false,
+    component: HighestLevel,
   },
 ]
 
