@@ -18,7 +18,7 @@ const menuItems = [
   {
     label: 'Contact',
     icon: <CustomSvgs name="Contact" className="icon m-auto" />,
-    link: '#',
+    link: 'contact-us',
   },
 ]
 

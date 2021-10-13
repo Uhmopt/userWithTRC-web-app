@@ -2,6 +2,7 @@ import Home from 'pages/home'
 import LevelUser from 'pages/levelUser'
 import Revenue from 'pages/revenue'
 import Upgrade from 'pages/upgrade'
+import ContactUs from 'pages/contactUs'
 
 const home = [
   // page for auth
@@ -28,6 +29,12 @@ const home = [
     exact: true,
     auth: false,
     component: Upgrade,
+  },
+  {
+    path: `/contact-us`,
+    exact: true,
+    auth: false,
+    component: ContactUs,
   },
 ]
 

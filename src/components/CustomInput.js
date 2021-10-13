@@ -32,12 +32,10 @@ export default function CustomInput({
             <InputAdornment position="start">{startIcon}</InputAdornment>
           ),
           disableUnderline: true,
-          fullWidth: true,
-          className: 'm-2',
+          className: 'p-2',
         }}
         value={value ?? ''}
         name={name ?? ''}
-        // type={isPassword ? 'password' : isEmail ? 'emal' : 'text'}
         type={type || 'text'}
         placeholder={placeholder}
         onChange={handleChange}

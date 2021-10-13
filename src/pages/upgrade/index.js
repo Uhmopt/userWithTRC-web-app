@@ -1,11 +1,12 @@
-import StaticCard from 'components/StaticCard'
-import LevelAuthorityTable from 'components/LevelAuthorityTable'
-import CustomSvgs from 'components/CustomSvgs'
-import MainTitle from 'components/MainTitle'
 import React from 'react'
 import Layout from '../../layouts'
 import { Link } from 'react-router-dom'
 import { Button } from '@mui/material'
+import StaticCard from 'components/StaticCard'
+import LevelAuthorityTable from 'components/LevelAuthorityTable'
+import CustomSvgs from 'components/CustomSvgs'
+import MainTitle from 'components/MainTitle'
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 export default function Upgrade() {
   const totalEarning = (
@@ -14,7 +15,12 @@ export default function Upgrade() {
         <div className="relative">
           <CustomSvgs name="Star" alt="Star" className="m-auto"/>
         </div>
-        <label className="font-bold text-title">Next Level: One Star Member</label>
+        <div className="font-bold text-title flex items-center justify-center">
+          <div>Next Level: One Star Member</div>
+          <div className="bg-yellow-300 rounded-full flex items-center ">
+            <ArrowRightAltIcon className="text-white self-center" size="small" />
+          </div>
+        </div>
       </div>
     </>
   )

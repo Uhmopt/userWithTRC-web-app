@@ -6,9 +6,10 @@ export default function MainTitle({
   isLine = true,
   isSelectLang = false,
   isLogin = false,
+  ...props
 }) {
   return (
-    <div>
+    <div {...props}>
       <div className="flex justify-between">
         <div
           className={
