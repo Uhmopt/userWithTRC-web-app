@@ -4,29 +4,36 @@ import Logo from 'components/Logo'
 import LevelIcon from 'components/LevelIcon'
 import React from 'react'
 import CustomContainer from './CustomContainer'
+import { Link } from 'react-router-dom'
 
 export default function Header({
   onBack = () => {},
   onSignOut = () => {},
   isLogin = false,
+  title = 'First level user',
+  before = '#',
 }) {
   return isLogin ? (
     <div className="fixed top-0 z-30 w-full">
       <CustomContainer>
         <div className="p-2 flex justify-between items-center bg-blue-500 shadow-default">
           <div>
-            <IconButton onClick={onBack} color="default">
-              <ArrowBack className="text-white" />
-            </IconButton>
+            <Link to={before}>
+              <IconButton onClick={onBack} color="default">
+                <ArrowBack fontSize="large" className="text-white" />
+              </IconButton>
+            </Link>
           </div>
           <div>
-            <Logo variant="text" />
+            <Logo variant="text" title={title} />
           </div>
           <div>
             {Boolean(isLogin) ? (
-              <IconButton onClick={onSignOut} color="default">
-                <Logout className="text-white" />
-              </IconButton>
+              <Link to="sign-in">
+                <IconButton onClick={onSignOut} color="default">
+                  <Logout fontSize="large" className="text-white" />
+                </IconButton>
+              </Link>
             ) : (
               <LevelIcon />
             )}

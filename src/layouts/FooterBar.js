@@ -1,22 +1,38 @@
 import CustomSvgs from 'components/CustomSvgs'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const menuItems = [
-  { label: 'Home', icon: <CustomSvgs className="icon" /> },
-  { label: 'Revenue', icon: <CustomSvgs name="Revenue" className="icon m-auto" /> },
+  { label: 'Home', icon: <CustomSvgs className="icon" />, link: 'home' },
+  {
+    label: 'Revenue',
+    icon: <CustomSvgs name="Revenue" className="icon m-auto" />,
+    link: 'revenue',
+  },
   { label: ' ', icon: ' ' },
-  { label: 'Invite friend', icon: <CustomSvgs name="Invite" className="icon m-auto" /> },
-  { label: 'Contact', icon: <CustomSvgs name="Contact" className="icon m-auto" /> },
+  {
+    label: 'Invite friend',
+    icon: <CustomSvgs name="Invite" className="icon m-auto" />,
+    link: '#',
+  },
+  {
+    label: 'Contact',
+    icon: <CustomSvgs name="Contact" className="icon m-auto" />,
+    link: '#',
+  },
 ]
 
-export default function FooterBar() {
+export default function FooterBar({ menuIndex = 0 }) {
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0)
+
+  useEffect(() => {
+    setSelectedMenuIndex(menuIndex)
+  }, [menuIndex])
 
   const handleClickMenu = (e, index) => setSelectedMenuIndex(index)
 
   const handleClickUpgrade = () => {
-    setSelectedMenuIndex(-1);
+    setSelectedMenuIndex(-1)
   }
 
   return (
@@ -25,11 +41,11 @@ export default function FooterBar() {
       <nav className="m-auto" style={{ '--k': selectedMenuIndex }}>
         {menuItems.map((item, itemIndex) => (
           <Link
+            to={item?.link ?? "#"}
             key={itemIndex}
             className={`nav-item ${
               selectedMenuIndex === itemIndex ? 'active' : ''
             } `}
-            to="#"
             onClick={(e) => handleClickMenu(e, itemIndex)}
             style={{ '--i': itemIndex }}
           >
@@ -39,7 +55,13 @@ export default function FooterBar() {
         ))}
       </nav>
       <div className="both right"></div>
-      <Link to="#" className="middle-button-container" onClick={()=>{handleClickUpgrade()}}>
+      <Link
+        to="upgrade"
+        className="middle-button-container"
+        onClick={() => {
+          handleClickUpgrade()
+        }}
+      >
         <CustomSvgs name="UpgradeUser" />
       </Link>
     </div>

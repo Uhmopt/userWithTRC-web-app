@@ -7,9 +7,12 @@ import Header from './Header'
 export default function Layout({
   onBack = () => {},
   onSignOut = () => {},
+  title = "",
+  before="#",
   isLogin = false,
   banner = '',
   children = <></>,
+  menuIndex = 0
 }) {
   return (
     <div id="out_body" className="bg-gradient-to-b from-blue-50 to-green-50">
@@ -17,6 +20,8 @@ export default function Layout({
         <Header
           onBack={onBack}
           onSignOut={onSignOut}
+          title={title}
+          before={before}
           isLogin={Boolean(isLogin)}
         />
       ) : null}
@@ -26,7 +31,7 @@ export default function Layout({
           <BodyContainer isLogin={isLogin}>{children}</BodyContainer>
         </div>
       </CustomContainer>
-      <Footer isLogin={Boolean(isLogin)} />
+      <Footer isLogin={Boolean(isLogin)} menuIndex = {menuIndex} />
     </div>
   )
 }

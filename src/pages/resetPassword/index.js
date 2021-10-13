@@ -5,6 +5,7 @@ import CustomSvgs from 'components/CustomSvgs'
 import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function ResetPassword() {
   const [currentState, setCurrentState] = useState({
@@ -46,9 +47,11 @@ export default function ResetPassword() {
         />
       </div>
       <div className="pt-8">
-        <Button variant="contained" size="large" type="submit" fullWidth>
-          Submit
-        </Button>
+        <Link to="sign-in">
+          <Button variant="contained" size="large" type="submit" fullWidth>
+            Submit
+          </Button>
+        </Link>
       </div>
     </Layout>
   )

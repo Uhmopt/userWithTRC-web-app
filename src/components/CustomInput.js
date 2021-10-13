@@ -41,7 +41,7 @@ export default function CustomInput({
         type={type || 'text'}
         placeholder={placeholder}
         onChange={handleChange}
-        className={`bg-light rounded-md border border-transparent`}
+        className={'bg-light rounded-md border border-transparent'}
         variant="standard"
         fullWidth
       />
