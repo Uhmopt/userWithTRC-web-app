@@ -2,6 +2,7 @@ import SignIn from 'pages/signIn'
 import Register from 'pages/register'
 import ForgotPassword from 'pages/forgotPassword'
 import ResetPassword from 'pages/resetPassword'
+import UpdateUser from 'pages/updateUser'
 
 const auth = [
   // page for auth
@@ -28,6 +29,12 @@ const auth = [
     exact: true,
     auth: false,
     component: ResetPassword,
+  },
+  {
+    path: `/update-user`,
+    exact: true,
+    auth: false,
+    component: UpdateUser,
   },
 ]
 

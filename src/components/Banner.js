@@ -23,7 +23,7 @@ export default function Banner({
           <div className="flex justify-center">
             <label className="self-center pr-2">ID : {id}</label>
             <div className="bg-white text-main px-1 rounded-full text-sm self-center shadow-lg">
-              <Info /> Update Info
+              <Link to="update-user"> <Info /> Update Info</Link>
             </div>
           </div>
           <div>
