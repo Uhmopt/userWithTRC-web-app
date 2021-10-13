@@ -4,6 +4,7 @@ import Revenue from 'pages/revenue'
 import Upgrade from 'pages/upgrade'
 import ContactUs from 'pages/contactUs'
 import Invite from 'pages/invite'
+import Payment from 'pages/payment'
 
 const home = [
   // page for auth
@@ -42,6 +43,12 @@ const home = [
     exact: true,
     auth: false,
     component: Invite,
+  },
+  {
+    path: `/payment`,
+    exact: true,
+    auth: false,
+    component: Payment,
   },
 ]
 

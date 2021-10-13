@@ -32,7 +32,7 @@ export default function Upgrade() {
         <StaticCard content1={totalEarning} />
       </div>
       <div>
-        <Link to={`#`}>
+        <Link to={`payment`}>
           <Button type="button" variant="contained" size="large" fullWidth className="capitalize">
             Upgrade Now
           </Button>
