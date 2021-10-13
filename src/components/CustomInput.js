@@ -4,12 +4,11 @@ import React, { useState } from 'react'
 
 export default function CustomInput({
   startIcon = '',
+  endIcon = '',
   placeholder = '',
   label = '',
   name = '',
   value = '',
-  isPassword = false,
-  isEmail = false,
   onChange = () => {},
   type = 'text',
 }) {
@@ -21,7 +20,7 @@ export default function CustomInput({
     if (typeof onChange === 'function') {
       onChange(e)
     }
-  }
+  }  
   return (
     <div className="w-full">
       <label className="text-base text-main">{label}</label>
@@ -30,6 +29,9 @@ export default function CustomInput({
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">{startIcon}</InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">{endIcon}</InputAdornment>
           ),
           disableUnderline: true,
           className: 'p-2',

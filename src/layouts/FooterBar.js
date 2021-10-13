@@ -13,7 +13,7 @@ const menuItems = [
   {
     label: 'Invite friend',
     icon: <CustomSvgs name="Invite" className="icon m-auto" />,
-    link: '#',
+    link: 'invite',
   },
   {
     label: 'Contact',

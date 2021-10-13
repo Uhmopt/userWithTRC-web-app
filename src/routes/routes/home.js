@@ -3,6 +3,7 @@ import LevelUser from 'pages/levelUser'
 import Revenue from 'pages/revenue'
 import Upgrade from 'pages/upgrade'
 import ContactUs from 'pages/contactUs'
+import Invite from 'pages/invite'
 
 const home = [
   // page for auth
@@ -35,6 +36,12 @@ const home = [
     exact: true,
     auth: false,
     component: ContactUs,
+  },
+  {
+    path: `/invite`,
+    exact: true,
+    auth: false,
+    component: Invite,
   },
 ]
 
