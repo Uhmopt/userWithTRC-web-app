@@ -25,7 +25,6 @@ export default function CustomInput({
     <div className="w-full">
       <label className="text-base text-main">{label}</label>
       <TextField
-        error
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">{startIcon}</InputAdornment>

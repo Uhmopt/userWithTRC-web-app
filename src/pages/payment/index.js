@@ -12,7 +12,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 
 export default function Payment() {
   const [currentState, setCurrentState] = useState({
-    hash: ''
+    hash: '',
   })
   const onChange = (e) => {
     setCurrentState({
@@ -22,7 +22,7 @@ export default function Payment() {
   }
   const upgradeUser = (
     <>
-      <div className="text-title text-left">
+      <div className="text-title text-left text-sm">
         <div className="flex items-center">
           <div className="relative">
             <CustomSvgs name="Star" alt="Star" className="m-auto" />
@@ -30,25 +30,27 @@ export default function Payment() {
           <div className="text-2xl">Upgrade V1 user</div>
         </div>
         <div>
-          Please transfer 100.001234 usdt (trc20) to the following wallet.
+          Please transfer <label className="text-main">100.001234</label> usdt
+          (trc20) to the following wallet.
         </div>
-        <div>USDT Amount: 100.001234</div>
         <div>
-          Wallet address :{' '}
-          <label className="text-main">
-            TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjlj6t
-          </label>{' '}
+          USDT Amount: <label className="text-main">100.001234</label>
+        </div>
+        <div className="items-center sm:flex">
+          <div>Wallet address :</div>
+          <div className="text-main m-3">
+            TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjlj6t<ContentCopyIcon className="text-main" />
+          </div>
         </div>
         <div className="text-warnning text-sm">
           Warning : Please pay 100.001234 usdt strictly, otherwise it cannot be
-          upgraded automatically.{' '}
+          upgraded automatically.
         </div>
-        <div className="flex items-center text-title">
+        <div className="flex items-center text-title pt-3">
           <div>Hash:</div>
-          <div className="w-full">
+          <div className="w-full ml-3">
             <CustomInput
               name="hash"
-							endIcon={<ContentCopyIcon className="text-main" />}
               value={currentState.hash}
               onChange={onChange}
             />
@@ -63,20 +65,18 @@ export default function Payment() {
       <div className="rounded-md h-20 mt-20 mb-36 self-center align-middle text-center">
         <StaticCard content1={upgradeUser} />
       </div>
-      <div className="py-10"></div>
-      <div>
-        <Link to={`highest-level`}>
-          <Button
-            type="button"
-            variant="contained"
-            size="large"
-            fullWidth
-            className="capitalize"
-          >
-            Submit
-          </Button>
-        </Link>
-      </div>
+      <div className="py-20"></div>
+      <Link to={`highest-level`}>
+        <Button
+          type="button"
+          variant="contained"
+          size="large"
+          fullWidth
+          className="capitalize"
+        >
+          Submit
+        </Button>
+      </Link>
       <MainTitle />
       <LevelAuthorityTable />
     </Layout>

@@ -16,7 +16,7 @@ export default function ContactUs() {
     theme: '',
     contact: '',
   })
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setCurrentState({
       ...currentState,
       [e.target.name]: e.target.value,
@@ -37,9 +37,9 @@ export default function ContactUs() {
             type="email"
             label="Email"
             placeholder="Please enter your email"
-            startIcon={<MailIcon className="text-main" />}
+            startIcon={<MailIcon color="primary" />}
             value={currentState.email}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </div>
         <div className="pt-8 w-full">
@@ -47,7 +47,7 @@ export default function ContactUs() {
             label="ID"
             name="id"
             value={currentState.id}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </div>
         <div className="pt-8 w-full">
@@ -55,7 +55,7 @@ export default function ContactUs() {
             label="Theme"
             name="theme"
             value={currentState.theme}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </div>
         <div className="pt-8 w-full">
@@ -67,7 +67,7 @@ export default function ContactUs() {
             className="bg-light w-full rounded-md p-3 h-24 outline-none"
             name="contact"
             value={currentState.contact}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </div>
         <Grid container className="pt-8 w-full">
@@ -77,7 +77,7 @@ export default function ContactUs() {
               name="verifyCode"
               placeholder="Please enter the code"
               value={currentState.verifyCode}
-              onChange={onChange}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={1}></Grid>
@@ -86,7 +86,7 @@ export default function ContactUs() {
               name="vCode"
               placeholder="8245"
               value={currentState.vCode}
-              onChange={onChange}
+              onChange={handleChange}
             />
           </Grid>
         </Grid>

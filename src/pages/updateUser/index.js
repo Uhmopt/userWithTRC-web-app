@@ -22,7 +22,7 @@ export default function UpdateUser() {
     eCode: '',
 
   })
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setCurrentState({
       ...currentState,
       [e.target.name]: e.target.value,
@@ -50,7 +50,7 @@ export default function UpdateUser() {
             placeholder="Please enter your email"
             startIcon={<MailIcon className="text-main" />}
             value={currentState.email}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </div>
         <div className="pt-8 w-full">
@@ -58,7 +58,7 @@ export default function UpdateUser() {
             label="ID"
             name="id"
             value={currentState.id}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </div>
         <div className="pt-8 w-full">
@@ -66,7 +66,7 @@ export default function UpdateUser() {
             label="USDT_TRC20"
             name="usdt"
             value={currentState.usdt}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </div>
         <div className="text-xs text-title pt-4">
@@ -83,7 +83,7 @@ export default function UpdateUser() {
             placeholder="Please enter your password"
             startIcon={<LockIcon className="text-main" />}
             value={currentState.password}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </div>
         <div className="pt-8 w-full">
@@ -95,7 +95,7 @@ export default function UpdateUser() {
             placeholder="Please confirm password"
             startIcon={<LockIcon className="text-main" />}
             value={currentState.rePassword}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </div>
 
@@ -106,7 +106,7 @@ export default function UpdateUser() {
               name="verifyCode"
               placeholder="Please enter the code"
               value={currentState.verifyCode}
-              onChange={onChange}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={1}></Grid>
@@ -114,8 +114,8 @@ export default function UpdateUser() {
             <CustomInput
               name="vCode"
               placeholder="8245"
-              value={currentState.vCode}
-              onChange={onChange}
+              value={currentState?.vCode ?? ''}
+              onChange={handleChange}
             />
           </Grid>
         </Grid>
@@ -127,7 +127,7 @@ export default function UpdateUser() {
               name="emailCode"
               placeholder="Please enter the code"
               value={currentState.emailCode}
-              onChange={onChange}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={1}></Grid>
@@ -136,7 +136,7 @@ export default function UpdateUser() {
               name="eCode"
               placeholder="Get code"
               value={currentState.eCode}
-              onChange={onChange}
+              onChange={handleChange}
             />
           </Grid>
         </Grid>

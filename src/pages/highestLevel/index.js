@@ -1,7 +1,5 @@
 import { Button } from '@mui/material'
 import CustomInput from 'components/CustomInput'
-import LevelAuthorityTable from 'components/LevelAuthorityTable'
-import MainTitle from 'components/MainTitle'
 import StaticCard from 'components/StaticCard'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -29,7 +27,7 @@ export default function HighestLevel() {
             onChange={onChange}
           />
         </div>
-        <Link to={`#`}>
+        <Link to={`invite`}>
           <Button
             type="button"
             variant="contained"
@@ -40,7 +38,6 @@ export default function HighestLevel() {
             Invite Friend
           </Button>
         </Link>
-        <div className="py-6"></div>
       </div>
     </>
   )

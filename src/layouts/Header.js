@@ -25,7 +25,7 @@ export default function Header({
             </Link>
           </div>
           <div>
-            <Logo variant="text" title={title} />
+            <Logo variant="title" title={title} />
           </div>
           <div>
             {Boolean(isLogin) ? (

@@ -18,13 +18,18 @@ const svgs = {
   Invite,
   Contact,
   Level1,
-  Star
+  Star,
 }
 
 export default function CustomSvgs({ name = '', alt = '', ...props }) {
   return (
     <div>
-      <img {...props} src={svgs[name] ?? Home} alt={name ?? ''} />
+      <img
+        {...props}
+        src={svgs[name] ?? Home}
+        name={name}
+        alt={alt || name || ''}
+      />
     </div>
   )
 }

@@ -6,7 +6,7 @@ import MainTitle from 'components/MainTitle'
 import DetailCard from 'components/DetailCard'
 import NavButton from 'components/NavButton'
 import { IconButton, Input } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from '@mui/icons-material/Search'
 
 export default function LevelUser() {
   const totalUser = (
@@ -29,7 +29,7 @@ export default function LevelUser() {
   )
 
   return (
-    <Layout isLogin={true} title={"First Level User"} before={"home"}>
+    <Layout isLogin={true} title={'First Level User'} before={'home'}>
       <div className="rounded-md h-20 mt-12 self-center align-middle text-center">
         <StaticCard content1={totalUser} content2={upgraded} />
       </div>
@@ -41,65 +41,23 @@ export default function LevelUser() {
           placeholder="Please enter ID/Email"
           className="bg-white rounded-md h-10 p-2 mr-2"
         ></Input>
-        <IconButton className="bg-white shadow-md"><SearchIcon /></IconButton>
+        <IconButton className="bg-white shadow-md">
+          <SearchIcon />
+        </IconButton>
       </div>
       <MainTitle isLogin={true} />
       <div className="mb-24">
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <DetailCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <DetailCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
       </div>
     </Layout>
   )

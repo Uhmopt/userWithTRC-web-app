@@ -27,7 +27,7 @@ export default function Home() {
   )
 
   return (
-    <Layout isLogin={true} banner={banner} menuIndex = {0} >
+    <Layout isLogin={true} banner={banner} menuIndex={0}>
       <div className="rounded-md h-20 self-center align-middle text-center -mt-14">
         <StaticCard content1={totalContent} />
       </div>
@@ -40,46 +40,14 @@ export default function Home() {
         isLogin={true}
       />
       <div className="mb-24">
-        <LevelCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <LevelCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <LevelCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <LevelCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <LevelCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <LevelCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <LevelCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
-        <LevelCard
-          startIcon={
-            <CustomSvgs name="Level1" alt="Level1" className="my-auto" />
-          }
-        />
+        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
+        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
       </div>
     </Layout>
   )
