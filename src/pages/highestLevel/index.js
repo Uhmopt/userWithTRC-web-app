@@ -9,7 +9,7 @@ export default function HighestLevel() {
   const [currentState, setCurrentState] = useState({
     invite: ''
   })
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setCurrentState({
       ...currentState,
       [e.target.name]: e.target.value,
@@ -24,7 +24,7 @@ export default function HighestLevel() {
             name="invite"
             placeholder="Congratulations, You have reached the hightest level so far"
             value={currentState.invite}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </div>
         <Link to={`invite`}>
@@ -49,7 +49,7 @@ export default function HighestLevel() {
       before="payment"
       menuIndex={2}
     >
-      <div className="rounded-md h-20 mt-20 mb-36 self-center align-middle text-center">
+      <div className="rounded-md h-20 self-center align-middle text-center">
         <StaticCard content1={upgradeUser} />
       </div>
     </Layout>

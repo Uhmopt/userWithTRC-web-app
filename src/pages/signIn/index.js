@@ -35,7 +35,7 @@ export default function SignIn() {
           <Logo variant="icon" className="text-main m-auto" />
         </Grid>
         <Grid item xs={12}>
-          <MainTitle title="Sign In" isLine={true} isSelectLang={true} />
+          <MainTitle title="Sign In" isLine={true} />
         </Grid>
         <Box className="w-full text-right -mt-14">
           <LangSelect />

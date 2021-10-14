@@ -1,5 +1,5 @@
 import Home from 'pages/home'
-import LevelUser from 'pages/levelUser'
+import LevelUsers from 'pages/levelUsers'
 import Revenue from 'pages/revenue'
 import Upgrade from 'pages/upgrade'
 import ContactUs from 'pages/contactUs'
@@ -19,7 +19,7 @@ const home = [
     path: `/level-users`,
     exact: true,
     auth: false,
-    component: LevelUser,
+    component: LevelUsers,
   },
   {
     path: `/revenue`,

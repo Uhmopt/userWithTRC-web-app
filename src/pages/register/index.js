@@ -33,7 +33,7 @@ export default function Register() {
           <Logo variant="icon" className="text-main m-auto" />
         </Grid>
         <Grid item xs={12}>
-          <MainTitle title="Register" isLine={true} isSelectLang={true} />
+          <MainTitle title="Register" isLine={true} />
         </Grid>
         <Box className="w-full text-right -mt-14">
           <LangSelect />

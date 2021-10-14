@@ -27,7 +27,7 @@ export default function Revenue() {
 
   return (
     <Layout isLogin={true} title="Revenue statistics" before="home" menuIndex = {1} >
-      <div className="rounded-md h-20 mt-20 self-center align-middle text-center">
+      <div className="rounded-md h-20 self-center align-middle text-center">
         <StaticCard content1={totalEarning} content2={totalRevenue} />
       </div>
       <RevenueTable />

@@ -12,7 +12,7 @@ export default function Invite() {
   const [currentState, setCurrentState] = useState({
     inviteLink: '',
   })
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setCurrentState({
       ...currentState,
       [e.target.name]: e.target.value,
@@ -20,28 +20,27 @@ export default function Invite() {
   } 
   return (
     <Layout isLogin={true} title="Invite Friend" before="home" menuIndex={3}>
-      <div className="py-10"></div>
-      <Box className="bg-white rounded-md shadow-md p-8 pb-24 mb-32">
-        <div className="pt-8 flex justify-center">
+      <Box className="bg-white rounded-md shadow-md p-8">
+        <Box className="pt-8 flex justify-center">
           <QRCode value={currentState.inviteLink} />
-        </div>
-        <MainTitle />
-        <div className="pt-8">
+        </Box>
+        <Box className="py-8">
           <Link to={`#`}>
             <Button type="button" variant="contained" size="large" fullWidth>
               Submit
             </Button>
           </Link>
-        </div>
-        <div className="pt-8 w-full">
+        </Box>
+        <MainTitle />
+        <Box className="pt-8 w-full">
           <CustomInput
             name="inviteLink"
             value={currentState.inviteLink}
             endIcon={<ContentCopyIcon className="text-main" />}
             placeholder="This is invitation link"
-            onChange={onChange}
+            onChange={handleChange}
           />
-        </div>
+        </Box>
       </Box>
     </Layout>
   )

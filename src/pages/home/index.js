@@ -4,7 +4,8 @@ import Banner from 'components/Banner'
 import CustomSvgs from 'components/CustomSvgs'
 import StaticCard from 'components/StaticCard'
 import MainTitle from 'components/MainTitle'
-import LevelCard from 'components/LevelCard'
+import { Box } from '@mui/system'
+import LevelCardTable from 'components/LevelCardTable'
 
 export default function Home() {
   const banner = (
@@ -25,30 +26,22 @@ export default function Home() {
       </div>
     </>
   )
-
   return (
-    <Layout isLogin={true} banner={banner} menuIndex={0}>
-      <div className="rounded-md h-20 self-center align-middle text-center -mt-14">
+    <Layout isLogin={true} isPadding={false} banner={banner} menuIndex={0}>
+      <Box className="h-20 self-center align-middle text-center -mt-14">
         <StaticCard content1={totalContent} />
-      </div>
+      </Box>
       <MainTitle
         title={
           <div>
-            <label className="text-title">Total People:</label> 1000
+            <span className="text-title">Total People:</span>
+            <span>1000</span>
           </div>
         }
         isLogin={true}
+        className="py-8"
       />
-      <div className="mb-24">
-        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
-        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
-        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
-        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
-        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
-        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
-        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
-        <LevelCard startIcon={<CustomSvgs name="Level1" alt="Level1" />} />
-      </div>
+      <LevelCardTable />
     </Layout>
   )
 }

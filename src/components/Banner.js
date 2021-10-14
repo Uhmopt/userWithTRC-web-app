@@ -17,7 +17,7 @@ export default function Banner({
           <LogoutIcon fontSize="large" className="text-white" />
         </IconButton>
       </Link>
-      <div className="bg-cover bg-center bg-home h-52 pt-8 w-full text-white">
+      <div className="bg-cover bg-center bg-home h-56 pt-8 w-full text-white">
         <div className="text-center">
           {icon}
           <div className="flex justify-center">

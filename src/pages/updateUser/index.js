@@ -38,7 +38,7 @@ export default function UpdateUser() {
       <MainTitle
         title={<label className="text-xl text-title">Revise resume</label>}
         isLogin={true}
-        className="py-10"
+        className="pb-6"
       />
       <Box className="bg-white rounded-md shadow-md p-8 pb-24 mb-32">
         <div className="pt-8 w-full">
@@ -99,7 +99,7 @@ export default function UpdateUser() {
           />
         </div>
 
-        <Grid container className="pt-8 w-full">
+        <Grid container rowSpacing={3} className="pt-8">
           <Grid item xs={7}>
             <CustomInput
               label="Verification Code"

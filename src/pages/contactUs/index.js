@@ -23,17 +23,15 @@ export default function ContactUs() {
   }
   return (
     <Layout isLogin={true} title="Contact Us" before="home" menuIndex={4}>
-      <div xs={12}>
         <MainTitle
           title={<label className="text-xl text-title">Write to me</label>}
           isLogin={true}
         />
-      </div>
-
+      <div className="py-7"></div>
       <Grid
         container
         rowSpacing={3}
-        className="bg-white rounded-md shadow-md p-8"
+        className="bg-white rounded-md shadow-md px-8 pb-28"
       >
         <Grid item xs={12}>
           <CustomInput
