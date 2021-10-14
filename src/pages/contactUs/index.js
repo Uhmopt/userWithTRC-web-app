@@ -1,12 +1,11 @@
-import React from 'react'
-import Layout from '../../layouts'
-import MainTitle from 'components/MainTitle'
-import CustomInput from 'components/CustomInput'
 import MailIcon from '@mui/icons-material/Mail'
-import { Box } from '@mui/system'
-import { Link } from 'react-router-dom'
 import { Button, Grid, TextareaAutosize } from '@mui/material'
-import { useState } from 'react'
+import { Box } from '@mui/system'
+import CustomInput from 'components/CustomInput'
+import MainTitle from 'components/MainTitle'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Layout from '../../layouts'
 
 export default function ContactUs() {
   const [currentState, setCurrentState] = useState({
@@ -17,20 +16,26 @@ export default function ContactUs() {
     contact: '',
   })
   const handleChange = (e) => {
-    setCurrentState({
-      ...currentState,
+    setCurrentState((prvState) => ({
+      ...prvState,
       [e.target.name]: e.target.value,
-    })
+    }))
   }
   return (
     <Layout isLogin={true} title="Contact Us" before="home" menuIndex={4}>
-      <MainTitle
-        title={<label className="text-xl text-title">Write to me</label>}
-        isLogin={true}
-        className="py-10"
-      />
-      <Box className="bg-white rounded-md shadow-md p-8 pb-24 mb-32">
-        <div className="pt-8 w-full">
+      <div xs={12}>
+        <MainTitle
+          title={<label className="text-xl text-title">Write to me</label>}
+          isLogin={true}
+        />
+      </div>
+
+      <Grid
+        container
+        rowSpacing={3}
+        className="bg-white rounded-md shadow-md p-8"
+      >
+        <Grid item xs={12}>
           <CustomInput
             isEmail={true}
             name="email"
@@ -38,66 +43,69 @@ export default function ContactUs() {
             label="Email"
             placeholder="Please enter your email"
             startIcon={<MailIcon color="primary" />}
-            value={currentState.email}
+            value={currentState?.email ?? ''}
             onChange={handleChange}
           />
-        </div>
-        <div className="pt-8 w-full">
+        </Grid>
+        <Grid item xs={12}>
           <CustomInput
             label="ID"
             name="id"
-            value={currentState.id}
+            value={currentState?.id ?? ''}
             onChange={handleChange}
           />
-        </div>
-        <div className="pt-8 w-full">
+        </Grid>
+        <Grid item xs={12}>
           <CustomInput
             label="Theme"
             name="theme"
-            value={currentState.theme}
+            value={currentState?.theme ?? ''}
             onChange={handleChange}
           />
-        </div>
-        <div className="pt-8 w-full">
-          <label className="text-main">Contact</label>
+        </Grid>
+        <Grid item xs={12}>
+          <span className="text-main">Contact</span>
           <TextareaAutosize
             aria-label="empty textarea"
             placeholder="Empty"
             minRows="3"
             className="bg-light w-full rounded-md p-3 h-24 outline-none"
             name="contact"
-            value={currentState.contact}
+            value={currentState?.contact ?? ''}
             onChange={handleChange}
           />
-        </div>
-        <Grid container className="pt-8 w-full">
-          <Grid item xs={7}>
-            <CustomInput
-              label="Verification Code"
-              name="verifyCode"
-              placeholder="Please enter the code"
-              value={currentState.verifyCode}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={1}></Grid>
-          <Grid item xs={4} className="pt-6">
-            <CustomInput
-              name="vCode"
-              placeholder="8245"
-              value={currentState.vCode}
-              onChange={handleChange}
-            />
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container spacing={3}>
+            <Grid item xs={8}>
+              <CustomInput
+                label="Verification Code"
+                name="verifyCode"
+                placeholder="Please enter the code"
+                value={currentState?.verifyCode ?? ''}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Box className="pt-6">
+                <CustomInput
+                  name="vCode"
+                  placeholder="8245"
+                  value={currentState?.vCode ?? ''}
+                  onChange={handleChange}
+                />
+              </Box>
+            </Grid>
           </Grid>
         </Grid>
-        <div className="pt-8">
-          <Link to={`#`}>
+        <Grid item xs={12}>
+          <Link to={`#`} xs={12}>
             <Button type="button" variant="contained" size="large" fullWidth>
               Submit
             </Button>
           </Link>
-        </div>
-      </Box>
+        </Grid>
+      </Grid>
     </Layout>
   )
 }

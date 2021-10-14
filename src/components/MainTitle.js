@@ -1,34 +1,26 @@
+import { Grid } from '@mui/material'
 import React from 'react'
-import LangSelect from 'components/LangSelect'
 
 export default function MainTitle({
   title = '',
   isLine = true,
-  isSelectLang = false,
   isLogin = false,
-  ...props
 }) {
+  console.log( isLogin )
   return (
-    <div {...props}>
-      <div className="flex justify-between">
-        <div
-          className={
-            isLogin
-              ? 'text-base font-bold text-main mt-5'
-              : 'text-3xl font-bold text-main mt-10'
-          }
-        >
-          {title}
-        </div>
-        {isSelectLang ? (
-          <div className=" mt-10">
-            <LangSelect className="pt-5" />
-          </div>
-        ) : null}
-      </div>
+    <Grid container>
+      <span
+        className={
+          isLogin
+            ? 'text-base font-bold text-main mt-5'
+            : 'text-3xl font-bold text-main mt-10'
+        }
+      >
+        {title}
+      </span>
       {isLine ? (
-        <div className="w-full border-b-2 border-solid py-1 border-main"></div>
+        <Grid className="w-full border-b-2 border-solid py-1 border-main"></Grid>
       ) : null}
-    </div>
+    </Grid>
   )
 }

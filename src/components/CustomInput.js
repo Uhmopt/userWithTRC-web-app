@@ -15,15 +15,15 @@ export default function CustomInput({
   const [isValid, setIsValid] = useState(true)
   const handleChange = (e) => {
     if (type === 'email') {
-      setIsValid( validate( e.target.value ) );
+      setIsValid(validate(e.target.value))
     }
     if (typeof onChange === 'function') {
       onChange(e)
     }
-  }  
+  }
   return (
     <div className="w-full">
-      <label className="text-base text-main">{label}</label>
+      <span className="text-base text-main">{label}</span>
       <TextField
         InputProps={{
           startAdornment: (
@@ -44,10 +44,10 @@ export default function CustomInput({
         variant="standard"
         fullWidth
       />
-      {(type === 'email') && !isValid ? (
-        <label className="text-base text-red-400">
+      {type === 'email' && !isValid ? (
+        <span className="text-base text-red-400">
           Please enter the valid email address
-        </label>
+        </span>
       ) : null}
     </div>
   )

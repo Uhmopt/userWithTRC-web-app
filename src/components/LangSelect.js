@@ -24,7 +24,7 @@ export default function LangSelect() {
   }
   return (
     <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+      <FormControl>
         <Select
           value={lang}
           onChange={handleChange}

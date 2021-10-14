@@ -10,6 +10,7 @@ export default function Layout({
   title = "",
   before="#",
   isLogin = false,
+  isPadding = true,
   banner = '',
   children = <></>,
   menuIndex = 0
@@ -28,7 +29,7 @@ export default function Layout({
       <CustomContainer>
         <div className="min-h-screen">
           {banner}
-          <BodyContainer isLogin={isLogin}>{children}</BodyContainer>
+          <BodyContainer isLogin={isLogin} isPadding={isPadding}>{children}</BodyContainer>
         </div>
       </CustomContainer>
       <Footer isLogin={Boolean(isLogin)} menuIndex = {menuIndex} />

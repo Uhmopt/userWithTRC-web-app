@@ -1,7 +1,8 @@
 import MailIcon from '@mui/icons-material/Mail'
 import { Button, Grid } from '@mui/material'
+import { Box } from '@mui/system'
 import CustomInput from 'components/CustomInput'
-import CustomSvgs from 'components/CustomSvgs'
+import Logo from 'components/Logo'
 import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'
 import React, { useState } from 'react'
@@ -14,53 +15,65 @@ export default function ForgotPassword() {
     vCode: '',
   })
   const handleChange = (e) => {
-    setCurrentState({
-      ...currentState,
+    setCurrentState((prvState) => ({
+      ...prvState,
       [e.target.name]: e.target.value,
-    })
+    }))
   }
   return (
     <Layout>
-      <CustomSvgs name="Logo" className="icon m-auto pt-12" label="Logo" />
-      <MainTitle title="Forgot Password" isLine={true} />
-      <div className="pt-8 w-full">
-        <CustomInput
-          isEmail={true}
-          name="email"
-          type="email"
-          label="Email"
-          placeholder="Please enter your email"
-          startIcon={<MailIcon className="text-main" />}
-          value={currentState.email}
-          onChange={handleChange}
-        />
-      </div>
-      <Grid container className="pt-8 w-full">
-        <Grid item xs={7}>
+      <Grid container rowSpacing={3}>
+        <Grid item xs={12}>
+          <Logo variant="icon" className="text-main m-auto" />
+        </Grid>
+        <Grid item xs={12}>
+          <MainTitle title="Forgot Password" isLine={true} />
+        </Grid>
+        <Grid item xs={12}>
           <CustomInput
-            label="Verification Code"
-            name="verifyCode"
-            placeholder="Please enter the code"
-            value={currentState.verifyCode}
+            isEmail={true}
+            name="email"
+            type="email"
+            label="Email"
+            placeholder="Please enter your email"
+            startIcon={<MailIcon className="text-main" />}
+            value={currentState?.email ?? ''}
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={1}></Grid>
-        <Grid item xs={4} className="pt-6">
-          <CustomInput
-            name="vCode"
-            value={currentState.vCode}
-            onChange={handleChange}
-          />
+        <Grid item xs={12}>
+          <Grid container spacing={3}>
+            <Grid item xs={8}>
+              <CustomInput
+                label="Verification Code"
+                name="verifyCode"
+                placeholder="Please enter the code"
+                value={currentState?.verifyCode ?? ''}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Box className="pt-6">
+                <CustomInput
+                  name="vCode"
+                  placeholder="8245"
+                  value={currentState?.vCode ?? ''}
+                  onChange={handleChange}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Box className="pt-6">
+            <Link to="reset-password">
+              <Button variant="contained" size="large" type="submit" fullWidth>
+                Submit
+              </Button>
+            </Link>
+          </Box>
         </Grid>
       </Grid>
-      <div className="pt-8">
-        <Link to="reset-password">
-          <Button variant="contained" size="large" type="submit" fullWidth>
-            Submit
-          </Button>
-        </Link>
-      </div>
     </Layout>
   )
 }
