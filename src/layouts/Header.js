@@ -1,7 +1,7 @@
 import { ArrowBack, Logout } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 import Logo from 'components/Logo'
-import LevelIcon from 'components/LevelIcon'
+import CustomSvgs from 'components/CustomSvgs'
 import React from 'react'
 import CustomContainer from './CustomContainer'
 import { Link } from 'react-router-dom'
@@ -35,7 +35,7 @@ export default function Header({
                 </IconButton>
               </Link>
             ) : (
-              <LevelIcon />
+              <CustomSvgs />
             )}
           </div>
         </div>

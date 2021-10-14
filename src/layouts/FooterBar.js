@@ -62,7 +62,7 @@ export default function FooterBar({ menuIndex = 0 }) {
           handleClickUpgrade()
         }}
       >
-        <CustomSvgs name="UpgradeUser" />
+        <CustomSvgs name="UpgradeUser" className="w-10" />
       </Link>
     </div>
   )
