@@ -8,14 +8,19 @@ import CustomSvgs from 'components/CustomSvgs'
 import MainTitle from 'components/MainTitle'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Box } from '@mui/system'
+import UserLevelIcon from 'components/UserLevelIcon'
 
 export default function Upgrade() {
   const totalEarning = (
     <>
       <Box>
-        <Box className="relative">
-          <CustomSvgs name="Star" alt="Star" className="m-auto" />
-        </Box>
+        <UserLevelIcon
+          levelNum="1"
+          alt="Star"
+          className="mx-auto w-14"
+          iconClass="user-level-icon-large"
+        />
+
         <Box className="font-bold text-title flex items-center justify-center">
           <Box>Next Level: One Star Member</Box>
           <Box className="bg-yellow-300 rounded-full flex items-center ">
@@ -44,7 +49,7 @@ export default function Upgrade() {
           </Button>
         </Link>
       </Box>
-      <MainTitle className="pt-8"/>
+      <MainTitle className="pt-8" />
       <LevelAuthorityTable />
     </Layout>
   )

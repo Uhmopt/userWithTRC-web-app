@@ -14,7 +14,7 @@ export default function Banner({
   return (
     <div>
       <Link to="sign-in">
-        <IconButton className="float-right p-3">
+        <IconButton className="float-right">
           <LogoutIcon fontSize="large" className="text-white" />
         </IconButton>
       </Link>

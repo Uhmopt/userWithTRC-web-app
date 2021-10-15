@@ -99,7 +99,7 @@ export default function UpdateUser() {
           />
         </div>
 
-        <Grid container rowSpacing={3} className="pt-8">
+        <Grid container className="pt-8">
           <Grid item xs={7}>
             <CustomInput
               label="Verification Code"

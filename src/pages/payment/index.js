@@ -10,6 +10,7 @@ import MainTitle from 'components/MainTitle'
 import { useState } from 'react'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { Box } from '@mui/system'
+import UserLevelIcon from 'components/UserLevelIcon'
 
 export default function Payment() {
   const [currentState, setCurrentState] = useState({
@@ -26,7 +27,12 @@ export default function Payment() {
       <div className="text-title text-left text-sm">
         <div className="flex items-center">
           <div className="relative">
-            <CustomSvgs name="Star" alt="Star" className="m-auto" />
+            <UserLevelIcon
+              levelNum="1"
+              alt="Star"
+              className=" w-14 inline-block"
+              iconClass="user-level-icon-large"
+            />
           </div>
           <span className="text-2xl">Upgrade V1 user</span>
         </div>
