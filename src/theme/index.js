@@ -11,14 +11,4 @@ export const theme = createTheme({
     // so a smaller fontsize may be appropriate.
     fontSize: 12,
   },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        // Name of the slot
-        root: {
-          // Some CSS
-        },
-      },
-    },
-  }
 })

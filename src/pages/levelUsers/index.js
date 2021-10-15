@@ -4,10 +4,16 @@ import LevelDetailCardTable from 'components/LevelDetailCardTable'
 import MainTitle from 'components/MainTitle'
 import NavButton from 'components/NavButton'
 import StaticCard from 'components/StaticCard'
+import TableSwipeableViews from 'components/TableSwipeableViews'
 import React from 'react'
+import { useState } from 'react'
 import Layout from '../../layouts'
 
 export default function LevelUsers() {
+  const [tabNumber, setTabNumber] = useState(0)
+	const handleChange = (param) => {
+		setTabNumber(param)
+	}
   const totalUser = (
     <>
       <div>
@@ -31,8 +37,15 @@ export default function LevelUsers() {
       <div className="rounded-md h-20 self-center align-middle text-center">
         <StaticCard content1={totalUser} content2={upgraded} />
       </div>
-      <NavButton />
-      <div className="flex mt-8 w-full">
+      <div className="pt-8">
+				<NavButton
+					tabLabelOne="All Users"
+					tabLabelTwo="Upgraded"
+					tabNumber={tabNumber}
+					onChange={handleChange}
+				/>
+			</div>
+      <div className="flex pt-8 w-full">
         <Input
           fullWidth
           disableUnderline
@@ -45,7 +58,7 @@ export default function LevelUsers() {
       </div>
       <MainTitle isLogin={true} className="py-8" />
       <div className="mb-24">
-        <LevelDetailCardTable />
+      <TableSwipeableViews contentOne={<LevelDetailCardTable />} contentTwo={<LevelDetailCardTable />} contentNumber={tabNumber} />
       </div>
     </Layout>
   )
