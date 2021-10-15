@@ -1,14 +1,13 @@
-import React from 'react'
-import Layout from '../../layouts'
-import { Link } from 'react-router-dom'
-import { Button } from '@mui/material'
-import StaticCard from 'components/StaticCard'
-import LevelAuthorityTable from 'components/LevelAuthorityTable'
-import CustomSvgs from 'components/CustomSvgs'
-import MainTitle from 'components/MainTitle'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
+import { Button } from '@mui/material'
 import { Box } from '@mui/system'
+import LevelAuthorityTable from 'components/LevelAuthorityTable'
+import MainTitle from 'components/MainTitle'
+import StaticCard from 'components/StaticCard'
 import UserLevelIcon from 'components/UserLevelIcon'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import Layout from '../../layouts'
 
 export default function Upgrade() {
   const totalEarning = (
