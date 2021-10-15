@@ -26,7 +26,6 @@ export default function LevelUsers() {
       </div>
     </>
   )
-
   return (
     <Layout isLogin={true} title={'First Level User'} before={'home'}>
       <div className="rounded-md h-20 self-center align-middle text-center">

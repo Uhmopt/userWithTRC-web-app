@@ -22,7 +22,7 @@ const menuItems = [
   },
 ]
 
-export default function FooterBar({ menuIndex = 0 }) {
+export default function FooterBar({ menuIndex = 2 }) {
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0)
 
   useEffect(() => {

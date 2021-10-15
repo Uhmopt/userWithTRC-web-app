@@ -2,6 +2,7 @@ import React from 'react'
 import Layout from '../../layouts'
 import Banner from 'components/Banner'
 import CustomSvgs from 'components/CustomSvgs'
+// import UserLevelIcon from 'components/UserLevelIcon'
 import StaticCard from 'components/StaticCard'
 import MainTitle from 'components/MainTitle'
 import { Box } from '@mui/system'
@@ -10,7 +11,8 @@ import LevelCardTable from 'components/LevelCardTable'
 export default function Home() {
   const banner = (
     <Banner
-      icon={<CustomSvgs name="Level1" alt="Level1" className="mx-auto w-20" />}
+      icon={<CustomSvgs name="Level1" alt="Level1" className="mx-auto w-15" />}
+      upperIcon={<CustomSvgs name="Star" alt="Star" className="mx-auto w-15" />}
       id="8989"
       mail="talentlucky0816@gmail.com"
       joinTime="2021-12-12"

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 
 export default function Banner({
   icon = '',
+  upperIcon = '',
   id = '',
   mail = '',
   joinTime = '',
@@ -19,18 +20,22 @@ export default function Banner({
       </Link>
       <div className="bg-cover bg-center bg-home h-56 pt-8 w-full text-white">
         <div className="text-center">
-          {icon}
+          <div>{upperIcon}</div>
           <div className="flex justify-center">
-            <label className="self-center pr-2">ID : {id}</label>
+            {icon}
+            <span className="self-center pr-2">ID : {id}</span>
             <div className="bg-white text-main px-1 rounded-full text-sm self-center shadow-lg">
-              <Link to="update-user"> <Info /> Update Info</Link>
+              <Link to="update-user">
+                {' '}
+                <Info /> Update Info
+              </Link>
             </div>
           </div>
           <div>
-            Mail: <label>{mail}</label>
+            <span>Mail:</span> <span>{mail}</span>
           </div>
           <div>
-            Join time: <label>{joinTime}</label>
+            <span>Join time:</span> <span>{joinTime}</span>
           </div>
         </div>
       </div>

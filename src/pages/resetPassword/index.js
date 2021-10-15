@@ -1,7 +1,6 @@
 import LockIcon from '@mui/icons-material/Lock'
 import { Button, Grid } from '@mui/material'
 import CustomInput from 'components/CustomInput'
-import CustomSvgs from 'components/CustomSvgs'
 import Logo from 'components/Logo'
 import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'

@@ -20,7 +20,7 @@ export default function Invite() {
   } 
   return (
     <Layout isLogin={true} title="Invite Friend" before="home" menuIndex={3}>
-      <Box className="bg-white rounded-md shadow-md p-8">
+      <Box className="bg-white rounded-md shadow-md p-8 pb-28 ">
         <Box className="pt-8 flex justify-center">
           <QRCode value={currentState.inviteLink} />
         </Box>

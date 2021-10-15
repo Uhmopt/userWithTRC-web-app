@@ -1,7 +1,7 @@
 import StaticCard from 'components/StaticCard'
-import RevenueTable from 'components/RevenueTable'
 import React from 'react'
 import Layout from '../../layouts'
+import NavButtonTable from 'components/NavButtonTable'
 
 export default function Revenue() {
   const totalEarning = (
@@ -24,13 +24,19 @@ export default function Revenue() {
       </div>
     </>
   )
-
   return (
-    <Layout isLogin={true} title="Revenue statistics" before="home" menuIndex = {1} >
+    <Layout
+      isLogin={true}
+      title="Revenue statistics"
+      before="home"
+      menuIndex={1}
+    >
       <div className="rounded-md h-20 self-center align-middle text-center">
         <StaticCard content1={totalEarning} content2={totalRevenue} />
       </div>
-      <RevenueTable />
+      <div className="pb-28">
+        <NavButtonTable />
+      </div>
     </Layout>
   )
 }

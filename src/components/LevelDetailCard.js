@@ -6,9 +6,8 @@ export default function LevelDetailCard({ startIcon = '' }) {
     <div className="pt-4">
       <Card className="bg-white rounded-md flex justify-between p-2 items-center ">
           {startIcon}
-          <label className="self-center">18599</label>
-          <CardActions className="bg-light text-main rounded-xl p-0 text-sm">1star</CardActions>
-          <CardActions>talentlucky0816@gmail.com</CardActions>
+          <label className="self-center text-ttitle">18599</label>
+          <CardActions className="text-main">talentlucky0816@gmail.com</CardActions>
       </Card>
     </div>
   )
