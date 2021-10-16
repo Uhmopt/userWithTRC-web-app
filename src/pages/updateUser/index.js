@@ -7,22 +7,24 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../layouts'
 
+const defaultUpdateInfo = {
+  email: '',
+  usdt: '',
+  password: '',
+  rePassword: '',
+  verifyCode: '',
+  vCode: '',
+  emailCode: '',
+  eCode: '',
+}
+
 export default function UpdateUser() {
-  const [currentState, setCurrentState] = useState({
-    email: '',
-    usdt: '',
-    password: '',
-    rePassword: '',
-    verifyCode: '',
-    vCode: '',
-    emailCode: '',
-    eCode: '',
-  })
+  const [currentState, setCurrentState] = useState(defaultUpdateInfo)
   const handleChange = (e) => {
-    setCurrentState({
-      ...currentState,
+    setCurrentState((prevState = defaultUpdateInfo) => ({
+      ...(prevState ?? defaultUpdateInfo),
       [e.target.name]: e.target.value,
-    })
+    }))
   }
   return (
     <Layout

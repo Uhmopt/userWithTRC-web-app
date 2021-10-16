@@ -15,8 +15,8 @@ export default function ForgotPassword() {
     vCode: '',
   })
   const handleChange = (e) => {
-    setCurrentState((prvState) => ({
-      ...prvState,
+    setCurrentState((prvState = {}) => ({
+      ...(prvState ?? {}),
       [e.target.name]: e.target.value,
     }))
   }

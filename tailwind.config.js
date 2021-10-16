@@ -1,14 +1,14 @@
 // tailwind.config.js
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  purge: ['./src/**/*.{js,ts,jsx,tsx}', './public/index.html'],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
-        main: "#2F80ED",
-        title: "#6C7585",
-        light: "#EDF2FE",
-        warnning: "#FF6F6F"
+        main: '#2F80ED',
+        title: '#6C7585',
+        light: '#EDF2FE',
+        warnning: '#FF6F6F',
       },
       screens: {
         sm: '600px',
@@ -44,8 +44,8 @@ module.exports = {
         default: '4px 0px 6px rgba(0, 0, 0, 0.3);',
       },
       backgroundImage: {
-        'home': "url('/src/assets/images/pngs/home.png')",
-      }
+        home: "url('/src/assets/images/pngs/home.png')",
+      },
     },
     cursor: {
       crosshair: 'crosshair',

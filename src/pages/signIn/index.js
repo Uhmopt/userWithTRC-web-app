@@ -12,19 +12,18 @@ import Layout from 'layouts'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-
-
+const defaultSignInfo = {
+  email: '',
+  password: '',
+  verifyCode: '',
+  vCode: '',
+  isRemember: false,
+}
 export default function SignIn() {
-  const [currentState, setCurrentState] = useState({
-    email: '',
-    password: '',
-    verifyCode: '',
-    vCode: '',
-    isRemember: false,
-  })
+  const [currentState, setCurrentState] = useState(defaultSignInfo)
   const handleChange = (e) => {
-    setCurrentState((prevState) => ({
-      ...prevState,
+    setCurrentState((prevState = defaultSignInfo) => ({
+      ...(prevState ?? defaultSignInfo),
       [e.target.name]: e.target.value,
     }))
   }

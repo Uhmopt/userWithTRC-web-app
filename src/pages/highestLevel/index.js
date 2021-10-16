@@ -10,10 +10,10 @@ export default function HighestLevel() {
     invite: ''
   })
   const handleChange = (e) => {
-    setCurrentState({
-      ...currentState,
+    setCurrentState((prevState = {})=>({
+      ...(prevState ?? {}),
       [e.target.name]: e.target.value,
-    })
+    }))
   }
   const upgradeUser = (
     <>

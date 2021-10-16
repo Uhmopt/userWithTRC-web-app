@@ -13,10 +13,10 @@ export default function Invite() {
     inviteLink: '',
   })
   const handleChange = (e) => {
-    setCurrentState({
-      ...currentState,
+    setCurrentState((prevState = {})=>({
+      ...(prevState ?? {}),
       [e.target.name]: e.target.value,
-    })
+    }))
   } 
   return (
     <Layout isLogin={true} title="Invite Friend" before="home" menuIndex={3}>

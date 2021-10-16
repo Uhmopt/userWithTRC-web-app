@@ -7,14 +7,16 @@ import Layout from 'layouts'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+const defaultResetInfo = {
+  password: '',
+  rePassword: '',
+}
+
 export default function ResetPassword() {
-  const [currentState, setCurrentState] = useState({
-    password: '',
-    rePassword: '',
-  })
+  const [currentState, setCurrentState] = useState(defaultResetInfo)
   const handleChange = (e) => {
-    setCurrentState((prvState) => ({
-      ...prvState,
+    setCurrentState((prvState = defaultResetInfo) => ({
+      ...(prvState ?? defaultResetInfo),
       [e.target.name]: e.target.value,
     }))
   }
