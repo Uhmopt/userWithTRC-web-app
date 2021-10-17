@@ -10,6 +10,7 @@ export default function LevelAuthorityTable() {
       {tmpData.map((item, index) => {
         return (
           <LevelAuthorityCard
+            key={index}
             startIcon={
               <UserLevelIcon
                 levelNum={index}
