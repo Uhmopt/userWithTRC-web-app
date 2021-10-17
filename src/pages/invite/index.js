@@ -1,10 +1,10 @@
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import { Button } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
 import { Box } from '@mui/system'
 import CustomInput from 'components/CustomInput'
 import MainTitle from 'components/MainTitle'
-import QRCode from "react-qr-code";
 import React, { useState } from 'react'
+import QRCode from 'react-qr-code'
 import { Link } from 'react-router-dom'
 import Layout from '../../layouts'
 
@@ -13,11 +13,14 @@ export default function Invite() {
     inviteLink: '',
   })
   const handleChange = (e) => {
-    setCurrentState((prevState = {})=>({
+    setCurrentState((prevState = {}) => ({
       ...(prevState ?? {}),
       [e.target.name]: e.target.value,
     }))
-  } 
+  }
+  const handleClick = () => {
+    console.log("This is copy link action!!!");
+  }
   return (
     <Layout isLogin={true} title="Invite Friend" before="home" menuIndex={3}>
       <Box className="bg-white rounded-md shadow-md p-8 pb-28 ">
@@ -36,7 +39,11 @@ export default function Invite() {
           <CustomInput
             name="inviteLink"
             value={currentState.inviteLink}
-            endIcon={<ContentCopyIcon className="text-main" />}
+            endIcon={
+              <IconButton onClick={handleClick}>
+                <ContentCopyIcon className="text-main" />
+              </IconButton>
+            }
             placeholder="This is invitation link"
             onChange={handleChange}
           />
