@@ -104,27 +104,6 @@ export default function UpdateUser() {
           <Grid container columnSpacing={3}>
             <Grid item xs={8}>
               <CustomInput
-                label="Verification Code"
-                name="verifyCode"
-                placeholder="Please enter the code"
-                value={currentState.verifyCode}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={4} className="pt-6">
-              <CustomInput
-                name="vCode"
-                placeholder="8245"
-                value={currentState?.vCode ?? ''}
-                onChange={handleChange}
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container columnSpacing={3}>
-            <Grid item xs={8}>
-              <CustomInput
                 label="Email Code"
                 name="emailCode"
                 placeholder="Please enter the code"

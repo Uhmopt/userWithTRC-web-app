@@ -64,28 +64,6 @@ export default function SignIn() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Grid container spacing={3}>
-            <Grid item xs={8}>
-              <CustomInput
-                label="Verification Code"
-                name="verifyCode"
-                placeholder="Please enter the code"
-                value={currentState?.verifyCode ?? ''}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <Box className="pt-6">
-                <CustomInput
-                  name="vCode"
-                  value={currentState?.vCode ?? ''}
-                  onChange={handleChange}
-                />
-              </Box>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
           <Grid container>
             <Grid item xs={6}>
               <Box
