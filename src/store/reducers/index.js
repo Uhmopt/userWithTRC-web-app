@@ -1,6 +1,8 @@
-// import app from "./app";
+import { combineReducers } from "redux";
 import auth from "./auth";
+import message from "./message";
 
-const reducers = { auth };
-
-export default reducers;
+export default combineReducers({
+  auth,
+  message,
+});

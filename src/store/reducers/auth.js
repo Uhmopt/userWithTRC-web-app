@@ -1,56 +1,52 @@
-import jwt_decode from "jwt-decode";
-import { formatStore, updateStore } from "./tools";
-// import http from "lib/http";
+/* eslint-disable import/no-anonymous-default-export */
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+} from '../types'
 
-const initialState = {
-  user: {},
-  isAuth: false,
-  token: "",
-};
+const user = JSON.parse(localStorage.getItem('user'))
 
-const checkAuth = (state, payload) => {
-  var isExpired = false;
-  const token = localStorage.getItem("access_token");
-  var decodedToken = jwt_decode(token, { complete: true });
-  var dateNow = new Date();
+const initialState = user
+  ? { isLoggedIn: true, user }
+  : { isLoggedIn: false, user: null }
 
-  if (decodedToken.exp < dateNow.getTime() / 60000) {
-    // for p
-    const adminPrompt = localStorage.getItem("adminPrompt");
-    const adminSelected = localStorage.getItem("adminSelected");
-    localStorage.clear();
-    localStorage.setItem("adminPrompt", adminPrompt);
-    localStorage.setItem("adminSelected", adminSelected);
+export default function (state = initialState, action) {
+  const { type, payload } = action
 
-    return initialState;
-  } else {
-    const stateObj = Object.assign({}, state, {
-      isAuthenticated: !isExpired && !!localStorage.getItem("access_token"),
-      user: JSON.parse(localStorage.getItem("user")),
-    });
-
-    // if (state.isAuthenticated) {
-    //   http.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
-    //     "access_token"
-    //   )}`;
-    // }
-    return stateObj;
-  }
-};
-
-const auth = (state = initialState, { type, payload = null }) => {
   switch (type) {
-    case "SET_AUTH":
-      return formatStore(updateStore(state, payload));
-    case "UPDATE_AUTH":
-      return formatStore(updateStore(state, payload));
-    case "AUTH_CHECK":
-      return checkAuth(state, payload);
-    case "RESET_AUTH":
-      return initialState;
+    case REGISTER_SUCCESS:
+      
+      return {
+        ...state,
+        isLoggedIn: false,
+      }
+    case REGISTER_FAIL:
+      return {
+        ...state,
+        isLoggedIn: false,
+      }
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLoggedIn: true,
+        user: payload.user,
+      }
+    case LOGIN_FAIL:
+      return {
+        ...state,
+        isLoggedIn: false,
+        user: null,
+      }
+    case LOGOUT:
+      return {
+        ...state,
+        isLoggedIn: false,
+        user: null,
+      }
     default:
-      return state;
+      return state
   }
-};
-
-export default auth;
+}

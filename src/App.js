@@ -1,5 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom'
 import './App.css'
+import 'toastr/build/toastr.min.css'
 import routes from './routes'
 import PrivateRoute from './routes/Private'
 import PublicRoute from './routes/Public'
