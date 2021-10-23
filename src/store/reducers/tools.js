@@ -1,7 +1,7 @@
 export const updateStore = (state = {}, payload) => {
   return typeof payload === "function"
     ? payload(state)
-    : Object.isObject(payload)
+    : typeof payload === 'object'
     ? {
         ...state,
         ...payload,

@@ -9,6 +9,12 @@ import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { register } from 'store/actions/auth'
+import notification from 'lib/notification'
+import checkValidEmail from 'lib/checkValidEmail'
+// import { useHistory } from 'react-router'
+// import notification from 'lib/notification'
 
 const defaultUser = {
   email: '',
@@ -20,18 +26,40 @@ const defaultUser = {
 }
 export default function Register() {
   const [currentState, setCurrentState] = useState(defaultUser)
+  const dispatch = useDispatch()
+  // const history = useHistory()
   const handleChange = (e) => {
     setCurrentState((prevState = defaultUser) => ({
       ...(prevState ?? defaultUser),
       [e.target.name]: e.target.value,
     }))
   }
-  const handleRegister = () => {
-    console.log(currentState)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (
+      (currentState?.password ?? '').length < 8 ||
+      currentState?.password !== currentState.rePassword
+    ) {
+      return false;
+    }
+    dispatch(register(currentState.email, currentState.password))
+      .then((res) => {
+        if (res.result) {
+          notification('success', res.msg)
+          setCurrentState({
+            ...defaultUser,
+          })
+        } else {
+          notification('error', res.msg)
+        }
+      })
+      .catch((err) => {
+        console.log(err, 'err')
+      })
   }
   return (
     <Layout>
-      <form onSubmit={handleRegister}>
+      <form onSubmit={handleSubmit}>
         <Grid container rowSpacing={3}>
           <Grid item xs={12}>
             <Logo variant="icon" className="text-main m-auto" />
@@ -52,6 +80,8 @@ export default function Register() {
               startIcon={<MailIcon className="text-main" />}
               value={currentState?.email ?? ''}
               onChange={handleChange}
+              errorText="Email type is not matched"
+              errorState={!checkValidEmail(currentState?.email ?? '')}
             />
           </Grid>
           <Grid item xs={12}>
@@ -64,6 +94,8 @@ export default function Register() {
               startIcon={<LockIcon className="text-main" />}
               value={currentState?.password ?? ''}
               onChange={handleChange}
+              errorText="Password should be over 8 letters"
+              errorState={(currentState?.password ?? '').length < 8}
             />
           </Grid>
           <Grid item xs={12}>
@@ -76,6 +108,8 @@ export default function Register() {
               startIcon={<LockIcon className="text-main" />}
               value={currentState?.rePassword ?? ''}
               onChange={handleChange}
+              errorText="Password is not matched"
+              errorState={currentState?.password !== currentState.rePassword}
             />
           </Grid>
           <Grid item xs={12}>

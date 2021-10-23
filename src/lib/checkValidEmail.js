@@ -5,7 +5,3 @@ export default function checkValidEmail (str = '') {
   const res = !pattern.test(str)? false : true;
   return res
 }
-
-export function confirmPassword ( password = '', repassword = '' ){
-  return password?.length > 6 && password === repassword;
-}

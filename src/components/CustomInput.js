@@ -1,6 +1,5 @@
 import { InputAdornment, TextField } from '@mui/material'
-import validate from 'lib/validate'
-import React, { useState } from 'react'
+import React from 'react'
 
 export default function CustomInput({
   startIcon = '',
@@ -9,14 +8,12 @@ export default function CustomInput({
   label = '',
   name = '',
   value = '',
+  errorText = '',
+  errorState = false,
   onChange = () => {},
   type = 'text',
 }) {
-  const [isValid, setIsValid] = useState(true)
   const handleChange = (e) => {
-    if (type === 'email') {
-      setIsValid(validate(e.target.value))
-    }
     if (typeof onChange === 'function') {
       onChange(e)
     }
@@ -26,6 +23,7 @@ export default function CustomInput({
       <span className="text-base text-main">{label}</span>
       <TextField
         required
+        // disabled
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">{startIcon}</InputAdornment>
@@ -45,11 +43,11 @@ export default function CustomInput({
         variant="standard"
         fullWidth
       />
-      {type === 'email' && !isValid ? (
+      {Boolean(errorState ?? false) && (
         <span className="text-base text-red-400">
-          Please enter the valid email address
+          {errorText ?? ''}
         </span>
-      ) : null}
+      )}
     </div>
   )
 }

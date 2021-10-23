@@ -20,6 +20,7 @@ const defaultUpdateInfo = {
 
 export default function UpdateUser() {
   const [currentState, setCurrentState] = useState(defaultUpdateInfo)
+
   const handleChange = (e) => {
     setCurrentState((prevState = defaultUpdateInfo) => ({
       ...(prevState ?? defaultUpdateInfo),
@@ -78,19 +79,19 @@ export default function UpdateUser() {
         <MainTitle />
         <Grid item xs={12}>
           <CustomInput
-            isPassword={true}
             name="password"
             type="password"
             label="Change Password"
             placeholder="Please enter your password"
             startIcon={<LockIcon className="text-main" />}
-            value={currentState.password}
+            value={currentState?.password}
             onChange={handleChange}
+            errorText = "Password should be over 8 letters"
+            errorState = { (currentState?.password ?? '').length < 8 }
           />
         </Grid>
         <Grid item xs={12}>
           <CustomInput
-            isPassword={true}
             name="rePassword"
             type="password"
             label="Confirm Password"
@@ -98,6 +99,8 @@ export default function UpdateUser() {
             startIcon={<LockIcon className="text-main" />}
             value={currentState.rePassword}
             onChange={handleChange}
+            errorText = "Password is not matched"
+            errorState = { currentState?.password !== currentState.rePassword }
           />
         </Grid>
         <Grid item xs={12}>

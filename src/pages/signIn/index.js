@@ -9,25 +9,24 @@ import LangSelect from 'components/LangSelect'
 import Logo from 'components/Logo'
 import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'
+import notification from 'lib/notification'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { login } from 'store/actions/auth'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
-import notification from 'lib/notification'
+import { Link } from 'react-router-dom'
+import { login } from 'store/actions/auth'
+import checkValidEmail from 'lib/checkValidEmail'
 
 const defaultSignInfo = {
   email: '',
   password: '',
-  verifyCode: '',
-  vCode: '',
   isRemember: false,
 }
 export default function SignIn() {
   const [currentState, setCurrentState] = useState(defaultSignInfo)
   const dispatch = useDispatch()
   const history = useHistory()
-  
+
   const handleChange = (e) => {
     setCurrentState((prevState = defaultSignInfo) => ({
       ...(prevState ?? defaultSignInfo),
@@ -37,15 +36,18 @@ export default function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(login(currentState.email, currentState.password))
-      .then((res) => {
-        history.push("/home");
-        Promise.resolve()
-      })
-      .catch(() => {
-        notification( 'success', 'Username or password is incorrect!' );
-        // toastr.warning('Username or password is incorrect!')
-      })
+    if (
+      (currentState?.password ?? '').length < 8
+    ) {
+      return false;
+    }
+    dispatch(
+      login(currentState.email, currentState.password, currentState.isRemember),
+    ).then((res) => {
+      Boolean(res?.result ?? false) && history.push('/home')
+      notification('error', res?.msg ?? 'Something went wrong.')
+      Promise.resolve()
+    })
   }
 
   return (
@@ -71,6 +73,8 @@ export default function SignIn() {
               startIcon={<MailIcon className="text-main" />}
               value={currentState?.email ?? ''}
               onChange={handleChange}
+              errorText="Email type is not matched"
+              errorState={!checkValidEmail(currentState?.email ?? '')}
             />
           </Grid>
           <Grid item xs={12}>
@@ -83,6 +87,8 @@ export default function SignIn() {
               startIcon={<LockIcon className="text-main" />}
               value={currentState?.password ?? ''}
               onChange={handleChange}
+              errorText="Password should be over 8 letters"
+              errorState={(currentState?.password ?? '').length < 8}
             />
           </Grid>
           <Grid item xs={12}>

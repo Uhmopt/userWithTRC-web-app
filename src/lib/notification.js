@@ -1,9 +1,9 @@
 import toastr from 'toastr'
 
-const notification = function ({
-  warning = 'failed',
+const notification = function (
+  warning = 'error',
   text = 'Username or password is incorrect!',
-}) {
+) {
   toastr.options = {
     positionClass: 'toast-bottom-full-width',
     hideDuration: 300,
