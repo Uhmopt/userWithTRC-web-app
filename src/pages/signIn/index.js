@@ -36,16 +36,19 @@ export default function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (
-      (currentState?.password ?? '').length < 8
-    ) {
-      return false;
+    if ((currentState?.password ?? '').length < 8) {
+      return false
     }
     dispatch(
       login(currentState.email, currentState.password, currentState.isRemember),
     ).then((res) => {
-      Boolean(res?.result ?? false) && history.push('/home')
-      notification('error', res?.msg ?? 'Something went wrong.')
+      Boolean(res?.data?.result ?? false)
+      if (res?.data?.result ?? false) {
+        history.push('/home')
+        notification('success', res?.data?.msg ?? 'success')
+      } else {
+        notification('error', res?.data?.msg ?? 'Something went wrong.')
+      }
       Promise.resolve()
     })
   }

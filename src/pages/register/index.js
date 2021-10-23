@@ -14,7 +14,6 @@ import { register } from 'store/actions/auth'
 import notification from 'lib/notification'
 import checkValidEmail from 'lib/checkValidEmail'
 // import { useHistory } from 'react-router'
-// import notification from 'lib/notification'
 
 const defaultUser = {
   email: '',
@@ -23,6 +22,7 @@ const defaultUser = {
   verifyCode: '',
   vCode: '',
   invites: '',
+  walletAddress: '',
 }
 export default function Register() {
   const [currentState, setCurrentState] = useState(defaultUser)
@@ -40,9 +40,15 @@ export default function Register() {
       (currentState?.password ?? '').length < 8 ||
       currentState?.password !== currentState.rePassword
     ) {
-      return false;
+      return false
     }
-    dispatch(register(currentState.email, currentState.password))
+    dispatch(
+      register(
+        currentState.email,
+        currentState.password,
+        currentState.walletAddress,
+      ),
+    )
       .then((res) => {
         if (res.result) {
           notification('success', res.msg)
@@ -110,6 +116,15 @@ export default function Register() {
               onChange={handleChange}
               errorText="Password is not matched"
               errorState={currentState?.password !== currentState.rePassword}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <CustomInput
+              label="USDT_TRC20"
+              name="walletAddress"
+              placeholder="Please enter your personal wallet address"
+              value={currentState?.walletAddress ?? ''}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12}>

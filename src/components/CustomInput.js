@@ -12,6 +12,7 @@ export default function CustomInput({
   errorState = false,
   onChange = () => {},
   type = 'text',
+  required = true,
 }) {
   const handleChange = (e) => {
     if (typeof onChange === 'function') {
@@ -22,7 +23,7 @@ export default function CustomInput({
     <div className="w-full">
       <span className="text-base text-main">{label}</span>
       <TextField
-        required
+        required={required ?? true}
         // disabled
         InputProps={{
           startAdornment: (
@@ -44,9 +45,7 @@ export default function CustomInput({
         fullWidth
       />
       {Boolean(errorState ?? false) && (
-        <span className="text-base text-red-400">
-          {errorText ?? ''}
-        </span>
+        <span className="text-base text-red-400">{errorText ?? ''}</span>
       )}
     </div>
   )

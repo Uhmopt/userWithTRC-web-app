@@ -1,17 +1,16 @@
-
 import AuthService from '../../services/auth.service'
 
-export const register = (email, password) => (dispatch) => {
-  return AuthService.register(email, password, "wallet_address").then(
+export const register = (email, password, walletAddress) => (dispatch) => {
+  return AuthService.register(email, password, walletAddress).then(
     (data) => {
       dispatch({
-        type: "SET_AUTH",
+        type: 'SET_AUTH',
         payload: { user: data },
       })
-      return data;
+      return data
     },
     (error) => {
-      console.log( error );
+      console.log(error)
     },
   )
 }
@@ -20,10 +19,11 @@ export const login = (email, password, isRemember) => (dispatch) => {
   return AuthService.login(email, password, isRemember).then(
     (data) => {
       dispatch({
-        type: "UPDATE_AUTH",
+        type: 'UPDATE_AUTH',
         payload: { user: data },
       })
-      return data;
+      console.log(data)
+      return data
     },
     () => {
       console.log()
@@ -34,7 +34,7 @@ export const login = (email, password, isRemember) => (dispatch) => {
 export const logout = () => (dispatch) => {
   AuthService.logout()
   dispatch({
-    type: "LOGOUT",
+    type: 'LOGOUT',
   })
 }
 
@@ -42,7 +42,7 @@ export const sendEmail = (email) => (dispatch) => {
   return AuthService.sendEmail(email).then(
     (data) => {
       dispatch({
-        type: "RESET_AUTH",
+        type: 'RESET_AUTH',
         payload: { user: data },
       })
       return Promise.resolve()
