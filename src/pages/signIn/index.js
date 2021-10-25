@@ -14,7 +14,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
-import { login } from 'store/actions/user'
+import { login } from 'store/actions/auth'
 import checkValidEmail from 'lib/checkValidEmail'
 
 const defaultSignInfo = {

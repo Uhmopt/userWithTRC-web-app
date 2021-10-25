@@ -6,7 +6,7 @@ import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { verification } from 'store/actions/user'
+import { verification } from 'store/actions/auth'
 import { useHistory } from 'react-router'
 import notification from 'lib/notification'
 const defaultVerification = {

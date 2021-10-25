@@ -8,7 +8,7 @@ import notification from 'lib/notification'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-import { resetPassword } from 'store/actions/user'
+import { resetPassword } from 'store/actions/auth'
 
 const defaultResetInfo = {
 	password: '',

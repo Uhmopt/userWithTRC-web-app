@@ -5,7 +5,7 @@ const notification = function (
   text = 'Username or password is incorrect!',
 ) {
   toastr.options = {
-    positionClass: 'toast-top-full-width',
+    positionClass: 'toast-top-center',
     showMethod: "fadeIn",
     hideDuration: 300,
     timeOut: 60000,

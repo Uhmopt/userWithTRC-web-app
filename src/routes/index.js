@@ -7,7 +7,7 @@ const routes = [
   {
     path: `/`,
     exact: true,
-    auth: false,
+    auth: true,
     component: Home,
   },
   ...auth,

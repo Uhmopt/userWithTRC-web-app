@@ -1,7 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom'
 
-const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  
+  const isAuthenticated = useSelector((state) => Boolean(state?.auth?.isAuth));
+  return (
   <Route
     {...rest}
     render={(props) =>
@@ -12,13 +16,13 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: '/',
+            pathname: '/sign-in',
             state: { from: props.location },
           }}
         />
       )
     }
   />
-)
+)}
 
 export default PrivateRoute

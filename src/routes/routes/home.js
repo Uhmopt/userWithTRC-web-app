@@ -5,6 +5,7 @@ import Upgrade from 'pages/upgrade'
 import ContactUs from 'pages/contactUs'
 import Invite from 'pages/invite'
 import Payment from 'pages/payment'
+import UpdateUser from 'pages/updateUser'
 import HighestLevel from 'pages/highestLevel'
 
 const home = [
@@ -12,50 +13,56 @@ const home = [
   {
     path: `/home`,
     exact: true,
-    auth: false,
+    auth: true,
     component: Home,
   },
   {
     path: `/level-users`,
     exact: true,
-    auth: false,
+    auth: true,
     component: LevelUsers,
   },
   {
     path: `/revenue`,
     exact: true,
-    auth: false,
+    auth: true,
     component: Revenue,
   },
   {
     path: `/upgrade`,
     exact: true,
-    auth: false,
+    auth: true,
     component: Upgrade,
   },
   {
     path: `/contact-us`,
     exact: true,
-    auth: false,
+    auth: true,
     component: ContactUs,
   },
   {
     path: `/invite`,
     exact: true,
-    auth: false,
+    auth: true,
     component: Invite,
   },
   {
     path: `/payment`,
     exact: true,
-    auth: false,
+    auth: true,
     component: Payment,
   },
   {
     path: `/highest-level`,
     exact: true,
-    auth: false,
+    auth: true,
     component: HighestLevel,
+  },
+  {
+    path: `/update-user`,
+    exact: true,
+    auth: true,
+    component: UpdateUser,
   },
 ]
 

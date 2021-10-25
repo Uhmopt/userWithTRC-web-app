@@ -44,9 +44,8 @@ export default function UpdateUser() {
       0 < (currentState?.password ?? '').length < 8 &&
       currentState?.password !== currentState?.rePassword
     ) {
-      return false;
+      return false
     }
-    
   }
   return (
     <Layout

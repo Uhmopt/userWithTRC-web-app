@@ -8,7 +8,7 @@ import Layout from 'layouts'
 import checkValidEmail from 'lib/checkValidEmail'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { forgotPassword } from 'store/actions/user'
+import { forgotPassword } from 'store/actions/auth'
 import { useHistory } from 'react-router'
 import notification from 'lib/notification'
 
