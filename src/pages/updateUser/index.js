@@ -1,25 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import LockIcon from '@mui/icons-material/Lock'
 import MailIcon from '@mui/icons-material/Mail'
 import { Button, Grid } from '@mui/material'
 import CustomInput from 'components/CustomInput'
 import MainTitle from 'components/MainTitle'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '../../layouts'
 import checkValidEmail from 'lib/checkValidEmail'
+import { useSelector } from 'react-redux'
 
 const defaultUpdateInfo = {
   email: '',
-  usdt: '',
+  rid: '',
+  address: '',
   password: '',
   rePassword: '',
-  verifyCode: '',
-  vCode: '',
   emailCode: '',
   eCode: '',
 }
 
 export default function UpdateUser() {
   const [currentState, setCurrentState] = useState(defaultUpdateInfo)
+  const user = useSelector((state) => state?.auth?.user ?? {})
+
+  useEffect(() => {
+    setCurrentState((prevState = defaultUpdateInfo) => ({
+      ...(prevState ?? defaultUpdateInfo),
+      email: user?.user_email ?? '',
+      rid: user?.user_rid ?? '',
+      address: user?.user_wallet_address ?? '',
+    }))
+  }, [])
 
   const handleChange = (e) => {
     setCurrentState((prevState = defaultUpdateInfo) => ({
@@ -28,7 +39,14 @@ export default function UpdateUser() {
     }))
   }
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    if (
+      0 < (currentState?.password ?? '').length < 8 &&
+      currentState?.password !== currentState?.rePassword
+    ) {
+      return false;
+    }
+    
   }
   return (
     <Layout
@@ -56,25 +74,29 @@ export default function UpdateUser() {
               label="Email"
               placeholder="Please enter your email"
               startIcon={<MailIcon className="text-main" />}
-              value={currentState.email}
+              value={currentState?.email ?? ''}
               onChange={handleChange}
               errorText="Email type is not matched"
-              errorState={!checkValidEmail(currentState?.email ?? '')}
+              errorState={
+                !Boolean(currentState?.email)
+                  ? false
+                  : !checkValidEmail(currentState?.email ?? '')
+              }
             />
           </Grid>
           <Grid item xs={12}>
             <CustomInput
               label="ID"
-              name="id"
-              value={currentState.id}
+              name="rid"
+              value={currentState.rid}
               onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12}>
             <CustomInput
               label="USDT_TRC20"
-              name="usdt"
-              value={currentState.usdt}
+              name="address"
+              value={currentState.address}
               onChange={handleChange}
             />
           </Grid>
@@ -85,15 +107,20 @@ export default function UpdateUser() {
           <MainTitle />
           <Grid item xs={12}>
             <CustomInput
+              isPassword={true}
               name="password"
+              label="Password"
               type="password"
-              label="Change Password"
               placeholder="Please enter your password"
               startIcon={<LockIcon className="text-main" />}
-              value={currentState?.password}
+              value={currentState?.password ?? ''}
               onChange={handleChange}
               errorText="Password should be over 8 letters"
-              errorState={(currentState?.password ?? '').length < 8}
+              errorState={
+                !Boolean(currentState?.password)
+                  ? false
+                  : (currentState?.password ?? '').length < 8
+              }
             />
           </Grid>
           <Grid item xs={12}>
@@ -110,28 +137,7 @@ export default function UpdateUser() {
             />
           </Grid>
           <Grid item xs={12}>
-            <Grid container columnSpacing={3}>
-              <Grid item xs={8}>
-                <CustomInput
-                  label="Email Code"
-                  name="emailCode"
-                  placeholder="Please enter the code"
-                  value={currentState.emailCode}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={4} className="pt-6">
-                <CustomInput
-                  name="eCode"
-                  placeholder="Get code"
-                  value={currentState.eCode}
-                  onChange={handleChange}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Button type="button" variant="contained" size="large" fullWidth>
+            <Button type="submit" variant="contained" size="large" fullWidth>
               Submit
             </Button>
           </Grid>

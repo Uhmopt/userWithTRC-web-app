@@ -12,6 +12,6 @@ export const updateStore = (state = {}, payload) => {
 export const formatStore = (data = {}) => {
   return {
     ...data,
-    isAuth: Boolean(data?.user?.id),
+    user_token: Boolean(data?.user?.id),
   };
 };

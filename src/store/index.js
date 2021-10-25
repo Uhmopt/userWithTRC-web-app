@@ -9,4 +9,15 @@ const store = createStore(
   applyMiddleware(...middleware)
 );
 
+store.subscribe(() => {
+  const storeData = store.getState();
+  console.log( storeData, "STOER" );
+  window.sessionStorage.setItem("mya-store", JSON.stringify(storeData));
+});
+
+// const token = localStorage.getItem("access_token");
+// if (token) {
+//   store.dispatch({ type: "AUTH_CHECK" });
+// }
+
 export default store;

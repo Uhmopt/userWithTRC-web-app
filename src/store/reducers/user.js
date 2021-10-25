@@ -1,6 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
 import jwt_decode from "jwt-decode";
-import { formatStore, updateStore } from "./tools";
 import http from "lib/http";
 
 
@@ -17,14 +16,7 @@ const checkAuth = (state, payload) => {
 
   if (decodedToken.exp < dateNow.getTime() / 60000) {
 
-    // const adminPrompt = localStorage.getItem('adminPrompt')
-    // const adminSelected = localStorage.getItem('adminSelected')
-    // localStorage.clear()
-    // localStorage.setItem('adminPrompt', adminPrompt)
-    // localStorage.setItem('adminSelected', adminSelected)
-
     return initialState
-
   } else {
     
     const stateObj = Object.assign({}, state, {
@@ -41,20 +33,36 @@ const checkAuth = (state, payload) => {
   }
 }
 
-const auth = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   const { type, payload } = action
 
   switch (type) {
-    case "SET_AUTH":
-      return formatStore(updateStore(state, payload));
-    case "UPDATE_AUTH":
-      return formatStore(updateStore(state, payload));
-    case "AUTH_CHECK":
-      return checkAuth(state, payload);
-    case "RESET_AUTH":
-      return initialState;
+    case "SET_REGISTER":
+      return {
+        ...state,
+        ...payload
+      }
+    case "IS_VERIFIED":
+      return {
+        ...state,
+        ...payload
+      }
+    case "SET_LOGIN":
+      return {
+        ...state,
+        ...payload
+      }
+    case "FORGOT_PASSWORD":
+      return {
+        ...state,
+        ...payload
+      }
+    case "RESET_PASSWORD":
+      return {
+        ...state
+      }
     default:
       return state;
   }
 }
-export default auth
+export default userReducer

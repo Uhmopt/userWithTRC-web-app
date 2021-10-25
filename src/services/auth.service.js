@@ -44,6 +44,11 @@ class AuthService {
       email,
     })
   }
+  verification(verifyCode) {
+    return axios.post(API_URL + 'verification', {
+      verifyCode: verifyCode,
+    })
+  }
 }
 
 export default new AuthService()

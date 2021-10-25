@@ -10,10 +10,10 @@ import Layout from 'layouts'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { register } from 'store/actions/auth'
+import { register } from 'store/actions/user'
 import notification from 'lib/notification'
 import checkValidEmail from 'lib/checkValidEmail'
-// import { useHistory } from 'react-router'
+import { useHistory } from 'react-router'
 
 const defaultUser = {
   email: '',
@@ -27,7 +27,7 @@ const defaultUser = {
 export default function Register() {
   const [currentState, setCurrentState] = useState(defaultUser)
   const dispatch = useDispatch()
-  // const history = useHistory()
+  const history = useHistory()
   const handleChange = (e) => {
     setCurrentState((prevState = defaultUser) => ({
       ...(prevState ?? defaultUser),
@@ -50,13 +50,14 @@ export default function Register() {
       ),
     )
       .then((res) => {
-        if (res.result) {
-          notification('success', res.msg)
+        if (res?.result ?? false) {
+          history.push({ pathname: 'verification', state: 'sign-in' })
+          notification('success', res?.msg ?? 'success')
           setCurrentState({
             ...defaultUser,
           })
         } else {
-          notification('error', res.msg)
+          notification('error', res?.msg ?? 'error')
         }
       })
       .catch((err) => {
@@ -87,21 +88,29 @@ export default function Register() {
               value={currentState?.email ?? ''}
               onChange={handleChange}
               errorText="Email type is not matched"
-              errorState={!checkValidEmail(currentState?.email ?? '')}
+              errorState={
+                !Boolean(currentState?.email)
+                  ? false
+                  : !checkValidEmail(currentState?.email ?? '')
+              }
             />
           </Grid>
           <Grid item xs={12}>
             <CustomInput
               isPassword={true}
               name="password"
-              type="password"
               label="Password"
+              type="password"
               placeholder="Please enter your password"
               startIcon={<LockIcon className="text-main" />}
               value={currentState?.password ?? ''}
               onChange={handleChange}
               errorText="Password should be over 8 letters"
-              errorState={(currentState?.password ?? '').length < 8}
+              errorState={
+                !Boolean(currentState?.password)
+                  ? false
+                  : (currentState?.password ?? '').length < 8
+              }
             />
           </Grid>
           <Grid item xs={12}>
@@ -128,32 +137,11 @@ export default function Register() {
             />
           </Grid>
           <Grid item xs={12}>
-            <Grid container spacing={3}>
-              <Grid item xs={8}>
-                <CustomInput
-                  label="Verification Code"
-                  name="verifyCode"
-                  placeholder="Please enter the code"
-                  value={currentState?.verifyCode ?? ''}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <Box className="pt-6">
-                  <CustomInput
-                    name="vCode"
-                    value={currentState?.vCode ?? ''}
-                    onChange={handleChange}
-                  />
-                </Box>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
             <CustomInput
               label="Invites"
               name="invites"
               placeholder="Optional"
+              required={false}
               value={currentState?.invites ?? ''}
               onChange={handleChange}
             />

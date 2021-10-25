@@ -3,6 +3,7 @@ import Register from 'pages/register'
 import ForgotPassword from 'pages/forgotPassword'
 import ResetPassword from 'pages/resetPassword'
 import UpdateUser from 'pages/updateUser'
+import Verification from 'pages/verification'
 
 const auth = [
   // page for auth
@@ -35,6 +36,12 @@ const auth = [
     exact: true,
     auth: false,
     component: UpdateUser,
+  },
+  {
+    path: `/verification`,
+    exact: true,
+    auth: false,
+    component: Verification,
   },
 ]
 

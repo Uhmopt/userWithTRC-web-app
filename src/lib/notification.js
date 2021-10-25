@@ -5,7 +5,8 @@ const notification = function (
   text = 'Username or password is incorrect!',
 ) {
   toastr.options = {
-    positionClass: 'toast-bottom-full-width',
+    positionClass: 'toast-top-full-width',
+    showMethod: "fadeIn",
     hideDuration: 300,
     timeOut: 60000,
   }
@@ -23,6 +24,7 @@ const notification = function (
     default:
       setTimeout(() => toastr.warning(text), 300)
   }
+  setTimeout(() => toastr.clear(), 6000)
 }
 
 export default notification

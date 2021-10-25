@@ -14,7 +14,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
-import { login } from 'store/actions/auth'
+import { login } from 'store/actions/user'
 import checkValidEmail from 'lib/checkValidEmail'
 
 const defaultSignInfo = {
@@ -42,13 +42,20 @@ export default function SignIn() {
     dispatch(
       login(currentState.email, currentState.password, currentState.isRemember),
     ).then((res) => {
-      Boolean(res?.data?.result ?? false)
-      if (res?.data?.result ?? false) {
-        history.push('/home')
-        notification('success', res?.data?.msg ?? 'success')
+      if (res?.isVerifyRequired ?? false) {
+        notification('error', res?.msg ?? 'Something went wrong.')
+        history.push({ pathname: 'verification', state: 'sign-in' })
+        return false
       } else {
-        notification('error', res?.data?.msg ?? 'Something went wrong.')
+        Boolean(res?.result ?? false)
+        if (res?.result ?? false) {
+          history.push('/home')
+          notification('success', res?.msg ?? 'success')
+        } else {
+          notification('error', res?.msg ?? 'Something went wrong.')
+        }
       }
+
       Promise.resolve()
     })
   }
@@ -77,7 +84,11 @@ export default function SignIn() {
               value={currentState?.email ?? ''}
               onChange={handleChange}
               errorText="Email type is not matched"
-              errorState={!checkValidEmail(currentState?.email ?? '')}
+              errorState={
+                !Boolean(currentState?.email)
+                  ? false
+                  : !checkValidEmail(currentState?.email ?? '')
+              }
             />
           </Grid>
           <Grid item xs={12}>
@@ -91,7 +102,11 @@ export default function SignIn() {
               value={currentState?.password ?? ''}
               onChange={handleChange}
               errorText="Password should be over 8 letters"
-              errorState={(currentState?.password ?? '').length < 8}
+              errorState={
+                !Boolean(currentState?.password)
+                  ? false
+                  : (currentState?.password ?? '').length < 8
+              }
             />
           </Grid>
           <Grid item xs={12}>
