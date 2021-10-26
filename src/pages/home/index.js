@@ -9,20 +9,26 @@ import { Box } from '@mui/system'
 import LevelCardTable from 'components/LevelCardTable'
 import momentDate from 'lib/momentDate'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLeveList, getUserList } from 'store/actions/home'
+import { getLeveList, getUserList, getPaymentList } from 'store/actions/home'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
+
+const defaultState = {
+  levels: [],
+  totalRevenue: 0
+}
 
 export default function Home() {
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector((state) => state?.auth?.user ?? {})
   const home = useSelector((state) => state?.home ?? {})
-  const [levels, setLevels] = useState([])
+  const [currentState, setCurrentState] = useState(defaultState)
 
   useEffect(() => {
     dispatch(getLeveList())
     dispatch(getUserList())
+    dispatch(getPaymentList(user?.user_id ?? ''))
   }, [])
 
   useEffect(() => {
@@ -39,7 +45,13 @@ export default function Home() {
         }).length,
       })
     })
-    setLevels(tmpLevels)
+    const tmpRevenue = (home?.paymentList ?? []).reduce((a, {pay_amount}) => a + Number(pay_amount), 0);
+    console.log( tmpRevenue );
+    setCurrentState((prevState=defaultState)=>({
+      ...(prevState ?? defaultState),
+      levels: tmpLevels,
+      totalRevenue: Number.parseFloat(tmpRevenue).toFixed(6)
+    }))
   }
 
   const handleClick = (level) => {
@@ -75,7 +87,7 @@ export default function Home() {
       <div>
         <label className="text-main font-bold">Total Revenue</label>
         <br />
-        <label className="font-bold text-title">1233333333323</label>
+        <label className="font-bold text-title">{currentState.totalRevenue}</label>
         <label className="text-sm text-title">usdt</label>
       </div>
     </>
@@ -95,7 +107,7 @@ export default function Home() {
         isLogin={true}
         className="py-8"
       />
-      <LevelCardTable levelList={levels ?? []} onClick={handleClick} />
+      <LevelCardTable levelList={currentState?.levels ?? []} onClick={handleClick} />
     </Layout>
   )
 }

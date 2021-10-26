@@ -15,12 +15,17 @@ const home = (state = restoreState, action) => {
   const { type, payload } = action
   switch (type) {
     case 'GET_LEVELS':
-      console.log(payload)
+      console.log(payload, 'Payment')
       return {
         ...state,
         ...payload,
       }
     case 'GET_USERS':
+      return {
+        ...state,
+        ...payload,
+      }
+    case 'GET_PAYMENTS':
       return {
         ...state,
         ...payload,

@@ -36,3 +36,22 @@ export const getUserList = () => (dispatch) => {
       }
     })
 }
+
+export const getPaymentList = (user_id = '') => (dispatch) => {
+  return Boolean(user_id)
+    ? axios
+        .post(API_URL + 'get-payments', { user_id: user_id }, httpConfig)
+        .then((res) => {
+          dispatch({
+            type: 'GET_PAYMENTS',
+            payload: { paymentList: res?.data?.result ?? [] },
+          })
+          return res?.data?.result ?? []
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.log(err.response)
+          }
+        })
+    : false
+}
