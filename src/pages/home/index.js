@@ -18,7 +18,7 @@ export default function Home() {
   const history = useHistory()
   const user = useSelector((state) => state?.auth?.user ?? {})
   const home = useSelector((state) => state?.home ?? {})
-  const [levels, setLevels] = useState([]);
+  const [levels, setLevels] = useState([])
 
   useEffect(() => {
     dispatch(getLeveList())
@@ -26,20 +26,25 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-	const tmpLevels = [];
-    (home?.levelList ?? []).forEach((element) => {
-		tmpLevels.push({
+    init()
+  }, [home?.levelList])
+
+  const init = () => {
+    const tmpLevels = []
+    ;(home?.levelList ?? []).forEach((element) => {
+      tmpLevels.push({
         level_degree: element?.level_degree ?? 0,
         level_user_num: (home.userList ?? []).filter((user) => {
           return user.user_level === element?.level_degree
         }).length,
       })
     })
-	setLevels( tmpLevels );
-  }, [home?.levelList])
+    setLevels(tmpLevels)
+  }
 
   const handleClick = (level) => {
-	  (typeof level === "number")&&history.push({ pathname: 'level-users', state: level })
+    typeof level === 'number' &&
+      history.push({ pathname: 'level-users', state: level })
   }
 
   const banner = (
@@ -90,7 +95,7 @@ export default function Home() {
         isLogin={true}
         className="py-8"
       />
-      <LevelCardTable levelList={levels ?? []} onClick={handleClick}/>
+      <LevelCardTable levelList={levels ?? []} onClick={handleClick} />
     </Layout>
   )
 }

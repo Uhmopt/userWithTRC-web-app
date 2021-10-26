@@ -3,6 +3,8 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { Info } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 import { Link } from 'react-router-dom'
+// import { useDispatch } from 'react-redux'
+// import { logout } from 'store/actions/auth'
 
 export default function Banner({
   icon = '',
@@ -11,10 +13,16 @@ export default function Banner({
   mail = '',
   joinTime = '',
 }) {
+  // const dispatch = useDispatch
+  const handleLogout = () => {
+    // dispatch(logout())
+  }
   return (
     <div>
-      <IconButton className="float-right">
-        <LogoutIcon fontSize="large" className="text-white mt-1" />
+      <IconButton onClick={handleLogout} className="float-right mt-2">
+        <Link to="sign-in">
+          <LogoutIcon fontSize="large" className="text-white" />
+        </Link>
       </IconButton>
       <div className="bg-cover bg-center bg-home h-56 pt-8 w-full text-white">
         <div className="text-center">

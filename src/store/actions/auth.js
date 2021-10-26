@@ -1,4 +1,3 @@
-import AuthService from '../../services/auth.service'
 import axios from 'axios'
 
 const API_URL = 'http://localhost:5010/app/user/'
@@ -72,13 +71,6 @@ export const login = (email, password, isRemember) => (dispatch) => {
     })
 }
 
-export const logout = () => (dispatch) => {
-  AuthService.logout()
-  dispatch({
-    type: 'LOGOUT',
-  })
-}
-
 export const forgotPassword = (email) => (dispatch) => {
   return axios
     .post(API_URL + 'forgot-password', {
@@ -123,4 +115,10 @@ export const resetPassword = (email = '', verifyCode = '', password = '') => (
       }
       return false
     })
+}
+
+export const logout = () => (dispatch) => {
+  return dispatch({
+    type: 'LOGOUT',
+  })
 }

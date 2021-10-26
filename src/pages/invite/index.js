@@ -19,7 +19,7 @@ export default function Invite() {
     }))
   }
   const handleClick = () => {
-    console.log("This is copy link action!!!");
+    navigator.clipboard.writeText(currentState?.inviteLink ?? '')
   }
   return (
     <Layout isLogin={true} title="Invite Friend" before="home" menuIndex={3}>
@@ -29,7 +29,14 @@ export default function Invite() {
         </Box>
         <Box className="py-8">
           <Link to={`#`}>
-            <Button type="button" variant="contained" size="large" autoCapitalize="true" fullWidth className="capitalize">
+            <Button
+              type="button"
+              variant="contained"
+              size="large"
+              autoCapitalize="true"
+              fullWidth
+              className="capitalize"
+            >
               Save to phone
             </Button>
           </Link>

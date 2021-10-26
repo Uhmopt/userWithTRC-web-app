@@ -1,5 +1,5 @@
 import { NavigateNext } from '@mui/icons-material'
-import { Card, CardActions, IconButton } from '@mui/material'
+import { Card, CardActions, Grid, IconButton } from '@mui/material'
 import React from 'react'
 
 export default function LevelCard({
@@ -18,7 +18,9 @@ export default function LevelCard({
         </CardActions>
         <IconButton
           onClick={() =>
-            typeof onClick === 'function' ? onClick(level) : console.log('error')
+            typeof onClick === 'function'
+              ? onClick(level)
+              : console.log('error')
           }
           color="primary"
           className="bg-light shadow-md"
