@@ -13,6 +13,7 @@ export default function CustomInput({
   onChange = () => {},
   type = 'text',
   required = true,
+  className = "bg-light"
 }) {
   const handleChange = (e) => {
     if (typeof onChange === 'function') {
@@ -40,7 +41,7 @@ export default function CustomInput({
         type={type || 'text'}
         placeholder={placeholder}
         onChange={handleChange}
-        className={'bg-light rounded-md border border-transparent'}
+        className={`${className ?? ''} rounded-md border border-transparent`}
         variant="standard"
         fullWidth
       />

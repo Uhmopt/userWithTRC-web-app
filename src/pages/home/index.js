@@ -10,8 +10,7 @@ import LevelCardTable from 'components/LevelCardTable'
 import momentDate from 'lib/momentDate'
 import { useDispatch, useSelector } from 'react-redux'
 import { getLeveList, getUserList } from 'store/actions/home'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 
 export default function Home() {

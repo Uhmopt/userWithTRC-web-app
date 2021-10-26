@@ -1,14 +1,27 @@
-import { Card, CardActions } from '@mui/material'
+import { Grid } from '@mui/material'
 import React from 'react'
 
-export default function LevelDetailCard({ startIcon = '' }) {
+export default function LevelDetailCard({
+  startIcon = '',
+  rid = '',
+  email = '',
+}) {
   return (
     <div className="pt-4">
-      <Card className="bg-white rounded-md flex justify-between p-2 items-center ">
+      <Grid
+        container
+        className="bg-white rounded-md flex justify-between p-2 items-center"
+      >
+        <Grid item xs={2}>
           {startIcon}
-          <label className="self-center text-ttitle">18599</label>
-          <CardActions className="text-main">talentlucky0816@gmail.com</CardActions>
-      </Card>
+        </Grid>
+        <Grid item xs={2}>
+          <label className="self-center text-title">{rid}</label>
+        </Grid>
+        <Grid item xs={8} className="text-main text-right">
+          {email}
+        </Grid>
+      </Grid>
     </div>
   )
 }

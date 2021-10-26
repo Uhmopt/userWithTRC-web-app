@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import SearchIcon from '@mui/icons-material/Search'
 import { IconButton, Input } from '@mui/material'
+import CustomInput from 'components/CustomInput'
 import LevelDetailCardTable from 'components/LevelDetailCardTable'
 import MainTitle from 'components/MainTitle'
 import NavButton from 'components/NavButton'
@@ -9,23 +10,75 @@ import TableSwipeableViews from 'components/TableSwipeableViews'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import Layout from '../../layouts'
 
+const defaultState = {
+  tabNumber: 0,
+  usersByLevel: [],
+  allUsersByLevel: [],
+  searItem: '',
+}
 export default function LevelUsers(props) {
-  const [tabNumber, setTabNumber] = useState(0)
-  const level = props?.location?.state ?? 0
+  const home = useSelector((state) => state?.home ?? {})
+  const [currentState, setCurrentState] = useState(defaultState)
+
   useEffect(() => {
-    console.log(level)
+    // Note: Get state from HomePage
+    const level = props?.location?.state ?? 0
+    // Note: Filter All users and Upgraded users
+    const tempAllUsers = (home?.userList ?? []).filter((item) => {
+      return item?.user_level <= level
+    })
+    const tempUsers = tempAllUsers.filter((item) => {
+      return item?.user_level === level
+    })
+    handleChange({ usersByLevel: tempUsers, allUsersByLevel: tempAllUsers })
   }, [])
-  const handleChange = (param) => {
-    setTabNumber(param)
+
+  const handleChange = (param = {}) => {
+    setCurrentState((prevState = defaultState) => ({
+      ...(prevState ?? defaultState),
+      ...param,
+    }))
+  }
+  // Note: Handle Search click event
+  const handleSearch = (e) => {
+    setCurrentState((prevState = {}) => ({
+      ...(prevState ?? {}),
+      [e.target.name]: e.target.value,
+    }))
+  }
+  // Note: Handle tab click event
+  const handleTabChange = (param) => {
+    setCurrentState((prevState = defaultState) => ({
+      ...(prevState ?? defaultState),
+      tabNumber: param,
+    }))
+  }
+  // Note: Get attacged users by searchitem
+  const getSearchItem = (allItems = []) => {
+    const tmpData = [];
+	(allItems ?? []).forEach((element) => {
+      if (
+        (element?.user_rid ?? '')
+          .toString()
+          .includes(currentState?.searItem ?? '') ||
+        (element?.user_email ?? '').includes(currentState?.searItem ?? '')
+      ) {
+        tmpData.push(element)
+      }
+    })
+    return tmpData
   }
   const totalUser = (
     <>
       <div>
         <label className="text-title font-bold">Total User</label>
         <br />
-        <label className="font-bold text-main">1100</label>
+        <label className="font-bold text-main">
+          {currentState?.allUsersByLevel?.length ?? 0}
+        </label>
       </div>
     </>
   )
@@ -34,7 +87,9 @@ export default function LevelUsers(props) {
       <div>
         <label className="text-title font-bold">Upgraded</label>
         <br />
-        <label className="font-bold text-main">100</label>
+        <label className="font-bold text-main">
+          {currentState?.usersByLevel?.length ?? 0}
+        </label>
       </div>
     </>
   )
@@ -47,27 +102,39 @@ export default function LevelUsers(props) {
         <NavButton
           tabLabelOne="All Users"
           tabLabelTwo="Upgraded"
-          tabNumber={tabNumber}
-          onChange={handleChange}
+          tabNumber={currentState.tabNumber}
+          onChange={handleTabChange}
         />
       </div>
       <div className="flex pt-8 w-full">
-        <Input
-          fullWidth
-          disableUnderline
+        <CustomInput
+          name="searItem"
+          value={currentState.searItem}
+          endIcon={
+            <IconButton onClick={console.log()} className="shadow-sm">
+              <SearchIcon className="text-main" />
+            </IconButton>
+          }
+          className="bg-white"
           placeholder="Please enter ID/Email"
-          className="bg-white rounded-md h-10 p-2 mr-2"
-        ></Input>
-        <IconButton className="bg-white shadow-md">
-          <SearchIcon />
-        </IconButton>
+          onChange={handleSearch}
+        />
       </div>
+
       <MainTitle isLogin={true} className="py-8" />
       <div className="mb-24">
         <TableSwipeableViews
-          contentOne={<LevelDetailCardTable />}
-          contentTwo={<LevelDetailCardTable />}
-          contentNumber={tabNumber}
+          contentOne={
+            <LevelDetailCardTable
+              levelUsers={getSearchItem(currentState?.allUsersByLevel ?? [])}
+            />
+          }
+          contentTwo={
+            <LevelDetailCardTable
+              levelUsers={currentState?.usersByLevel ?? []}
+            />
+          }
+          contentNumber={currentState.tabNumber}
         />
       </div>
     </Layout>
