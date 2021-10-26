@@ -1,17 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import SearchIcon from '@mui/icons-material/Search'
-import { IconButton, Input } from '@mui/material'
+import { IconButton } from '@mui/material'
 import CustomInput from 'components/CustomInput'
 import LevelDetailCardTable from 'components/LevelDetailCardTable'
 import MainTitle from 'components/MainTitle'
 import NavButton from 'components/NavButton'
 import StaticCard from 'components/StaticCard'
 import TableSwipeableViews from 'components/TableSwipeableViews'
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Layout from '../../layouts'
+import levelOrder from 'lib/levelOrder'
 
 const defaultState = {
   tabNumber: 0,
@@ -23,9 +22,10 @@ export default function LevelUsers(props) {
   const home = useSelector((state) => state?.home ?? {})
   const [currentState, setCurrentState] = useState(defaultState)
 
+  // Note: Get state from HomePage
+  const level = props?.location?.state ?? 0
+
   useEffect(() => {
-    // Note: Get state from HomePage
-    const level = props?.location?.state ?? 0
     // Note: Filter All users and Upgraded users
     const tempAllUsers = (home?.userList ?? []).filter((item) => {
       return item?.user_level <= level
@@ -58,8 +58,8 @@ export default function LevelUsers(props) {
   }
   // Note: Get attacged users by searchitem
   const getSearchItem = (allItems = []) => {
-    const tmpData = [];
-	(allItems ?? []).forEach((element) => {
+    const tmpData = []
+    ;(allItems ?? []).forEach((element) => {
       if (
         (element?.user_rid ?? '')
           .toString()
@@ -94,7 +94,7 @@ export default function LevelUsers(props) {
     </>
   )
   return (
-    <Layout isLogin={true} title={'First Level User'} before={'home'}>
+    <Layout isLogin={true} title={`${levelOrder(level)} Level User`} before={'home'}>
       <div className="rounded-md h-20 self-center align-middle text-center">
         <StaticCard content1={totalUser} content2={upgraded} />
       </div>
@@ -131,7 +131,7 @@ export default function LevelUsers(props) {
           }
           contentTwo={
             <LevelDetailCardTable
-              levelUsers={currentState?.usersByLevel ?? []}
+              levelUsers={getSearchItem(currentState?.usersByLevel ?? [])}
             />
           }
           contentNumber={currentState.tabNumber}
