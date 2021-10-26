@@ -45,7 +45,7 @@ const checkAuth = (state = restoreState, payload) => {
 }
 
 const logout = (state = initialState) => {
-  sessionStorage.clear('level_store');
+  sessionStorage.clear('level_store')
   return state
 }
 
@@ -76,6 +76,8 @@ const auth = (state = restoreState, action) => {
       }
     case 'LOGOUT':
       return logout()
+    case 'RESET_AUTH':
+      return initialState
     case 'AUTH_CHECK':
       return checkAuth(state, payload)
     default:

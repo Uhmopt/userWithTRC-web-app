@@ -1,22 +1,31 @@
 import { NavigateNext } from '@mui/icons-material'
-import { Card, CardActions } from '@mui/material'
+import { Card, CardActions, IconButton } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function LevelCard({ startIcon ='', level=1 }) {
+export default function LevelCard({
+  startIcon = '',
+  level = 0,
+  levelUserNum = 0,
+  onClick,
+}) {
   return (
     <div className="pt-4">
       <Card className="bg-white rounded-md flex justify-between items-center p-2">
         {startIcon}
-        <label className="self-center">{`${level} Level Friend`}</label>
+        <label className="self-center">{`${level ?? 0} Level Friend`}</label>
         <CardActions className="bg-light text-main rounded-xl">
-          1000000
+          {levelUserNum ?? 0}
         </CardActions>
-        <Link to="level-users">
-          <CardActions className="bg-light text-main rounded-full self-center shadow-sm">
-            <NavigateNext />
-          </CardActions>
-        </Link>
+        <IconButton
+          onClick={() =>
+            typeof onClick === 'function' ? onClick(level) : console.log('error')
+          }
+          color="primary"
+          className="bg-light shadow-md"
+        >
+          <NavigateNext />
+        </IconButton>
       </Card>
     </div>
   )

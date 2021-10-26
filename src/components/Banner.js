@@ -13,11 +13,9 @@ export default function Banner({
 }) {
   return (
     <div>
-      <Link to="sign-in">
-        <IconButton className="float-right">
-          <LogoutIcon fontSize="large" className="text-white" />
-        </IconButton>
-      </Link>
+      <IconButton className="float-right">
+        <LogoutIcon fontSize="large" className="text-white mt-1" />
+      </IconButton>
       <div className="bg-cover bg-center bg-home h-56 pt-8 w-full text-white">
         <div className="text-center">
           <div>{upperIcon}</div>
