@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import SearchIcon from '@mui/icons-material/Search'
 import { IconButton, Input } from '@mui/material'
 import LevelDetailCardTable from 'components/LevelDetailCardTable'

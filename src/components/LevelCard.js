@@ -1,7 +1,6 @@
 import { NavigateNext } from '@mui/icons-material'
 import { Card, CardActions, IconButton } from '@mui/material'
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 export default function LevelCard({
   startIcon = '',
