@@ -17,7 +17,7 @@ class ReveService {
         .reduce((acc, cur) => {
           acc =
             acc +
-            (Number(cur?.pay_from??0) === Number(user_id)
+            (Number(cur?.pay_from ?? 0) === Number(user_id)
               ? -1 * Number(cur?.pay_amount ?? 0)
               : Number(cur?.pay_amount ?? 0))
           return acc
@@ -35,7 +35,7 @@ class ReveService {
       ? (paymentList ?? []).reduce(
           (a, { pay_from, pay_amount }) =>
             a +
-            (pay_from === user_id
+            (Number(pay_from) === Number(user_id)
               ? -1 * Number(pay_amount ?? 0)
               : Number(pay_amount ?? 0)),
           0,
@@ -49,7 +49,10 @@ class ReveService {
     const tmpRevenue = user_id
       ? (paymentList ?? []).reduce(
           (a, { pay_from, pay_amount }) =>
-            a + (pay_from === user_id ? 0 : Number(pay_amount ?? 0)),
+            a +
+            (Number(pay_from) === Number(user_id)
+              ? 0
+              : Number(pay_amount ?? 0)),
           0,
         )
       : 0
