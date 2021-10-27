@@ -45,7 +45,7 @@ const checkAuth = (state = restoreState, payload) => {
 }
 
 const logout = (state = initialState) => {
-  sessionStorage.clear();
+  sessionStorage.clear()
   return state
 }
 

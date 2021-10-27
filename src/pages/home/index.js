@@ -1,21 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react'
-import Layout from '../../layouts'
-import Banner from 'components/Banner'
-import UserLevelIcon from 'components/UserLevelIcon'
-import StaticCard from 'components/StaticCard'
-import MainTitle from 'components/MainTitle'
 import { Box } from '@mui/system'
+import Banner from 'components/Banner'
 import LevelCardTable from 'components/LevelCardTable'
+import MainTitle from 'components/MainTitle'
+import StaticCard from 'components/StaticCard'
+import UserLevelIcon from 'components/UserLevelIcon'
 import momentDate from 'lib/momentDate'
+import revenue from 'services/revenue.service'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLeveList, getUserList, getPaymentList } from 'store/actions/home'
-import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
+import { getLeveList, getPaymentList, getUserList } from 'store/actions/home'
+import Layout from '../../layouts'
 
 const defaultState = {
   levels: [],
-  totalRevenue: 0
+  totalRevenue: 0,
 }
 
 export default function Home() {
@@ -45,12 +45,11 @@ export default function Home() {
         }).length,
       })
     })
-    const tmpRevenue = (home?.paymentList ?? []).reduce((a, {pay_amount}) => a + Number(pay_amount), 0);
-    console.log( tmpRevenue );
-    setCurrentState((prevState=defaultState)=>({
+    const tmpRevenue = revenue.calTotalRevenue(home?.paymentList ?? [], user?.user_id ?? '');
+    setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
       levels: tmpLevels,
-      totalRevenue: Number.parseFloat(tmpRevenue).toFixed(6)
+      totalRevenue: Number.parseFloat(tmpRevenue).toFixed(6),
     }))
   }
 
@@ -87,7 +86,9 @@ export default function Home() {
       <div>
         <label className="text-main font-bold">Total Revenue</label>
         <br />
-        <label className="font-bold text-title">{currentState.totalRevenue}</label>
+        <label className="font-bold text-title">
+          {currentState.totalRevenue}
+        </label>
         <label className="text-sm text-title">usdt</label>
       </div>
     </>
@@ -107,7 +108,10 @@ export default function Home() {
         isLogin={true}
         className="py-8"
       />
-      <LevelCardTable levelList={currentState?.levels ?? []} onClick={handleClick} />
+      <LevelCardTable
+        levelList={currentState?.levels ?? []}
+        onClick={handleClick}
+      />
     </Layout>
   )
 }

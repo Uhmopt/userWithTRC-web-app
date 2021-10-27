@@ -44,7 +44,9 @@ export const getPaymentList = (user_id = '') => (dispatch) => {
         .then((res) => {
           dispatch({
             type: 'GET_PAYMENTS',
-            payload: { paymentList: res?.data?.result ?? [] },
+            payload: {
+              paymentList: res?.data?.result ?? []
+            },
           })
           return res?.data?.result ?? []
         })
