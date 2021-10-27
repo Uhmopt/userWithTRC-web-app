@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { Button, IconButton } from '@mui/material'
 import { Box } from '@mui/system'
@@ -7,18 +8,37 @@ import MainTitle from 'components/MainTitle'
 import StaticCard from 'components/StaticCard'
 import UserLevelIcon from 'components/UserLevelIcon'
 import React, { useState } from 'react'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Layout from '../../layouts'
+import paymentService from 'services/payment.service'
+
+const defaultState = {
+  hash: '',
+  transforAmount: 10,
+}
 
 export default function Payment() {
-  const [currentState, setCurrentState] = useState({
-    hash: '',
-  })
+  const [currentState, setCurrentState] = useState(defaultState)
+  const user = useSelector((state) => state?.auth?.user ?? {})
+
+  useEffect(() => {
+    setCurrentState((prevState = defaultState) => ({
+      ...(prevState ?? defaultState),
+      transforAmount: 10 + Number(user?.user_rid ?? 2000) / 1000000,
+    }))
+  }, [])
+
   const handleChange = (e) => {
-    setCurrentState((prevState = {})=>({
-      ...(prevState ?? {}),
+    setCurrentState((prevState = defaultState) => ({
+      ...(prevState ?? defaultState),
       [e.target.name]: e.target.value,
     }))
+  }
+
+  const handleClick = () => {
+    paymentService.getTransInfo(currentState?.hash ?? '')
   }
   const upgradeUser = (
     <>
@@ -26,22 +46,28 @@ export default function Payment() {
         <div className="flex items-center">
           <div className="relative">
             <UserLevelIcon
-              levelNum="1"
+              levelNum={Number(user?.user_level ?? 0) + 1}
               alt="Star"
               className=" w-14 inline-block"
               iconClass="user-level-icon-large"
             />
           </div>
-          <span className="text-2xl">Upgrade V1 user</span>
+          <span className="text-2xl">
+            Upgrade V{Number(user?.user_level ?? 0) + 1} user
+          </span>
         </div>
         <div>
           <span>Please transfer</span>{' '}
-          <span className="text-main">100.001234</span>{' '}
+          <span className="text-main">
+            {currentState?.transforAmount ?? 10}
+          </span>{' '}
           <span>usdt (trc20) to the following wallet.</span>
         </div>
         <div className="pt-3">
           <span className="font-bold">USDT Amount:</span>{' '}
-          <span className="text-main">100.001234</span>
+          <span className="text-main">
+            {currentState?.transforAmount ?? 10}
+          </span>
         </div>
         <div className="items-center sm:flex pt-3">
           <span className="font-bold">Wallet address :</span>
@@ -56,8 +82,8 @@ export default function Payment() {
           <span className="font-bold">Warning :</span>
           <span>
             {' '}
-            Please pay 100.001234 usdt strictly, otherwise it cannot be upgraded
-            automatically.
+            Please pay {currentState?.transforAmount ?? 10} usdt strictly,
+            otherwise it cannot be upgraded automatically.
           </span>
         </div>
         <div className="flex items-center text-title pt-3">
@@ -81,20 +107,21 @@ export default function Payment() {
       </Box>
       <Box className="pt-80"></Box>
       <Box>
-        <Link to={`highest-level`}>
-          <Button
-            type="button"
-            variant="contained"
-            size="large"
-            fullWidth
-            className="capitalize"
-          >
-            Submit
-          </Button>
-        </Link>
+        {/* <Link to={`highest-level`}> */}
+        <Button
+          onClick={handleClick}
+          type="button"
+          variant="contained"
+          size="large"
+          fullWidth
+          className="capitalize"
+        >
+          Submit
+        </Button>
+        {/* </Link> */}
         <MainTitle className="pt-8" />
       </Box>
-      <LevelAuthorityTable />
+      <LevelAuthorityTable userLevel={Number(user?.user_level ?? 0)} />
     </Layout>
   )
 }

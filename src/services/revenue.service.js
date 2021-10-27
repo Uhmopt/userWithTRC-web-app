@@ -2,7 +2,6 @@ import moment from 'moment'
 
 class ReveService {
   calRevenueList = (paymentList = [], user_id = '', format = 'MM-DD') => {
-    console.log(paymentList, 'paymentlist', typeof user_id)
     let newArr = paymentList.reduce((acc, cur) => {
       let key = moment(cur?.pay_date).format(format)
       if (!acc[key]) {

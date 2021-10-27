@@ -2,7 +2,7 @@ import React from 'react'
 import LevelAuthorityCard from './LevelAuthorityCard'
 import UserLevelIcon from './UserLevelIcon'
 
-export default function LevelAuthorityTable() {
+export default function LevelAuthorityTable({ userLevel=0 }) {
   const tmpData = new Array(16).fill(0)
   return (
     <div className="mt-6 mb-24">
@@ -10,6 +10,7 @@ export default function LevelAuthorityTable() {
       {tmpData.map((item, index) => {
         return (
           <LevelAuthorityCard
+            userLevel={userLevel}
             key={index}
             startIcon={
               <UserLevelIcon

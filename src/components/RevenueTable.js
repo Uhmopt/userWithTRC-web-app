@@ -3,7 +3,6 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 import { Box } from '@mui/system'
 
 export default function RevenueTable({ revenueList = [] }) {
-  const tmpData = new Array(12).fill(0)
   return (
     <Box className="rounded-md bg-white">
       <div className="h-5"></div>

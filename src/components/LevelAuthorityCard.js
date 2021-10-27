@@ -1,8 +1,9 @@
+import { LockOpen } from '@mui/icons-material';
 import LockIcon from '@mui/icons-material/Lock';
 import { Card, CardActions } from '@mui/material';
 import React from 'react';
 
-export default function LevelAuthorityCard({ startIcon = '', levelNum = 0 }) {
+export default function LevelAuthorityCard({ startIcon = '', levelNum = 0, userLevel }) {
   return (
     <div className="pt-4">
       <Card className="bg-white rounded-md flex justify-between p-2">
@@ -15,7 +16,7 @@ export default function LevelAuthorityCard({ startIcon = '', levelNum = 0 }) {
         </div>
         
         <CardActions className="text-main">
-          <LockIcon />
+          {userLevel < levelNum ? (<LockIcon />) : (<LockOpen />)}
         </CardActions>
         {/* <Link to="level-users">
           <CardActions className="bg-light text-main rounded-full self-center shadow-sm">
