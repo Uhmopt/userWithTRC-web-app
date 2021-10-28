@@ -51,7 +51,7 @@ export default function Register() {
     )
       .then((res) => {
         if (res?.result ?? false) {
-          history.push({ pathname: 'verification', state: 'sign-in' })
+          history.push({ pathname: 'verification', state: 'home' })
           notification('success', res?.msg ?? 'success')
           setCurrentState({
             ...defaultUser,

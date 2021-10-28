@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import LockIcon from '@mui/icons-material/Lock'
@@ -16,6 +17,8 @@ import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
 import { login } from 'store/actions/auth'
 import checkValidEmail from 'lib/checkValidEmail'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 const defaultSignInfo = {
   email: '',
@@ -26,6 +29,17 @@ export default function SignIn() {
   const [currentState, setCurrentState] = useState(defaultSignInfo)
   const dispatch = useDispatch()
   const history = useHistory()
+  const auth = useSelector((state) => state?.auth ?? {})
+
+  useEffect(() => {
+    init();
+  }, [])
+
+  const init = () => {
+    if ((auth?.isAuth ?? '') && (auth?.token ?? '')) {
+      history.push("home");
+    }
+  }
 
   const handleChange = (e) => {
     setCurrentState((prevState = defaultSignInfo) => ({

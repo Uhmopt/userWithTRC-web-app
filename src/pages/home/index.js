@@ -70,7 +70,7 @@ export default function Home() {
       }
       upperIcon={
         <UserLevelIcon
-          levelNum={user?.user_level + 1 ?? 1}
+          levelNum={user?.user_level ?? 0 + 1}
           alt="Star"
           className=" w-14 inline-block ml-12"
           iconClass="user-level-icon-large"

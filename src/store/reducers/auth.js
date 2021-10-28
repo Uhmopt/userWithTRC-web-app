@@ -54,10 +54,7 @@ const auth = (state = restoreState, action) => {
 
   switch (type) {
     case 'SET_REGISTER':
-      return {
-        ...state,
-        ...payload,
-      }
+      return setAuth(state, payload)
     case 'IS_VERIFIED':
       return {
         ...state,
@@ -71,9 +68,7 @@ const auth = (state = restoreState, action) => {
         ...payload,
       }
     case 'RESET_PASSWORD':
-      return {
-        ...state,
-      }
+      return  setAuth(state, payload)
     case 'LOGOUT':
       return logout()
     case 'RESET_AUTH':

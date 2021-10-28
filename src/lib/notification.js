@@ -2,10 +2,10 @@ import toastr from 'toastr'
 
 const notification = function (
   warning = 'error',
-  text = 'Username or password is incorrect!',
+  text = 'Error!',
 ) {
   toastr.options = {
-    positionClass: 'toast-top-center',
+    positionClass: 'pt-2 toast-top-center',
     showMethod: "fadeIn",
     hideDuration: 300,
     timeOut: 60000,

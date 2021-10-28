@@ -13,6 +13,12 @@ const auth = [
     component: SignIn,
   },
   {
+    path: `/sign-in:id`,
+    exact: true,
+    auth: false,
+    component: SignIn,
+  },
+  {
     path: `/register`,
     exact: true,
     auth: false,

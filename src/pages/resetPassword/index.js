@@ -38,13 +38,13 @@ export default function ResetPassword() {
 		dispatch(
 			resetPassword(
 				user?.user_email ?? '',
-				user?.user_verification_code ?? '',
+				user?.user_verify_code ?? '',
 				currentState?.password ?? '',
 			),
 		).then((res) => {
 			Boolean(res?.result ?? false)
 			if (res?.result ?? false) {
-				history.push('/sign-in')
+				history.push('/home')
 				notification('success', res?.msg ?? 'success')
 			} else {
 				notification('error', res?.msg ?? 'Something went wrong.')
