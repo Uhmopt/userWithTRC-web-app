@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import VerificationInput from 'react-verification-input'
 import { forgotPassword, verification } from 'store/actions/auth'
+import { contactVerify } from 'store/actions/home'
 
 const defaultVerification = {
   verifyCode: '',
@@ -24,7 +25,6 @@ export default function Verification(props) {
       ...(prvState ?? defaultVerification),
       verifyCode: e,
     }))
-    console.log(e)
   }
   const handleResend = () => {
     dispatch(forgotPassword(user.user_email)).then((res) => {
@@ -39,22 +39,39 @@ export default function Verification(props) {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (user?.user_email ?? false) {
-      dispatch(verification(user.user_email, currentState.verifyCode))
-        .then((res) => {
-          if (Boolean(res?.result ?? false)) {
-            const url = props?.location?.state ?? 'home'
-            history.push(`${url}`)
-            notification('success', res?.msg ?? 'success')
-          } else {
-            console.log(res)
-            notification('error', res?.msg ?? 'error')
-          }
-          Promise.resolve()
-        })
-        .catch((err) => {
-          console.log(err, 'err')
-        })
+    const url = props?.location?.state ?? 'home'
+    if (url === 'contact-us') {
+      dispatch(contactVerify((props?.location?.params ?? 0), currentState?.verifyCode ?? ''))
+      .then((res) => {
+        if (Boolean(res?.result ?? false)) {
+          history.push(`${url}`)
+          notification('success', res?.msg ?? 'success')
+        } else {
+          console.log(res)
+          notification('error', res?.msg ?? 'error')
+        }
+        Promise.resolve()
+      })
+      .catch((err) => {
+        console.log(err, 'err')
+      })
+    } else {
+      if (user?.user_email ?? false) {
+        dispatch(verification(user.user_email, currentState?.verifyCode ?? ''))
+          .then((res) => {
+            if (Boolean(res?.result ?? false)) {
+              history.push(`${url}`)
+              notification('success', res?.msg ?? 'success')
+            } else {
+              console.log(res)
+              notification('error', res?.msg ?? 'error')
+            }
+            Promise.resolve()
+          })
+          .catch((err) => {
+            console.log(err, 'err')
+          })
+      }
     }
   }
 
@@ -70,7 +87,9 @@ export default function Verification(props) {
           </Grid>
           <Grid item xs={12}>
             <div className="pt-8">
-            <label className="text-main mx-2 sm:mx-4 mg:mx-4 lg:mx-4 xl:mx-4">verify code</label>
+              <label className="text-main mx-2 sm:mx-4 mg:mx-4 lg:mx-4 xl:mx-4">
+                verify code
+              </label>
               <VerificationInput
                 removeDefaultStyles
                 validChars="0-9"
@@ -88,7 +107,11 @@ export default function Verification(props) {
               <Grid item xs={8}>
                 <p className="text-md text-title">
                   Didn't get a code?{' '}
-                  <a className="text-main hover:underline" href="#" onClick={handleResend}>
+                  <a
+                    className="text-main hover:underline"
+                    href="#"
+                    onClick={handleResend}
+                  >
                     Resend
                   </a>
                 </p>

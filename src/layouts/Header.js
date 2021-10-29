@@ -5,14 +5,20 @@ import CustomSvgs from 'components/CustomSvgs'
 import React from 'react'
 import CustomContainer from './CustomContainer'
 import { Link } from 'react-router-dom'
+import { logout } from 'store/actions/auth'
+import { useDispatch } from 'react-redux'
 
 export default function Header({
   onBack = () => {},
-  onSignOut = () => {},
+  // onSignOut = () => {},
   isLogin = false,
   title = 'First level user',
   before = '#',
 }) {
+  const dispatch = useDispatch()
+  const onSignOut = () => {
+    dispatch(logout())
+  }
   return isLogin ? (
     <div className="fixed top-0 z-30 w-full">
       <CustomContainer>

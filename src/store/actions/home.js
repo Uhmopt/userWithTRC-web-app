@@ -87,3 +87,52 @@ export const updateUser = (userId= '', email = '', password = '', walletAddress 
       return false
     })
 }
+
+export const contactUs = (contactData = {}) => (
+  dispatch,
+) => {
+  console.log(contactData)
+  if (!(contactData?.userId ?? '')) {
+    return false
+  }
+  return axios
+    .post(API_URL + 'contact', {
+      user_id: contactData?.userId ?? '',
+      email: contactData?.email ?? '',
+      rid: contactData?.rid ?? '',
+      theme: contactData?.theme ?? '',
+      contact: contactData?.contact ?? '',
+    }, httpConfig)
+    .then(function (response) {
+      const result = response?.data?.result ?? {}
+      console.log( result )
+      return response?.data ?? {}
+    })
+    .catch(function (error) {
+      if (error.response) {
+        return error?.response?.data ?? false
+      }
+      return false
+    })
+}
+
+export const contactVerify = (contactId = '', verifyCode = '') => (dispatch) => {
+  console.log( contactId, verifyCode )
+  if (!contactId || !verifyCode) {
+    return false;
+  }
+  return axios
+    .post(API_URL + 'contact-verification', {
+      contact_id: contactId,
+      contact_verify_code: verifyCode,
+    }, httpConfig)
+    .then(function (response) {
+      return response?.data ?? {}
+    })
+    .catch(function (error) {
+      if (error.response) {
+        return error?.response?.data ?? false
+      }
+      return false
+    })
+}

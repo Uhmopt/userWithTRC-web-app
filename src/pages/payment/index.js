@@ -7,12 +7,10 @@ import LevelAuthorityTable from 'components/LevelAuthorityTable'
 import MainTitle from 'components/MainTitle'
 import StaticCard from 'components/StaticCard'
 import UserLevelIcon from 'components/UserLevelIcon'
-import React, { useState } from 'react'
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import Layout from '../../layouts'
 import paymentService from 'services/payment.service'
+import Layout from '../../layouts'
 
 const defaultState = {
   hash: '',

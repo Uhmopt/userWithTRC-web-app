@@ -5,6 +5,7 @@ import CustomInput from 'components/CustomInput'
 import MainTitle from 'components/MainTitle'
 import React, { useState } from 'react'
 import QRCode from 'react-qr-code'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Layout from '../../layouts'
 
@@ -12,14 +13,23 @@ export default function Invite() {
   const [currentState, setCurrentState] = useState({
     inviteLink: '',
   })
+  const user = useSelector((state) => state?.auth?.user ?? {})
+
   const handleChange = (e) => {
     setCurrentState((prevState = {}) => ({
       ...(prevState ?? {}),
       [e.target.name]: e.target.value,
     }))
   }
-  const handleClick = () => {
+  const handleCopy = () => {
     navigator.clipboard.writeText(currentState?.inviteLink ?? '')
+  }
+  const handleClick = () => {
+    const tmpLink = '127.0.0.1/sign-in:' + user?.user_email ?? ''
+    setCurrentState((prevState = {}) => ({
+      ...(prevState ?? {}),
+      inviteLink: tmpLink,
+    }))
   }
   return (
     <Layout isLogin={true} title="Invite Friend" before="home" menuIndex={3}>
@@ -30,6 +40,7 @@ export default function Invite() {
         <Box className="py-8">
           <Link to={`#`}>
             <Button
+              onClick={handleClick}
               type="button"
               variant="contained"
               size="large"
@@ -37,7 +48,7 @@ export default function Invite() {
               fullWidth
               className="capitalize"
             >
-              Save to phone
+              Submit
             </Button>
           </Link>
         </Box>
@@ -47,7 +58,7 @@ export default function Invite() {
             name="inviteLink"
             value={currentState.inviteLink}
             endIcon={
-              <IconButton onClick={handleClick}>
+              <IconButton onClick={handleCopy}>
                 <ContentCopyIcon className="text-main" />
               </IconButton>
             }
