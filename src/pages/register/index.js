@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import LockIcon from '@mui/icons-material/Lock'
 import MailIcon from '@mui/icons-material/Mail'
 import { Button, Grid } from '@mui/material'
@@ -13,7 +14,8 @@ import { useDispatch } from 'react-redux'
 import { register } from 'store/actions/auth'
 import notification from 'lib/notification'
 import checkValidEmail from 'lib/checkValidEmail'
-import { useHistory } from 'react-router'
+import { useHistory, useParams } from 'react-router'
+import { useEffect } from 'react'
 
 const defaultUser = {
   email: '',
@@ -21,13 +23,20 @@ const defaultUser = {
   rePassword: '',
   verifyCode: '',
   vCode: '',
-  invites: '',
+  invite: '',
   walletAddress: '',
 }
 export default function Register() {
   const [currentState, setCurrentState] = useState(defaultUser)
   const dispatch = useDispatch()
   const history = useHistory()
+  const hashEmail = Buffer.from((useParams()?.hashEmail ?? ''), 'base64').toString('ascii');
+  useEffect(() => {
+    setCurrentState((prevState = defaultUser) => ({
+      ...(prevState ?? defaultUser),
+      invite: hashEmail
+    }))
+  }, [])
   const handleChange = (e) => {
     setCurrentState((prevState = defaultUser) => ({
       ...(prevState ?? defaultUser),
@@ -47,6 +56,7 @@ export default function Register() {
         currentState.email,
         currentState.password,
         currentState.walletAddress,
+        currentState.invite,
       ),
     )
       .then((res) => {
@@ -139,10 +149,10 @@ export default function Register() {
           <Grid item xs={12}>
             <CustomInput
               label="Invites"
-              name="invites"
+              name="invite"
               placeholder="Optional"
               required={false}
-              value={currentState?.invites ?? ''}
+              value={currentState?.invite ?? ''}
               onChange={handleChange}
             />
           </Grid>

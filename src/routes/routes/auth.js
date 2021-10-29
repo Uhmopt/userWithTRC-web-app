@@ -13,10 +13,10 @@ const auth = [
     component: SignIn,
   },
   {
-    path: `/sign-in:id`,
+    path: `/register/:hashEmail`,
     exact: true,
     auth: false,
-    component: SignIn,
+    component: Register,
   },
   {
     path: `/register`,

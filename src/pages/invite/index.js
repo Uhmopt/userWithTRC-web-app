@@ -25,7 +25,7 @@ export default function Invite() {
     navigator.clipboard.writeText(currentState?.inviteLink ?? '')
   }
   const handleClick = () => {
-    const tmpLink = '127.0.0.1/sign-in:' + user?.user_email ?? ''
+    const tmpLink = `${window.origin}/register/` + Buffer.from(user?.user_email ??"").toString('base64');
     setCurrentState((prevState = {}) => ({
       ...(prevState ?? {}),
       inviteLink: tmpLink,

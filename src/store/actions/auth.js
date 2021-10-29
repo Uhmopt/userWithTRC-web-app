@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API_URL = 'http://localhost:5010/app/user/'
-export const register = (email = '', password = '', walletAddress = '') => (
+export const register = (email = '', password = '', walletAddress = '', invite = '') => (
   dispatch,
 ) => {
   return axios
@@ -9,6 +9,7 @@ export const register = (email = '', password = '', walletAddress = '') => (
       user_email: email,
       user_password: password,
       user_wallet_address: walletAddress,
+      user_invited_from: invite
     })
     .then(function (response) {
       const user = response?.data?.result ?? {}

@@ -38,6 +38,11 @@ export default function Payment() {
   const handleClick = () => {
     paymentService.getTransInfo(currentState?.hash ?? '')
   }
+  
+  const handleCopy = () => {
+    navigator.clipboard.writeText('TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjlj6t' ?? '')
+  }
+
   const upgradeUser = (
     <>
       <div className="text-title text-left text-sm">
@@ -71,7 +76,7 @@ export default function Payment() {
           <span className="font-bold">Wallet address :</span>
           <div className="text-main m-3">
             <span>TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjlj6t</span>
-            <IconButton>
+            <IconButton onClick={handleCopy}>
               <ContentCopyIcon className="text-main" />
             </IconButton>
           </div>
