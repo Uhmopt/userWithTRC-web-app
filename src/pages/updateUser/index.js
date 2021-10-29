@@ -30,6 +30,8 @@ export default function UpdateUser() {
       ...(prevState ?? defaultUpdateInfo),
       email: user?.user_email ?? '',
       address: user?.user_wallet_address ?? '',
+      password: '',
+      rePassword: '',
     }))
   }, [])
 
@@ -49,6 +51,7 @@ export default function UpdateUser() {
     }
     dispatch(
       updateUser(
+        user?.user_id ?? '',
         currentState.email,
         currentState.password,
         currentState.address,

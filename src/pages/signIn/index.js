@@ -32,12 +32,12 @@ export default function SignIn() {
   const auth = useSelector((state) => state?.auth ?? {})
 
   useEffect(() => {
-    init();
+    init()
   }, [])
 
   const init = () => {
     if ((auth?.isAuth ?? '') && (auth?.token ?? '')) {
-      history.push("home");
+      history.push('home')
     }
   }
 

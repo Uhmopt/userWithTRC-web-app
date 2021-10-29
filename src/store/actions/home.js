@@ -58,18 +58,22 @@ export const getPaymentList = (user_id = '') => (dispatch) => {
     : false
 }
 
-export const updateUser = (email = '', password = '', walletAddress = '') => (
+export const updateUser = (userId= '', email = '', password = '', walletAddress = '') => (
   dispatch,
 ) => {
+  if (!userId || !email) {
+    return false
+  }
   return axios
     .post(API_URL + 'update', {
+      user_id: userId,
       user_email: email,
       user_password: password,
       user_wallet_address: walletAddress,
     }, httpConfig)
     .then(function (response) {
       const user = response?.data?.result ?? {}
-      console.log( user )
+      console.log( response )
       dispatch({
         type: 'SET_UPDATE',
         payload: { user: user },
