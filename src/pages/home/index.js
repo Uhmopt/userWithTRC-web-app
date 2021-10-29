@@ -45,7 +45,10 @@ export default function Home() {
         }).length,
       })
     })
-    const tmpRevenue = revenue.calTotalRevenue(home?.paymentList ?? [], user?.user_id ?? '');
+    const tmpRevenue = revenue.calTotalRevenue(
+      home?.paymentList ?? [],
+      user?.user_id ?? '',
+    )
     setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
       levels: tmpLevels,
@@ -70,7 +73,7 @@ export default function Home() {
       }
       upperIcon={
         <UserLevelIcon
-          levelNum={user?.user_level ?? 0 + 1}
+          levelNum={(user?.user_level ?? 0) + 1}
           alt="Star"
           className=" w-14 inline-block ml-12"
           iconClass="user-level-icon-large"

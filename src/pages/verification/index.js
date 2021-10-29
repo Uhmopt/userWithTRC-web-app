@@ -1,17 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Button, Grid, TextField } from '@mui/material'
-import { Box } from '@mui/system'
-import CustomInput from 'components/CustomInput'
+import { Button, Grid } from '@mui/material'
 import Logo from 'components/Logo'
 import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'
+import notification from 'lib/notification'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { verification } from 'store/actions/auth'
 import { useHistory } from 'react-router'
-import notification from 'lib/notification'
-import { forgotPassword } from 'store/actions/auth'
 import VerificationInput from 'react-verification-input'
+import { forgotPassword, verification } from 'store/actions/auth'
 
 const defaultVerification = {
   verifyCode: '',
@@ -70,30 +67,6 @@ export default function Verification(props) {
           </Grid>
           <Grid item xs={12}>
             <MainTitle title="Verify your account" isLine={true} />
-          </Grid>
-
-          {/* <Grid item xs={12}>
-            <TextField
-              required={true}
-              InputProps={{
-                endAdornment: (
-                  <Button onClick={handleResend} position="end">
-                    Resend
-                  </Button>
-                ),
-                disableUnderline: true,
-                className: 'px-6 text-xl text-5xl h-16',
-                style: { fontSize: '2rem', letterSpacing: '8px' },
-              }}
-              value={currentState?.verifyCode ?? ''}
-              placeholder="000000"
-              onChange={handleChange}
-              className={`bg-light rounded-md border border-transparent`}
-              variant="standard"
-              fullWidth
-            />
-          </Grid> */}
-          <Grid>
           </Grid>
           <Grid item xs={12}>
             <div className="pt-8">

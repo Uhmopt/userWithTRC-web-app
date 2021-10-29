@@ -8,26 +8,27 @@ import React, { useState, useEffect } from 'react'
 import Layout from '../../layouts'
 import checkValidEmail from 'lib/checkValidEmail'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
+import notification from 'lib/notification'
+import { useDispatch } from 'react-redux'
+import { updateUser } from 'store/actions/home'
 
 const defaultUpdateInfo = {
   email: '',
-  rid: '',
   address: '',
   password: '',
   rePassword: '',
-  emailCode: '',
-  eCode: '',
 }
 
 export default function UpdateUser() {
   const [currentState, setCurrentState] = useState(defaultUpdateInfo)
+  const dispatch = useDispatch()
+  const history = useHistory()
   const user = useSelector((state) => state?.auth?.user ?? {})
-
   useEffect(() => {
     setCurrentState((prevState = defaultUpdateInfo) => ({
       ...(prevState ?? defaultUpdateInfo),
       email: user?.user_email ?? '',
-      rid: user?.user_rid ?? '',
       address: user?.user_wallet_address ?? '',
     }))
   }, [])
@@ -46,6 +47,24 @@ export default function UpdateUser() {
     ) {
       return false
     }
+    dispatch(
+      updateUser(
+        currentState.email,
+        currentState.password,
+        currentState.address,
+      ),
+    )
+      .then((res) => {
+        if (res?.result ?? false) {
+          history.push({ pathname: 'verification', state: 'home' })
+          notification('success', res?.msg ?? 'success')
+        } else {
+          notification('error', res?.msg ?? 'error')
+        }
+      })
+      .catch((err) => {
+        console.log(err, 'err')
+      })
   }
   return (
     <Layout
@@ -85,14 +104,6 @@ export default function UpdateUser() {
           </Grid>
           <Grid item xs={12}>
             <CustomInput
-              label="ID"
-              name="rid"
-              value={currentState.rid}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <CustomInput
               label="USDT_TRC20"
               name="address"
               value={currentState.address}
@@ -110,6 +121,7 @@ export default function UpdateUser() {
               name="password"
               label="Password"
               type="password"
+              required={false}
               placeholder="Please enter your password"
               startIcon={<LockIcon className="text-main" />}
               value={currentState?.password ?? ''}
@@ -126,6 +138,7 @@ export default function UpdateUser() {
             <CustomInput
               name="rePassword"
               type="password"
+              required={false}
               label="Confirm Password"
               placeholder="Please confirm password"
               startIcon={<LockIcon className="text-main" />}

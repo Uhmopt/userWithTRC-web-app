@@ -68,13 +68,15 @@ const auth = (state = restoreState, action) => {
         ...payload,
       }
     case 'RESET_PASSWORD':
-      return  setAuth(state, payload)
+      return setAuth(state, payload)
     case 'LOGOUT':
       return logout()
     case 'RESET_AUTH':
       return initialState
     case 'AUTH_CHECK':
       return checkAuth(state, payload)
+    case 'SET_UPDATE':
+      return setAuth(state, payload)
     default:
       return state
   }

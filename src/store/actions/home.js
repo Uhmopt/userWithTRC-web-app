@@ -57,3 +57,29 @@ export const getPaymentList = (user_id = '') => (dispatch) => {
         })
     : false
 }
+
+export const updateUser = (email = '', password = '', walletAddress = '') => (
+  dispatch,
+) => {
+  return axios
+    .post(API_URL + 'update', {
+      user_email: email,
+      user_password: password,
+      user_wallet_address: walletAddress,
+    }, httpConfig)
+    .then(function (response) {
+      const user = response?.data?.result ?? {}
+      console.log( user )
+      dispatch({
+        type: 'SET_UPDATE',
+        payload: { user: user },
+      })
+      return response?.data ?? {}
+    })
+    .catch(function (error) {
+      if (error.response) {
+        return error?.response?.data ?? false
+      }
+      return false
+    })
+}
