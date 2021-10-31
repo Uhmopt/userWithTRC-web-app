@@ -8,26 +8,43 @@ import MainTitle from 'components/MainTitle'
 import StaticCard from 'components/StaticCard'
 import UserLevelIcon from 'components/UserLevelIcon'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import paymentService from 'services/payment.service'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import notification from 'lib/notification'
+import { submitHash, GetAmountAddress } from 'store/actions/payment'
 import Layout from '../../layouts'
 
 const defaultState = {
   hash: '',
   transforAmount: 10,
+  walletAddress: '',
 }
 
 export default function Payment() {
   const [currentState, setCurrentState] = useState(defaultState)
   const user = useSelector((state) => state?.auth?.user ?? {})
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
+    init()
+  }, [])
+
+  const init = () => {
     setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
       transforAmount: 10 + Number(user?.user_rid ?? 2000) / 1000000,
     }))
-  }, [])
-
+    dispatch( GetAmountAddress(user?.user_id ?? '') ).then((res)=>{
+      if (res?.result) {
+        setCurrentState((prevState = defaultState) => ({
+          ...(prevState ?? defaultState),
+          transforAmount: (res?.result.neccesary_amount + Number(user?.user_rid ?? 2000))/Math.pow(10, 6),
+          walletAddress: res?.result?.superior_wallet_address ?? '',
+        }))
+      }
+    })
+  }
   const handleChange = (e) => {
     setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
@@ -35,12 +52,23 @@ export default function Payment() {
     }))
   }
 
-  const handleClick = () => {
-    paymentService.getTransInfo(currentState?.hash ?? '')
+  const handleClick = async () => {
+    if (!(currentState?.hash ?? '')) {
+      notification('error', 'Please enter the hash code!')
+      return false
+    }
+    dispatch( submitHash(currentState?.hash ?? '') ).then((res)=>{
+        console.log(res)
+        if (!(res?.result ?? '')) {
+          notification('error', res?.msg ?? 'Upgrade Failed');
+          return false;
+        }
+        history.push('highest-level');
+    })
   }
   
   const handleCopy = () => {
-    navigator.clipboard.writeText('TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjlj6t' ?? '')
+    navigator.clipboard.writeText(currentState?.walletAddress ?? '')
   }
 
   const upgradeUser = (
@@ -75,7 +103,7 @@ export default function Payment() {
         <div className="items-center sm:flex pt-3">
           <span className="font-bold">Wallet address :</span>
           <div className="text-main m-3">
-            <span>TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjlj6t</span>
+            <span>{currentState?.walletAddress ?? ''}</span>
             <IconButton onClick={handleCopy}>
               <ContentCopyIcon className="text-main" />
             </IconButton>

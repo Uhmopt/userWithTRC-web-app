@@ -5,7 +5,7 @@ const notification = function (
   text = 'Error!',
 ) {
   toastr.options = {
-    positionClass: 'pt-2 toast-top-center',
+    positionClass: 'pt-16 toast-top-center',
     showMethod: "fadeIn",
     hideDuration: 300,
     timeOut: 60000,

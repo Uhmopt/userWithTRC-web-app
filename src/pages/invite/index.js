@@ -3,18 +3,23 @@ import { Button, IconButton } from '@mui/material'
 import { Box } from '@mui/system'
 import CustomInput from 'components/CustomInput'
 import MainTitle from 'components/MainTitle'
+import notification from 'lib/notification'
 import React, { useState } from 'react'
 import QRCode from 'react-qr-code'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Layout from '../../layouts'
 
 export default function Invite() {
+  const history = useHistory()
   const [currentState, setCurrentState] = useState({
     inviteLink: '',
   })
   const user = useSelector((state) => state?.auth?.user ?? {})
-
+  if (Number(user?.user_level) === 0) {
+    history.push('upgrade');
+    notification('error', 'Please upgrade your level first!')
+  }
   const handleChange = (e) => {
     setCurrentState((prevState = {}) => ({
       ...(prevState ?? {}),

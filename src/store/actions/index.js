@@ -1,6 +1,10 @@
-import user from './auth';
+import auth from './auth';
+import home from './home';
+import payment from './payment';
 
 const actions = {
-    user: user
+    auth: auth,
+    home: home,
+    upgrade: payment
 }
 export default actions

@@ -1,31 +1,18 @@
 import { Button } from '@mui/material'
-import CustomInput from 'components/CustomInput'
 import StaticCard from 'components/StaticCard'
-import React, { useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Layout from '../../layouts'
 
 export default function HighestLevel() {
-  const [currentState, setCurrentState] = useState({
-    invite: ''
-  })
-  const handleChange = (e) => {
-    setCurrentState((prevState = {})=>({
-      ...(prevState ?? {}),
-      [e.target.name]: e.target.value,
-    }))
-  }
+  const user = useSelector((state) => state?.auth?.user ?? {})
   const upgradeUser = (
     <>
       <div className="text-title text-center">
-        <div className="text-2xl py-5">Current Lavel: 10 Star user</div>
-        <div className="pb-8">
-          <CustomInput
-            name="invite"
-            placeholder="Congratulations, You have reached the hightest level so far"
-            value={currentState.invite}
-            onChange={handleChange}
-          />
+        <div className="text-2xl py-5">Current Lavel: {user?.user_level ?? 0} Star user</div>
+        <div className="mb-8 p-3  bg-light rounded-md">
+         <span>Congratulations, You have reached the hightest level so far</span>
         </div>
         <Link to={`invite`}>
           <Button

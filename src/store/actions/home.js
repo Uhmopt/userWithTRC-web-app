@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getTransInfo } from 'services/payment.service'
 import httpConfig from 'lib/httpConfig'
 
 const API_URL = 'http://localhost:5010/app/home/'
@@ -45,7 +46,7 @@ export const getPaymentList = (user_id = '') => (dispatch) => {
           dispatch({
             type: 'GET_PAYMENTS',
             payload: {
-              paymentList: res?.data?.result ?? []
+              paymentList: res?.data?.result ?? [],
             },
           })
           return res?.data?.result ?? []
@@ -58,22 +59,28 @@ export const getPaymentList = (user_id = '') => (dispatch) => {
     : false
 }
 
-export const updateUser = (userId= '', email = '', password = '', walletAddress = '') => (
-  dispatch,
-) => {
+export const updateUser = (
+  userId = '',
+  email = '',
+  password = '',
+  walletAddress = '',
+) => (dispatch) => {
   if (!userId || !email) {
     return false
   }
   return axios
-    .post(API_URL + 'update', {
-      user_id: userId,
-      user_email: email,
-      user_password: password,
-      user_wallet_address: walletAddress,
-    }, httpConfig)
+    .post(
+      API_URL + 'update',
+      {
+        user_id: userId,
+        user_email: email,
+        user_password: password,
+        user_wallet_address: walletAddress,
+      },
+      httpConfig,
+    )
     .then(function (response) {
       const user = response?.data?.result ?? {}
-      console.log( response )
       dispatch({
         type: 'SET_UPDATE',
         payload: { user: user },
@@ -88,24 +95,25 @@ export const updateUser = (userId= '', email = '', password = '', walletAddress 
     })
 }
 
-export const contactUs = (contactData = {}) => (
-  dispatch,
-) => {
-  console.log(contactData)
+export const contactUs = (contactData = {}) => (dispatch) => {
   if (!(contactData?.userId ?? '')) {
     return false
   }
   return axios
-    .post(API_URL + 'contact', {
-      user_id: contactData?.userId ?? '',
-      email: contactData?.email ?? '',
-      rid: contactData?.rid ?? '',
-      theme: contactData?.theme ?? '',
-      contact: contactData?.contact ?? '',
-    }, httpConfig)
+    .post(
+      API_URL + 'contact',
+      {
+        user_id: contactData?.userId ?? '',
+        email: contactData?.email ?? '',
+        rid: contactData?.rid ?? '',
+        theme: contactData?.theme ?? '',
+        contact: contactData?.contact ?? '',
+      },
+      httpConfig,
+    )
     .then(function (response) {
       const result = response?.data?.result ?? {}
-      console.log( result )
+      console.log(result)
       return response?.data ?? {}
     })
     .catch(function (error) {
@@ -116,16 +124,22 @@ export const contactUs = (contactData = {}) => (
     })
 }
 
-export const contactVerify = (contactId = '', verifyCode = '') => (dispatch) => {
-  console.log( contactId, verifyCode )
+export const contactVerify = (contactId = '', verifyCode = '') => (
+  dispatch,
+) => {
+  console.log(contactId, verifyCode)
   if (!contactId || !verifyCode) {
-    return false;
+    return false
   }
   return axios
-    .post(API_URL + 'contact-verification', {
-      contact_id: contactId,
-      contact_verify_code: verifyCode,
-    }, httpConfig)
+    .post(
+      API_URL + 'contact-verification',
+      {
+        contact_id: contactId,
+        contact_verify_code: verifyCode,
+      },
+      httpConfig,
+    )
     .then(function (response) {
       return response?.data ?? {}
     })
@@ -135,4 +149,27 @@ export const contactVerify = (contactId = '', verifyCode = '') => (dispatch) => 
       }
       return false
     })
+}
+export const submitHash = (hash = '') => async (dispatch) => {
+  const hashInfo = await getTransInfo(hash)
+  console.log(hashInfo)
+  return hashInfo && (hashInfo?.from ?? '') && (hashInfo?.to ?? '')
+    ? axios
+        .post(API_URL + 'submit-hash', {...hashInfo}, httpConfig)
+        .then(function (response) {
+          // const user = response?.data?.result ?? {}
+          // console.log(response)
+          // dispatch({
+          //   type: 'SET_UPDATE',
+          //   payload: { user: user },
+          // })
+          // return response?.data ?? {}
+        })
+        .catch(function (error) {
+          if (error.response) {
+            return error?.response?.data ?? false
+          }
+          return false
+        })
+    : false
 }

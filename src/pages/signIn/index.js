@@ -12,13 +12,12 @@ import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'
 import notification from 'lib/notification'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
 import { login } from 'store/actions/auth'
 import checkValidEmail from 'lib/checkValidEmail'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 
 const defaultSignInfo = {
   email: '',

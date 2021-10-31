@@ -2,6 +2,9 @@ import moment from 'moment'
 
 class ReveService {
   calRevenueList = (paymentList = [], user_id = '', format = 'MM-DD') => {
+    if ( !Array.isArray( paymentList )) {
+      return [];
+    }
     let newArr = paymentList.reduce((acc, cur) => {
       let key = moment(cur?.pay_date).format(format)
       if (!acc[key]) {
@@ -22,7 +25,7 @@ class ReveService {
           return acc
         }, 0)
         .toFixed(6)
-      newItems = [...newItems, { pay_date: key, pay_amount: Number(sum) }]
+      newItems = [...newItems, { pay_date: key, pay_amount: Number(sum)/Math.pow(10, 6) }]
       return newItems
     })
     return newItems
@@ -30,7 +33,7 @@ class ReveService {
 
   // Note: Calculate the total Revuenue
   calTotalRevenue = (paymentList = [], user_id = '') => {
-    const tmpRevenue = user_id
+    const tmpRevenue = user_id && Array.isArray( paymentList )
       ? (paymentList ?? []).reduce(
           (a, { pay_from, pay_amount }) =>
             a +
@@ -40,12 +43,12 @@ class ReveService {
           0,
         )
       : 0
-    return tmpRevenue
+    return tmpRevenue/Math.pow(10, 6) 
   }
 
   // Note: Calculate the total Earning
   calTotalEarning = (paymentList = [], user_id = '') => {
-    const tmpRevenue = user_id
+    const tmpRevenue = user_id && Array.isArray( paymentList )
       ? (paymentList ?? []).reduce(
           (a, { pay_from, pay_amount }) =>
             a +
@@ -55,7 +58,7 @@ class ReveService {
           0,
         )
       : 0
-    return tmpRevenue
+    return tmpRevenue/Math.pow(10, 6) 
   }
 }
 
