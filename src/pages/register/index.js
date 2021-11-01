@@ -67,7 +67,7 @@ export default function Register() {
             ...defaultUser,
           })
         } else {
-          notification('error', res?.msg ?? 'error')
+          notification('error', res?.msg ?? 'Something went wrong')
         }
       })
       .catch((err) => {
