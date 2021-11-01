@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getTransInfo } from 'services/payment.service'
 import httpConfig from 'lib/httpConfig'
 
-const API_URL = 'http://localhost:5010/app/home/'
+const API_URL = 'http://199.192.16.121:5010/app/home/'
 
 export const getLeveList = () => (dispatch) => {
   return axios

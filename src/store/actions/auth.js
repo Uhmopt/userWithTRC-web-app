@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:5010/app/user/'
-export const register = (email = '', password = '', walletAddress = '', invite = '') => (
+const API_URL = 'http://199.192.16.121:5010/app/user/'
+export const register = (email = '', password = '', walletAddress = '', invite = '') => async (
   dispatch,
 ) => {
-  return axios
+  return await axios
     .post(API_URL + 'register', {
       user_email: email,
       user_password: password,
@@ -13,6 +13,8 @@ export const register = (email = '', password = '', walletAddress = '', invite =
     })
     .then(function (response) {
       const user = response?.data?.result ?? {}
+      console.log(user, "register");
+
       dispatch({
         type: 'SET_REGISTER',
         payload: { user: user },
