@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_URL = 'https://66.42.111.49/app/user/'
+const API_URL = 'https://66.42.111.49:5000/app/user/'
 class AuthService {
   login(email, password, isRemember) {
     return axios

@@ -47,7 +47,7 @@ export default function ResetPassword() {
 				history.push('/home')
 				notification('success', res?.msg ?? 'success')
 			} else {
-				notification('error', res?.msg ?? 'Something went wrong.')
+				notification('error', res?.msg ?? 'Please make sure your network connection..')
 			}
 			Promise.resolve()
 		})

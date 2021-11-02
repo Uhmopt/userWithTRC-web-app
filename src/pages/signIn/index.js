@@ -56,7 +56,7 @@ export default function SignIn() {
       login(currentState.email, currentState.password, currentState.isRemember),
     ).then((res) => {
       if (res?.isVerifyRequired ?? false) {
-        notification('error', res?.msg ?? 'Something went wrong.')
+        notification('error', res?.msg ?? 'Please make sure your network connection..')
         history.push({ pathname: 'verification', state: 'sign-in' })
         return false
       } else {
@@ -65,7 +65,7 @@ export default function SignIn() {
           history.push('/home')
           notification('success', res?.msg ?? 'success')
         } else {
-          notification('error', res?.msg ?? 'Something went wrong.')
+          notification('error', res?.msg ?? 'Please make sure your network connection..')
         }
       }
 

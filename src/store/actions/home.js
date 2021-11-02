@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getTransInfo } from 'services/payment.service'
 import httpConfig from 'lib/httpConfig'
 
-const API_URL = 'https://66.42.111.49/app/home/'
+const API_URL = 'https://66.42.111.49:5000/app/home/'
 
 export const getUserInfo = (user_id) => async (dispatch) => {
   return await axios
