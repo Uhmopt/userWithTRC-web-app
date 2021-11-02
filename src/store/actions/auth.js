@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://199.192.16.121:5010/app/user/'
+const API_URL = 'http://66.42.111.49:5000/app/user/'
 export const register = (email = '', password = '', walletAddress = '', invite = '') => async (
   dispatch,
 ) => {

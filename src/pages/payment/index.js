@@ -35,11 +35,15 @@ export default function Payment() {
       ...(prevState ?? defaultState),
       transforAmount: 10 + Number(user?.user_rid ?? 2000) / 1000000,
     }))
-    dispatch( GetAmountAddress(user?.user_id ?? '') ).then((res)=>{
+    dispatch(
+      GetAmountAddress(user?.user_level, user?.user_superior_id ?? ''),
+    ).then((res) => {
       if (res?.result) {
         setCurrentState((prevState = defaultState) => ({
           ...(prevState ?? defaultState),
-          transforAmount: (res?.result.neccesary_amount + Number(user?.user_rid ?? 2000))/Math.pow(10, 6),
+          transforAmount:
+            Number(res?.result?.neccesary_amount ?? 0) +
+            Number(user?.user_rid ?? 2000) / Math.pow(10, 6),
           walletAddress: res?.result?.superior_wallet_address ?? '',
         }))
       }
@@ -57,16 +61,16 @@ export default function Payment() {
       notification('error', 'Please enter the hash code!')
       return false
     }
-    dispatch( submitHash(currentState?.hash ?? '') ).then((res)=>{
-        console.log(res)
-        if (!(res?.result ?? '')) {
-          notification('error', res?.msg ?? 'Upgrade Failed');
-          return false;
-        }
-        history.push('highest-level');
+    dispatch(submitHash(currentState?.hash ?? '')).then((res) => {
+      console.log(res, 'THIS IS THE FRONTEND')
+      if (!(res?.result ?? '')) {
+        notification('error', res?.msg ?? 'Upgrade Failed')
+        return false
+      }
+      history.push('highest-level')
     })
   }
-  
+
   const handleCopy = () => {
     navigator.clipboard.writeText(currentState?.walletAddress ?? '')
   }

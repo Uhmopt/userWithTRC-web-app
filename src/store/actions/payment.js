@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getTransInfo } from 'services/payment.service'
 import httpConfig from 'lib/httpConfig'
 
-const API_URL = 'http://199.192.16.121:5010/app/payment/'
+const API_URL = 'http://66.42.111.49:5000/app/payment/'
 
 export const submitHash = (hash = '') => async (dispatch) => {
   const hashInfo = await getTransInfo(hash)
@@ -31,27 +31,25 @@ export const submitHash = (hash = '') => async (dispatch) => {
     : false
 }
 // Note: Get superior wallet address and necessary amount to pay to superior
-export const GetAmountAddress = ( userId='' ) => (
+export const GetAmountAddress = ( user_level=0, user_superior_id='' ) => async (
   dispatch,
 ) => {
-  if (!userId) {
-    return false
-  }
-  return axios
+  return await axios
     .post(
       API_URL + 'get-amount-address',
       {
-        user_id: userId,
+        user_level: user_level,
+        user_superior_id: user_superior_id
       },
       httpConfig,
     )
     .then(function (response) {
       const result = response?.data?.result ?? {}
-      console.log( result )
       dispatch({
         type: 'SET_PAYMENT',
         payload: result,
       })
+      console.log(response?.data ?? {}, 'dddddddddddddddddd')
       return response?.data ?? {}
     })
     .catch(function (error) {

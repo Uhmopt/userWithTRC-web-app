@@ -13,6 +13,7 @@ export default function CustomInput({
   onChange = () => {},
   type = 'text',
   required = true,
+  disabled = false,
   className = "bg-light"
 }) {
   const handleChange = (e) => {
@@ -44,6 +45,7 @@ export default function CustomInput({
         className={`${className ?? ''} rounded-md border border-transparent`}
         variant="standard"
         fullWidth
+        disabled = {disabled}
       />
       {Boolean(errorState ?? false) && (
         <span className="text-base text-red-400">{errorText ?? ''}</span>

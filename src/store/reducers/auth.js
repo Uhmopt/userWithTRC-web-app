@@ -74,6 +74,8 @@ const auth = (state = restoreState, action) => {
       }
     case 'RESET_PASSWORD':
       return setAuth(state, payload)
+    case 'GET_USER':
+      return setAuth(state, payload)
     case 'LOGOUT':
       return logout()
     case 'RESET_AUTH':

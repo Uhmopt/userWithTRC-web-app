@@ -40,8 +40,8 @@ export const checkHashInfo = (data) => {
   const amount = JSON.parse(sessionStorage.getItem('level-store'))?.payment?.neccesary_amount ?? ''
   const walletAddress = JSON.parse(sessionStorage.getItem('level-store'))?.payment?.superior_wallet_address ?? ''
   const user =  JSON.parse(sessionStorage.getItem('level-store'))?.auth?.user ?? {}
-  console.log( amount, walletAddress, user );
-  if (data?.from !== user.user_user_wallet_address || data?.to !== user.walletAddress) {
+  console.log( data?.from , user.user_wallet_address )
+  if (data?.from !== user.user_wallet_address || data?.to !== walletAddress) {
     notification('error', 'Wallet address not matched.')
     return false
   }

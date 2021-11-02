@@ -148,6 +148,7 @@ export default function Register() {
           </Grid>
           <Grid item xs={12}>
             <CustomInput
+              disabled = {true}
               label="Invites"
               name="invite"
               placeholder="Optional"
@@ -164,7 +165,7 @@ export default function Register() {
 
           <Grid item xs={12} className="text-center text-main">
             <label className="text-title">Do you have a account?</label>
-            <Link to={`sign-in`}>Sign in now</Link>
+            <Link to={`/sign-in`}>Sign in now</Link>
           </Grid>
         </Grid>
       </form>

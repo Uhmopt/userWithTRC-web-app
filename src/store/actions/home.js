@@ -2,9 +2,27 @@ import axios from 'axios'
 import { getTransInfo } from 'services/payment.service'
 import httpConfig from 'lib/httpConfig'
 
-const API_URL = 'http://199.192.16.121:5010/app/home/'
+const API_URL = 'http://66.42.111.49:5000/app/home/'
 
-export const getLeveList = () => (dispatch) => {
+export const getUserInfo = (user_id) => async (dispatch) => {
+  return await axios
+    .post(API_URL + 'get-user', { user_id: user_id }, httpConfig)
+    .then((res) => {
+      console.log( res?.data?.result ?? {}, "USER_INFORMATION" )
+      dispatch({
+        type: 'GET_USER',
+        payload: { user: res?.data?.result ?? {} },
+      })
+      return res?.data?.result ?? []
+    })
+    .catch((err) => {
+      if (err.response) {
+        console.log(err.response)
+      }
+    })
+}
+
+export const getLeveList = () => async (dispatch) => {
   return axios
     .post(API_URL + 'get-levels', {}, httpConfig)
     .then((res) => {
@@ -155,7 +173,7 @@ export const submitHash = (hash = '') => async (dispatch) => {
   console.log(hashInfo)
   return hashInfo && (hashInfo?.from ?? '') && (hashInfo?.to ?? '')
     ? axios
-        .post(API_URL + 'submit-hash', {...hashInfo}, httpConfig)
+        .post(API_URL + 'submit-hash', { ...hashInfo }, httpConfig)
         .then(function (response) {
           // const user = response?.data?.result ?? {}
           // console.log(response)

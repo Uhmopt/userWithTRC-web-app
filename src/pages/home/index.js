@@ -10,7 +10,7 @@ import revenue from 'services/revenue.service'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-import { getLeveList, getPaymentList, getUserList } from 'store/actions/home'
+import { getLeveList, getPaymentList, getUserList, getUserInfo } from 'store/actions/home'
 import Layout from '../../layouts'
 
 const defaultState = {
@@ -26,6 +26,7 @@ export default function Home() {
   const [currentState, setCurrentState] = useState(defaultState)
 
   useEffect(() => {
+    dispatch(getUserInfo(user?.user_id ?? ''))
     dispatch(getLeveList())
     dispatch(getUserList())
     dispatch(getPaymentList(user?.user_id ?? ''))
