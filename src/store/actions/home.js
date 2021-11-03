@@ -1,14 +1,20 @@
 import axios from 'axios'
 import { getTransInfo } from 'services/payment.service'
-import httpConfig from 'lib/httpConfig'
 
 const API_URL = 'http://66.42.111.49/app/home/'
 
 export const getUserInfo = (user_id = 0) => async (dispatch) => {
+  const token = JSON.parse(sessionStorage.getItem("level-store"))?.auth?.token??""
   return await axios
-    .post(API_URL + 'get-user', { user_id: user_id }, httpConfig)
+    .post(
+      API_URL + 'get-user',
+      { user_id: user_id },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
     .then((res) => {
-      console.log( res?.data?.result ?? {}, "USER_INFORMATION" )
+      console.log(res?.data?.result ?? {}, 'USER_INFORMATION')
       dispatch({
         type: 'GET_USER',
         payload: { user: res?.data?.result ?? {} },
@@ -23,8 +29,15 @@ export const getUserInfo = (user_id = 0) => async (dispatch) => {
 }
 
 export const getLeveList = () => async (dispatch) => {
+  const token = JSON.parse(sessionStorage.getItem("level-store"))?.auth?.token??""
   return axios
-    .post(API_URL + 'get-levels', {}, httpConfig)
+    .post(
+      API_URL + 'get-levels',
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
     .then((res) => {
       dispatch({
         type: 'GET_LEVELS',
@@ -40,8 +53,15 @@ export const getLeveList = () => async (dispatch) => {
 }
 
 export const getUserList = () => (dispatch) => {
+  const token = JSON.parse(sessionStorage.getItem("level-store"))?.auth?.token??""
   return axios
-    .post(API_URL + 'get-users', {}, httpConfig)
+    .post(
+      API_URL + 'get-users',
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
     .then((res) => {
       dispatch({
         type: 'GET_USERS',
@@ -57,9 +77,16 @@ export const getUserList = () => (dispatch) => {
 }
 
 export const getPaymentList = (user_id = '') => (dispatch) => {
+  const token = JSON.parse(sessionStorage.getItem("level-store"))?.auth?.token??""
   return Boolean(user_id)
     ? axios
-        .post(API_URL + 'get-payments', { user_id: user_id }, httpConfig)
+        .post(
+          API_URL + 'get-payments',
+          { user_id: user_id },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        )
         .then((res) => {
           dispatch({
             type: 'GET_PAYMENTS',
@@ -82,6 +109,7 @@ export const updateUser = (
   password = '',
   walletAddress = '',
 ) => (dispatch) => {
+  const token = JSON.parse(sessionStorage.getItem("level-store"))?.auth?.token??""
   if (!userId || !email) {
     return false
   }
@@ -94,7 +122,9 @@ export const updateUser = (
         user_password: password,
         user_wallet_address: walletAddress,
       },
-      httpConfig,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
     )
     .then(function (response) {
       const user = response?.data?.result ?? {}
@@ -112,6 +142,7 @@ export const updateUser = (
     })
 }
 export const contactUs = (contactData = {}) => (dispatch) => {
+  const token = JSON.parse(sessionStorage.getItem("level-store"))?.auth?.token??""
   if (!(contactData?.userId ?? '')) {
     return false
   }
@@ -125,7 +156,9 @@ export const contactUs = (contactData = {}) => (dispatch) => {
         theme: contactData?.theme ?? '',
         contact: contactData?.contact ?? '',
       },
-      httpConfig,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
     )
     .then(function (response) {
       const result = response?.data?.result ?? {}
@@ -142,6 +175,7 @@ export const contactUs = (contactData = {}) => (dispatch) => {
 export const contactVerify = (contactId = '', verifyCode = '') => (
   dispatch,
 ) => {
+  const token = JSON.parse(sessionStorage.getItem("level-store"))?.auth?.token??""
   console.log(contactId, verifyCode)
   if (!contactId || !verifyCode) {
     return false
@@ -153,7 +187,9 @@ export const contactVerify = (contactId = '', verifyCode = '') => (
         contact_id: contactId,
         contact_verify_code: verifyCode,
       },
-      httpConfig,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
     )
     .then(function (response) {
       return response?.data ?? {}
@@ -168,9 +204,16 @@ export const contactVerify = (contactId = '', verifyCode = '') => (
 export const submitHash = (hash = '') => async (dispatch) => {
   const hashInfo = await getTransInfo(hash)
   console.log(hashInfo)
+  const token = JSON.parse(sessionStorage.getItem("level-store"))?.auth?.token??""
   return hashInfo && (hashInfo?.from ?? '') && (hashInfo?.to ?? '')
     ? axios
-        .post(API_URL + 'submit-hash', { ...hashInfo }, httpConfig)
+        .post(
+          API_URL + 'submit-hash',
+          { ...hashInfo },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        )
         .then(function (response) {
           // const user = response?.data?.result ?? {}
           // console.log(response)
@@ -178,7 +221,7 @@ export const submitHash = (hash = '') => async (dispatch) => {
           //   type: 'SET_UPDATE',
           //   payload: { user: user },
           // })
-          // return response?.data ?? {}
+          return response?.data ?? false
         })
         .catch(function (error) {
           if (error.response) {

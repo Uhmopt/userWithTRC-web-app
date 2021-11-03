@@ -54,7 +54,7 @@ export default function SignIn() {
     }
     dispatch(
       login(currentState.email, currentState.password, currentState.isRemember),
-    ).then((res) => {
+    ).then( async (res) => {
       if (res?.isVerifyRequired ?? false) {
         notification('error', res?.msg ?? 'Please make sure your network connection..')
         history.push({ pathname: 'verification', state: 'sign-in' })
@@ -62,10 +62,8 @@ export default function SignIn() {
       } else {
         Boolean(res?.result ?? false)
         if (res?.result ?? false) {
-          console.log( res?.result )
-          localStorage.setItem("access-token", JSON.stringify(res?.result?.user_token ?? ''));
-          history.push('/home')
-          notification('success', res?.msg ?? 'success')
+            history.push('/home')
+            notification('success', res?.msg ?? 'success')
         } else {
           notification('error', res?.msg ?? 'Please make sure your network connection..')
         }
