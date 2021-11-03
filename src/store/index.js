@@ -13,7 +13,6 @@ store.dispatch({ type: "AUTH_CHECK" });
 
 store.subscribe(() => {
   const storeData = store.getState();
-  console.log(  storeData, "dddddddddddddd" )
   localStorage.setItem("level-store", JSON.stringify(storeData));
 });
 
