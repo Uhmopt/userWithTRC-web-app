@@ -62,6 +62,8 @@ export default function SignIn() {
       } else {
         Boolean(res?.result ?? false)
         if (res?.result ?? false) {
+          console.log( res?.result )
+          localStorage.setItem("access-token", JSON.stringify(res?.result?.user_token ?? ''));
           history.push('/home')
           notification('success', res?.msg ?? 'success')
         } else {

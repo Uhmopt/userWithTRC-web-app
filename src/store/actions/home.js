@@ -4,7 +4,7 @@ import httpConfig from 'lib/httpConfig'
 
 const API_URL = 'http://66.42.111.49/app/home/'
 
-export const getUserInfo = (user_id) => async (dispatch) => {
+export const getUserInfo = (user_id = 0) => async (dispatch) => {
   return await axios
     .post(API_URL + 'get-user', { user_id: user_id }, httpConfig)
     .then((res) => {
@@ -76,7 +76,6 @@ export const getPaymentList = (user_id = '') => (dispatch) => {
         })
     : false
 }
-
 export const updateUser = (
   userId = '',
   email = '',
@@ -112,7 +111,6 @@ export const updateUser = (
       return false
     })
 }
-
 export const contactUs = (contactData = {}) => (dispatch) => {
   if (!(contactData?.userId ?? '')) {
     return false
@@ -141,7 +139,6 @@ export const contactUs = (contactData = {}) => (dispatch) => {
       return false
     })
 }
-
 export const contactVerify = (contactId = '', verifyCode = '') => (
   dispatch,
 ) => {

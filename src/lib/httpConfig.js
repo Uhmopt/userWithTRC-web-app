@@ -1,5 +1,4 @@
-const token = JSON.parse(sessionStorage.getItem("level-store"))?.auth?.token??""
-console.log(token, 'token')
+const token = JSON.parse(localStorage.getItem("access-token")) ?? ""
 const httpConfig = {
   headers: { Authorization: `Bearer ${token}` },
 }

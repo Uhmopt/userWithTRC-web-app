@@ -10,7 +10,7 @@ const initialState = {
 
 const restoreState = {
   ...initialState,
-  ...(jsonParse(sessionStorage.getItem('level-store'))?.auth ?? {}),
+  ...(jsonParse(localStorage.getItem('level-store'))?.auth ?? {}),
 }
 
 const setAuth = (state = initialState, payload) => {
@@ -45,7 +45,7 @@ const checkAuth = (state = restoreState, payload) => {
 }
 
 const logout = (state = initialState) => {
-  sessionStorage.clear()
+  localStorage.clear()
   return state
 }
 

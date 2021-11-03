@@ -37,9 +37,9 @@ export const getTransInfo = async (hash = '') => {
 }
 // Note: Check hash information that's result, confirmation, amount and so on
 export const checkHashInfo = (data) => {
-  const amount = JSON.parse(sessionStorage.getItem('level-store'))?.payment?.neccesary_amount ?? ''
-  const walletAddress = JSON.parse(sessionStorage.getItem('level-store'))?.payment?.superior_wallet_address ?? ''
-  const user =  JSON.parse(sessionStorage.getItem('level-store'))?.auth?.user ?? {}
+  const amount = JSON.parse(localStorage.getItem('level-store'))?.payment?.neccesary_amount ?? ''
+  const walletAddress = JSON.parse(localStorage.getItem('level-store'))?.payment?.superior_wallet_address ?? ''
+  const user =  JSON.parse(localStorage.getItem('level-store'))?.auth?.user ?? {}
   console.log( data?.from , user.user_wallet_address )
   if (data?.from !== user.user_wallet_address || data?.to !== walletAddress) {
     notification('error', 'Wallet address not matched.')

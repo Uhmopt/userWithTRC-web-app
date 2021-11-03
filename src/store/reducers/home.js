@@ -8,7 +8,7 @@ const initialState = {
 
 const restoreState = {
   ...initialState,
-  ...(jsonParse(sessionStorage.getItem('level-store'))?.home ?? {}),
+  ...(jsonParse(localStorage.getItem('level-store'))?.home ?? {}),
 }
 
 const home = (state = restoreState, action) => {

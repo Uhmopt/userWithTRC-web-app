@@ -5,7 +5,7 @@ const initialState = {}
 
 const restoreState = {
   ...initialState,
-  ...(jsonParse(sessionStorage.getItem('level-store'))?.upgrade ?? {}),
+  ...(jsonParse(localStorage.getItem('level-store'))?.upgrade ?? {}),
 }
 
 const upgrade = (state = restoreState, action) => {
