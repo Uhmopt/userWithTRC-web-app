@@ -6,7 +6,7 @@ class ReveService {
       return [];
     }
     let newArr = paymentList.reduce((acc, cur) => {
-      let key = moment(cur?.pay_date).format(format)
+      let key = moment(cur?.pay_time).format(format)
       if (!acc[key]) {
         acc[key] = []
       }

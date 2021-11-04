@@ -14,8 +14,9 @@ const restoreState = {
 }
 
 const setAuth = (state = initialState, payload) => {
+  console.log( payload, 'payload' )
   const user = payload?.user ?? {}
-  if (user?.user_token ?? '') {
+  if ((user?.user_token ?? '')&&( user?.user_is_verified ?? false === 1 )) {
     state = {
       ...state,
       isAuth: true,
@@ -56,10 +57,7 @@ const auth = (state = restoreState, action) => {
     case 'SET_REGISTER':
       return setAuth(state, payload)
     case 'IS_VERIFIED':
-      return {
-        ...state,
-        ...payload,
-      }
+      return setAuth(state, payload)
     case 'SET_LOGIN':
       return setAuth(state, payload)
     case 'FORGOT_PASSWORD':

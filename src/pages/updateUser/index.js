@@ -62,7 +62,7 @@ export default function UpdateUser() {
           history.push({ pathname: 'verification', state: 'home' })
           notification('success', res?.msg ?? 'success')
         } else {
-          notification('error', res?.msg ?? 'error')
+          notification('error', res?.msg ?? 'Please make sure your network connection!')
         }
       })
       .catch((err) => {

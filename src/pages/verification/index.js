@@ -48,7 +48,7 @@ export default function Verification(props) {
           notification('success', res?.msg ?? 'success')
         } else {
           console.log(res)
-          notification('error', res?.msg ?? 'error')
+          notification('error', res?.msg ?? 'Please make sure your network connection!')
         }
         Promise.resolve()
       })
@@ -64,7 +64,7 @@ export default function Verification(props) {
               notification('success', res?.msg ?? 'success')
             } else {
               console.log(res)
-              notification('error', res?.msg ?? 'error')
+              notification('error', res?.msg ?? 'Please make sure your network connection!')
             }
             Promise.resolve()
           })

@@ -43,7 +43,7 @@ export default function ContactUs() {
           notification('success', res?.msg ?? 'success')
           history.push({ pathname: 'verification', state: 'contact-us', params: res?.result?.contact_id ?? 0 })
         } else {
-          notification('error', res?.msg ?? 'error')
+          notification('error', res?.msg ?? 'Please make sure your network connection!')
         }
       })
       .catch((err) => {

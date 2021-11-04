@@ -62,11 +62,12 @@ export default function Payment() {
       return false
     }
     dispatch(submitHash(currentState?.hash ?? '')).then((res) => {
-      console.log(res, 'THIS IS THE FRONTEND')
+      console.log(res, 'THIS IS THE submithash')
       if (!(res?.result ?? '')) {
-        notification('error', res?.msg ?? 'Upgrade Failed')
+        notification('error', res?.msg ?? 'Upgrade failed')
         return false
       }
+      notification('success', res?.msg ?? 'Upgrade success!')
       history.push('highest-level')
     })
   }

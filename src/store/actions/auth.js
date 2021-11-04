@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://66.42.111.49/app/user/'
+const API_URL = 'http://localhost:5000/app/user/'
 export const register = (email = '', password = '', walletAddress = '', invite = '') => async (
   dispatch,
 ) => {
@@ -29,8 +29,8 @@ export const register = (email = '', password = '', walletAddress = '', invite =
     })
 }
 
-export const verification = (email = '', verifyCode = '') => (dispatch) => {
-  return axios
+export const verification = (email = '', verifyCode = '') => async (dispatch) => {
+  return await axios
     .post(API_URL + 'verification', {
       user_email: email,
       user_verify_code: verifyCode,
@@ -51,8 +51,8 @@ export const verification = (email = '', verifyCode = '') => (dispatch) => {
     })
 }
 
-export const login = (email, password, isRemember) => (dispatch) => {
-  return axios
+export const login = (email, password, isRemember) => async (dispatch) => {
+  return await axios
     .post(API_URL + 'login', {
       user_email: email,
       user_password: password,
@@ -74,8 +74,8 @@ export const login = (email, password, isRemember) => (dispatch) => {
     })
 }
 
-export const forgotPassword = (email) => (dispatch) => {
-  return axios
+export const forgotPassword = (email) => async (dispatch) => {
+  return await axios
     .post(API_URL + 'forgot-password', {
       user_email: email,
     })
@@ -95,10 +95,10 @@ export const forgotPassword = (email) => (dispatch) => {
     })
 }
 
-export const resetPassword = (email = '', verifyCode = '', password = '') => (
+export const resetPassword = (email = '', verifyCode = '', password = '') => async (
   dispatch,
 ) => {
-  return axios
+  return await axios
     .post(API_URL + 'reset-password', {
       user_email: email,
       user_password: password,
@@ -120,7 +120,7 @@ export const resetPassword = (email = '', verifyCode = '', password = '') => (
     })
 }
 
-export const logout = () => (dispatch) => {
+export const logout = () => async (dispatch) => {
   return dispatch({
     type: 'LOGOUT',
   })

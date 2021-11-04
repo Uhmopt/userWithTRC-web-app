@@ -1,10 +1,11 @@
 import axios from 'axios'
 import { getTransInfo } from 'services/payment.service'
 
-const API_URL = 'http://66.42.111.49/app/home/'
+const API_URL = 'http://localhost:5000/app/home/'
 
 export const getUserInfo = (user_id = 0) => async (dispatch) => {
-  const token = JSON.parse(localStorage.getItem("level-store"))?.auth?.token??""
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
   return await axios
     .post(
       API_URL + 'get-user',
@@ -29,8 +30,9 @@ export const getUserInfo = (user_id = 0) => async (dispatch) => {
 }
 
 export const getLeveList = () => async (dispatch) => {
-  const token = JSON.parse(localStorage.getItem("level-store"))?.auth?.token??""
-  return axios
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
+  return await axios
     .post(
       API_URL + 'get-levels',
       {},
@@ -52,9 +54,10 @@ export const getLeveList = () => async (dispatch) => {
     })
 }
 
-export const getUserList = () => (dispatch) => {
-  const token = JSON.parse(localStorage.getItem("level-store"))?.auth?.token??""
-  return axios
+export const getUserList = () => async (dispatch) => {
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
+  return await axios
     .post(
       API_URL + 'get-users',
       {},
@@ -76,8 +79,9 @@ export const getUserList = () => (dispatch) => {
     })
 }
 
-export const getPaymentList = (user_id = '') => (dispatch) => {
-  const token = JSON.parse(localStorage.getItem("level-store"))?.auth?.token??""
+export const getPaymentList = (user_id = '') => async (dispatch) => {
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
   return Boolean(user_id)
     ? axios
         .post(
@@ -108,12 +112,13 @@ export const updateUser = (
   email = '',
   password = '',
   walletAddress = '',
-) => (dispatch) => {
-  const token = JSON.parse(localStorage.getItem("level-store"))?.auth?.token??""
+) => async (dispatch) => {
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
   if (!userId || !email) {
     return false
   }
-  return axios
+  return await axios
     .post(
       API_URL + 'update',
       {
@@ -141,12 +146,13 @@ export const updateUser = (
       return false
     })
 }
-export const contactUs = (contactData = {}) => (dispatch) => {
-  const token = JSON.parse(localStorage.getItem("level-store"))?.auth?.token??""
+export const contactUs = (contactData = {}) => async (dispatch) => {
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
   if (!(contactData?.userId ?? '')) {
     return false
   }
-  return axios
+  return await axios
     .post(
       API_URL + 'contact',
       {
@@ -172,15 +178,16 @@ export const contactUs = (contactData = {}) => (dispatch) => {
       return false
     })
 }
-export const contactVerify = (contactId = '', verifyCode = '') => (
+export const contactVerify = (contactId = '', verifyCode = '') => async (
   dispatch,
 ) => {
-  const token = JSON.parse(localStorage.getItem("level-store"))?.auth?.token??""
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
   console.log(contactId, verifyCode)
   if (!contactId || !verifyCode) {
     return false
   }
-  return axios
+  return await axios
     .post(
       API_URL + 'contact-verification',
       {
@@ -204,7 +211,8 @@ export const contactVerify = (contactId = '', verifyCode = '') => (
 export const submitHash = (hash = '') => async (dispatch) => {
   const hashInfo = await getTransInfo(hash)
   console.log(hashInfo)
-  const token = JSON.parse(localStorage.getItem("level-store"))?.auth?.token??""
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
   return hashInfo && (hashInfo?.from ?? '') && (hashInfo?.to ?? '')
     ? axios
         .post(

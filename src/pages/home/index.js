@@ -34,7 +34,7 @@ export default function Home() {
 
   useEffect(() => {
     init()
-  }, [home?.levelList])
+  }, [home])
 
   const init = () => {
     const tmpLevels = []
