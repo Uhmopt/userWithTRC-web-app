@@ -42,8 +42,8 @@ export default function Payment() {
         setCurrentState((prevState = defaultState) => ({
           ...(prevState ?? defaultState),
           transforAmount:
-            Number(res?.result?.neccesary_amount ?? 0) +
-            Number(user?.user_rid ?? 2000) / Math.pow(10, 6),
+            (Number(res?.result?.neccesary_amount ?? 0) +
+            Number(user?.user_rid ?? 2000)) / Math.pow(10, 6),
           walletAddress: res?.result?.superior_wallet_address ?? '',
         }))
       }
@@ -62,9 +62,8 @@ export default function Payment() {
       return false
     }
     dispatch(submitHash(currentState?.hash ?? '')).then((res) => {
-      console.log(res, 'THIS IS THE submithash')
       if (!(res?.result ?? '')) {
-        notification('error', res?.msg ?? 'Upgrade failed')
+        res?.msg && notification('error', res?.msg ?? 'Upgrade failed');
         return false
       }
       notification('success', res?.msg ?? 'Upgrade success!')

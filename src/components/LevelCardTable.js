@@ -3,22 +3,23 @@ import UserLevelIcon from './UserLevelIcon'
 import LevelCard from './LevelCard'
 
 export default function LevelCardTable({ levelList = [], onClick }) {
+	console.log( levelList )
 	return (
 		<div className="pb-28">
-			{levelList.map((level, index) => {
+			{levelList.map((level = [], index) => {
 				return (
 					<LevelCard
 						key={index}
 						startIcon={
 							<UserLevelIcon
-								levelNum={level?.level_degree ?? index}
+								levelNum={index + 1}
 								alt="Star"
 								className="w-10 text-title"
 								iconClass="user-level-icon-small"
 							/>
 						}
-						levelUserNum = {level?.level_user_num ?? 0}
-						level={level?.level_degree ?? index}
+						levelUserNum = {level?.length ?? 0}
+						level={index + 1}
 						onClick={onClick}
 					/>
 				)

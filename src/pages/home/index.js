@@ -7,6 +7,7 @@ import StaticCard from 'components/StaticCard'
 import UserLevelIcon from 'components/UserLevelIcon'
 import momentDate from 'lib/momentDate'
 import revenue from 'services/revenue.service'
+import { getFriendArray } from 'services/user.service'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
@@ -16,6 +17,7 @@ import Layout from '../../layouts'
 const defaultState = {
   levels: [],
   totalRevenue: 0,
+  totalPeople: 0,
 }
 
 export default function Home() {
@@ -37,23 +39,17 @@ export default function Home() {
   }, [home])
 
   const init = () => {
-    const tmpLevels = []
-    ;(home?.levelList ?? []).forEach((element) => {
-      tmpLevels.push({
-        level_degree: element?.level_degree ?? 0,
-        level_user_num: (home.userList ?? []).filter((user) => {
-          return user.user_level === element?.level_degree
-        }).length,
-      })
-    })
+    const userListByLevelFriend = getFriendArray( user?.user_id ?? -1, home?.userList ?? [] )
     const tmpRevenue = revenue.calTotalRevenue(
       home?.paymentList ?? [],
       user?.user_id ?? '',
     )
+    const totalPeople = (userListByLevelFriend ?? []).reduce( (x, y) => x + y.length, 0 );
     setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
-      levels: tmpLevels,
+      levels: userListByLevelFriend,
       totalRevenue: Number.parseFloat(tmpRevenue).toFixed(6),
+      totalPeople: totalPeople
     }))
   }
 
@@ -106,7 +102,7 @@ export default function Home() {
         title={
           <div>
             <span className="text-title mr-3">Total People:</span>
-            <span>{home?.userList?.length ?? 0}</span>
+            <span>{currentState?.totalPeople ?? 0}</span>
           </div>
         }
         isLogin={true}

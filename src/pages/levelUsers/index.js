@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Layout from '../../layouts'
 import levelOrder from 'lib/levelOrder'
+import { getFriendArray } from 'services/user.service'
 
 const defaultState = {
   tabNumber: 0,
@@ -20,18 +21,18 @@ const defaultState = {
 }
 export default function LevelUsers(props) {
   const home = useSelector((state) => state?.home ?? {})
+  const user = useSelector((state) => state?.auth?.user ?? {})
   const [currentState, setCurrentState] = useState(defaultState)
 
   // Note: Get state from HomePage
-  const level = props?.location?.state ?? 0
+  const level = props?.location?.state ?? 1
 
   useEffect(() => {
+    const userListByLevelFriend = getFriendArray( user?.user_id ?? -1, home?.userList ?? [] )
     // Note: Filter All users and Upgraded users
-    const tempAllUsers = (home?.userList ?? []).filter((item) => {
-      return item?.user_level <= level
-    })
+    const tempAllUsers = userListByLevelFriend.length > 0 ? userListByLevelFriend[ level - 1 ] : []
     const tempUsers = tempAllUsers.filter((item) => {
-      return item?.user_level === level
+      return item?.user_level >= level
     })
     handleChange({ usersByLevel: tempUsers, allUsersByLevel: tempAllUsers })
   }, [])

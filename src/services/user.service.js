@@ -1,24 +1,21 @@
-import axios from 'axios'
-import authHeader from './auth-header'
 
-const API_URL = 'http://localhost:5000/app/test/'
-
-class UserService {
-  getPublicContent() {
-    return axios.get(API_URL + 'all')
+export const getFriendArray = ( userId, userList ) => {
+  let levelUsers = [];
+  let tmpUserIds = []
+  tmpUserIds.push( userId );
+  for (let i = 0; i <= 16; i++) {
+    levelUsers[i] = filterByIds( tmpUserIds, userList );
+    if (levelUsers[i].length > 0) {
+      tmpUserIds = Array.from(levelUsers[i], user=> user?.user_id ?? 0);
+    }else {
+      break;
+    }
   }
-
-  getUserBoard() {
-    return axios.get(API_URL + 'user', { headers: authHeader() })
-  }
-
-  getModeratorBoard() {
-    return axios.get(API_URL + 'mod', { headers: authHeader() })
-  }
-
-  getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() })
-  }
+  return levelUsers;
 }
 
-export default new UserService()
+export const filterByIds = ( userIds = [], userLists = [] ) => {
+  const filterUserList = userLists.filter( item => userIds.includes(item?.user_invited_from ?? 0) );
+  console.log(filterUserList, 'dddd')
+  return filterUserList;
+}
