@@ -30,11 +30,12 @@ export default function Register() {
   const [currentState, setCurrentState] = useState(defaultUser)
   const dispatch = useDispatch()
   const history = useHistory()
-  const hashEmail = Buffer.from((useParams()?.hashEmail ?? ''), 'base64').toString('ascii');
+  const hashEmail = useParams()?.hashEmail ?? ''
+  const inviteDisabled = hashEmail ? true : false
   useEffect(() => {
     setCurrentState((prevState = defaultUser) => ({
       ...(prevState ?? defaultUser),
-      invite: hashEmail
+      invite: hashEmail,
     }))
   }, [])
   const handleChange = (e) => {
@@ -61,13 +62,13 @@ export default function Register() {
     )
       .then((res) => {
         if (res?.result ?? false) {
-          history.push({ pathname: '/verification', state: '/home' })
+          history.push({ pathname: '/home' })
           notification('success', res?.msg ?? 'success')
-          setCurrentState({
-            ...defaultUser,
-          })
         } else {
-          notification('error', res?.msg ?? 'Please make sure your network connection.')
+          notification(
+            'error',
+            res?.msg ?? 'Please make sure your network connection.',
+          )
         }
       })
       .catch((err) => {
@@ -148,7 +149,7 @@ export default function Register() {
           </Grid>
           <Grid item xs={12}>
             <CustomInput
-              disabled = {true}
+              disabled={inviteDisabled}
               label="Invites"
               name="invite"
               placeholder="Optional"

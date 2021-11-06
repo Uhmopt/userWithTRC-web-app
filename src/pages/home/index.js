@@ -5,7 +5,6 @@ import LevelCardTable from 'components/LevelCardTable'
 import MainTitle from 'components/MainTitle'
 import StaticCard from 'components/StaticCard'
 import UserLevelIcon from 'components/UserLevelIcon'
-import momentDate from 'lib/momentDate'
 import revenue from 'services/revenue.service'
 import { getFriendArray } from 'services/user.service'
 import React, { useEffect, useState } from 'react'
@@ -13,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import { getLeveList, getPaymentList, getUserList, getUserInfo } from 'store/actions/home'
 import Layout from '../../layouts'
+import moment from 'moment'
 
 const defaultState = {
   levels: [],
@@ -78,7 +78,7 @@ export default function Home() {
       }
       id={user?.user_rid ?? 2000}
       mail={user?.user_email ?? 'admin@admin.com'}
-      joinTime={momentDate.timestampToDate(user?.user_register_date ?? '')}
+      joinTime={moment(user?.user_register_date ?? '').format('YYYY-MM-DD')}
     />
   )
   const totalContent = (

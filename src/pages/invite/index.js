@@ -5,9 +5,12 @@ import CustomInput from 'components/CustomInput'
 import MainTitle from 'components/MainTitle'
 import notification from 'lib/notification'
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import QRCode from 'react-qr-code'
+import generateQR from 'lib/qrgenerator'
 import { useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
+import { saveAs } from 'file-saver'
 import Layout from '../../layouts'
 
 export default function Invite() {
@@ -16,6 +19,14 @@ export default function Invite() {
     inviteLink: '',
   })
   const user = useSelector((state) => state?.auth?.user ?? {})
+  useEffect(() => {
+    const tmpLink = `${window.origin}/register/` + Buffer.from(user?.user_email ??"");
+    setCurrentState((prevState = {}) => ({
+      ...(prevState ?? {}),
+      inviteLink: tmpLink,
+    }))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   if (Number(user?.user_level) === 0) {
     history.push('upgrade');
     notification('error', 'Please upgrade your level first!')
@@ -29,12 +40,10 @@ export default function Invite() {
   const handleCopy = () => {
     navigator.clipboard.writeText(currentState?.inviteLink ?? '')
   }
-  const handleClick = () => {
-    const tmpLink = `${window.origin}/register/` + Buffer.from(user?.user_email ??"").toString('base64');
-    setCurrentState((prevState = {}) => ({
-      ...(prevState ?? {}),
-      inviteLink: tmpLink,
-    }))
+  const handleClick = async () => {
+    const tmpLink = await generateQR(currentState?.inviteLink ?? '')
+    console.log( tmpLink );
+    saveAs(tmpLink, 'invite.png');
   }
   return (
     <Layout isLogin={true} title="Invite Friend" before="home" menuIndex={3}>
@@ -53,7 +62,7 @@ export default function Invite() {
               fullWidth
               className="capitalize"
             >
-              Submit
+              Save
             </Button>
           </Link>
         </Box>

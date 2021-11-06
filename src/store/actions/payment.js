@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getTransInfo } from 'services/payment.service'
 // import httpConfig from 'lib/httpConfig'
 
-const API_URL = 'http://localhost:5000/app/payment/'
+const API_URL = 'http://66.42.111.49/app/payment/'
 
 export const submitHash = (hash = '') => async (dispatch) => {
   const token =

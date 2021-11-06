@@ -3,12 +3,11 @@ import NavButton from 'components/NavButton'
 import RevenueTable from 'components/RevenueTable'
 import StaticCard from 'components/StaticCard'
 import TableSwipeableViews from 'components/TableSwipeableViews'
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
-import Layout from '../../layouts'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import revenue from 'services/revenue.service'
+import { getPaymentList } from 'store/actions/home'
+import Layout from '../../layouts'
 
 const defaultState = {
   tabNumber: 0,
@@ -19,6 +18,7 @@ const defaultState = {
 }
 
 export default function Revenue() {
+  const dispatch = useDispatch()
   const [tabNumber, setTabNumber] = useState(0)
   const paymentList = useSelector((state) => state?.home?.paymentList ?? {})
   const user = useSelector((state) => state?.auth?.user ?? {})
@@ -29,6 +29,7 @@ export default function Revenue() {
   }, [])
 
   const init = () => {
+    dispatch(getPaymentList(user?.user_id ?? ''))
     const tmpRevenue = revenue.calTotalRevenue(paymentList ?? [], user?.user_id ?? '');
     const tmpEarning = revenue.calTotalEarning(paymentList ?? [], user?.user_id ?? '');
     const tmpDayList = revenue.calRevenueList(paymentList ?? [], user?.user_id ?? '');

@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function LevelCard({
   startIcon = '',
-  level = 0,
+  level = 1,
   levelUserNum = 0,
   onClick,
 }) {
@@ -12,7 +12,7 @@ export default function LevelCard({
     <div className="pt-4">
       <Card className="bg-white rounded-md flex justify-between items-center p-2">
         {startIcon}
-        <label className="self-center">{`${level ?? 0} Level Friend`}</label>
+        <div className="w-52"><label className="self-center">{`${level ?? 0} Level Friend`}</label></div>
         <CardActions className="bg-light text-main rounded-xl">
           {levelUserNum ?? 0}
         </CardActions>
