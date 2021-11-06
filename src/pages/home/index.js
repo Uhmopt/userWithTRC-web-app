@@ -10,7 +10,13 @@ import { getFriendArray } from 'services/user.service'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-import { getLeveList, getPaymentList, getUserList, getUserInfo } from 'store/actions/home'
+import {
+  getLeveList,
+  getPaymentList,
+  getUserList,
+  getUserInfo,
+} from 'store/actions/home'
+import { getMaxLevel } from 'lib/levels'
 import Layout from '../../layouts'
 import moment from 'moment'
 
@@ -18,6 +24,7 @@ const defaultState = {
   levels: [],
   totalRevenue: 0,
   totalPeople: 0,
+  maxLevel: 16,
 }
 
 export default function Home() {
@@ -39,17 +46,23 @@ export default function Home() {
   }, [home])
 
   const init = () => {
-    const userListByLevelFriend = getFriendArray( user?.user_id ?? -1, home?.userList ?? [] )
+    const userListByLevelFriend = getFriendArray(
+      user?.user_id ?? -1,
+      home?.userList ?? [],
+    )
     const tmpRevenue = revenue.calTotalRevenue(
       home?.paymentList ?? [],
       user?.user_id ?? '',
     )
-    const totalPeople = (userListByLevelFriend ?? []).reduce( (x, y) => x + y.length, 0 );
+    const totalPeople = (userListByLevelFriend ?? []).reduce(
+      (x, y) => x + y.length,
+      0,
+    )
     setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
       levels: userListByLevelFriend,
       totalRevenue: Number.parseFloat(tmpRevenue).toFixed(6),
-      totalPeople: totalPeople
+      totalPeople: totalPeople,
     }))
   }
 
@@ -70,7 +83,11 @@ export default function Home() {
       }
       upperIcon={
         <UserLevelIcon
-          levelNum={(user?.user_level ?? 0) + 1}
+          levelNum={
+            (user?.user_level ?? 0) + 1 > getMaxLevel(home?.levelList ?? [])
+              ? getMaxLevel(home?.levelList ?? [])
+              : (user?.user_level ?? 0) + 1
+          }
           alt="Star"
           className=" w-14 inline-block ml-12"
           iconClass="user-level-icon-large"
@@ -87,7 +104,7 @@ export default function Home() {
         <label className="text-main font-bold">Total Revenue</label>
         <br />
         <label className="font-bold text-title">
-          {currentState.totalRevenue}
+          {currentState?.totalRevenue ?? 0}
         </label>
         <label className="text-sm text-title">usdt</label>
       </div>

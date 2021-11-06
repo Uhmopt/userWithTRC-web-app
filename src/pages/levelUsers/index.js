@@ -10,7 +10,7 @@ import TableSwipeableViews from 'components/TableSwipeableViews'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Layout from '../../layouts'
-import levelOrder from 'lib/levelOrder'
+import {levelOrder} from 'lib/levels'
 import { getFriendArray } from 'services/user.service'
 
 const defaultState = {

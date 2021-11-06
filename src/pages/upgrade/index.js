@@ -5,19 +5,47 @@ import LevelAuthorityTable from 'components/LevelAuthorityTable'
 import MainTitle from 'components/MainTitle'
 import StaticCard from 'components/StaticCard'
 import UserLevelIcon from 'components/UserLevelIcon'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import levelOrder from 'lib/levelOrder'
-import Layout from '../../layouts'
+import {levelOrder, getMaxLevel, getLevels} from 'lib/levels'
+import notification from 'lib/notification'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
+import Layout from '../../layouts'
 
 export default function Upgrade() {
   const user = useSelector((state) => state?.auth?.user ?? {})
+  const history = useHistory()
+  const [levelList, setLevelList] = useState([])
+  const [upgradeNum, setUpgradeNum] = useState(0)
+  const LevelList = useSelector((state) => state?.home?.levelList ?? [])
+
+  useEffect(() => {
+    init()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  const init = () => {
+    const tmpLevelList = getLevels(LevelList)
+    setLevelList(tmpLevelList ?? []);
+    let tmpNum = Number(user?.user_level ?? 0) + 1
+    if (tmpNum > getMaxLevel( LevelList )) {
+      tmpNum = getMaxLevel( LevelList );
+    }
+    setUpgradeNum( tmpNum )
+  }
+
+  const handleClick = () => {
+    if (upgradeNum === levelList?.length) {
+      notification('success', 'You are reached at the last level.')
+      return false;
+    }
+    history.push('/payment');
+  }
+
   const topicContent = (
     <>
       <Box>
         <UserLevelIcon
-          levelNum={Number(user?.user_level ?? 0) + 1}
+          levelNum={upgradeNum}
           alt="Star"
           className="mx-auto w-14"
           iconClass="user-level-icon-large"
@@ -25,7 +53,7 @@ export default function Upgrade() {
 
         <Box className="font-bold text-title flex items-center justify-center">
           <Box>
-            Next Level: {levelOrder(Number(user?.user_level ?? 0) + 1)} Star
+            Next Level: {levelOrder(upgradeNum)} Star
             Member
           </Box>
           <Box className="bg-yellow-300 rounded-full flex items-center ">
@@ -54,14 +82,12 @@ export default function Upgrade() {
         <StaticCard content1={topicContent} />
       </Box>
       <Box className="pt-12">
-        <Link to={`payment`}>
-          <Button type="button" variant="contained" size="large" fullWidth>
-            Upgrade Now
-          </Button>
-        </Link>
+        <Button onClick={handleClick} type="button" variant="contained" size="large" fullWidth>
+          Upgrade Now
+        </Button>
       </Box>
       <MainTitle className="pt-8" />
-      <LevelAuthorityTable userLevel={Number(user?.user_level ?? 0)} />
+      <LevelAuthorityTable levelList={levelList} userLevel={Number(user?.user_level ?? 0)} />
     </Layout>
   )
 }

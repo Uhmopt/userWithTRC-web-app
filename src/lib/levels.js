@@ -1,4 +1,4 @@
-export default function levelOrder(numbre=0) {
+export const levelOrder = (numbre=0) => {
 
     switch (Number(numbre)){
         case 0: return "Registered"
@@ -25,4 +25,19 @@ export default function levelOrder(numbre=0) {
         default: return "Registered"
     }
     
+}
+
+export const getMaxLevel = (levelList=[]) => {
+    const max = (levelList ?? []).find((level = {}) => level.devel_amount === 0)
+    ?.level_degree ?? (levelList ?? []).length - 1
+    return max ?? 16
+}
+
+export const getLevels = (levelList=[]) => {
+    
+    levelList = levelList.filter(
+        (level = {}) =>
+          (level?.level_amount ?? 0) > 0 && level?.level_degree !== 0
+    )
+    return levelList ?? []
 }

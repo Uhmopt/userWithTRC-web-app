@@ -6,7 +6,6 @@ import MainTitle from 'components/MainTitle'
 import notification from 'lib/notification'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
 import { contactUs } from 'store/actions/home'
 import Layout from '../../layouts'
 
@@ -20,7 +19,6 @@ const defaultContact = {
 export default function ContactUs() {
   const [currentState, setCurrentState] = useState(defaultContact)
   const dispatch = useDispatch()
-  const history = useHistory()
   const user = useSelector((state) => state?.auth?.user ?? {})
   useEffect(() => {
     setCurrentState((prvState = defaultContact) => ({
