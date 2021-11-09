@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getTransInfo } from 'services/payment.service'
 // import httpConfig from 'lib/httpConfig'
 
-const API_URL = 'http://66.42.111.49/app/payment/'
+const API_URL = 'http://localhost:5000/app/payment/'
 
 export const submitHash = (hash = '') => async (dispatch) => {
   const token =
@@ -44,6 +44,8 @@ export const GetAmountAddress = (
 ) => async (dispatch) => {
   const token =
     JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
+  console.log( 'dnnnnnnn' , )
+
   return await axios
     .post(
       API_URL + 'get-amount-address',
@@ -57,6 +59,7 @@ export const GetAmountAddress = (
     )
     .then(function (response) {
       const result = response?.data?.result ?? {}
+      console.log( response?.data, 'dnnnnnnn' )
       dispatch({
         type: 'SET_PAYMENT',
         payload: result,

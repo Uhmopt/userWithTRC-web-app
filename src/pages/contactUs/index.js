@@ -40,8 +40,16 @@ export default function ContactUs() {
         if (res?.result ?? false) {
           notification('success', res?.msg ?? 'success')
           // history.push({ pathname: 'verification', state: 'contact-us', params: res?.result?.contact_id ?? 0 })
+          setCurrentState((prvState = defaultContact) => ({
+            ...(prvState ?? defaultContact),
+            email: user?.user_email ?? '',
+            rid: user?.user_rid ?? '',
+          }))
         } else {
-          notification('error', res?.msg ?? 'Please make sure your network connection!')
+          notification(
+            'error',
+            res?.msg ?? 'Please make sure your network connection!',
+          )
         }
       })
       .catch((err) => {

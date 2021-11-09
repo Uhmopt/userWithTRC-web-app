@@ -7,22 +7,26 @@ import LevelAuthorityTable from 'components/LevelAuthorityTable'
 import MainTitle from 'components/MainTitle'
 import StaticCard from 'components/StaticCard'
 import UserLevelIcon from 'components/UserLevelIcon'
+import { getLevels } from 'lib/levels'
+import notification from 'lib/notification'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import notification from 'lib/notification'
-import { submitHash, GetAmountAddress } from 'store/actions/payment'
+import { GetAmountAddress, submitHash } from 'store/actions/payment'
+import copy from 'copy-to-clipboard'
 import Layout from '../../layouts'
 
 const defaultState = {
   hash: '',
   transforAmount: 10,
   walletAddress: '',
+  levelList: [],
 }
 
 export default function Payment() {
   const [currentState, setCurrentState] = useState(defaultState)
   const user = useSelector((state) => state?.auth?.user ?? {})
+  const levels = useSelector((state) => state?.home?.levelList ?? [])
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -31,9 +35,11 @@ export default function Payment() {
   }, [])
 
   const init = () => {
+    const tmpLevelList = getLevels(levels)
     setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
       transforAmount: 10 + Number(user?.user_rid ?? 2000) / 1000000,
+      levelList: tmpLevelList,
     }))
     dispatch(
       GetAmountAddress(user?.user_level, user?.user_superior_id ?? ''),
@@ -43,7 +49,8 @@ export default function Payment() {
           ...(prevState ?? defaultState),
           transforAmount:
             (Number(res?.result?.neccesary_amount ?? 0) +
-            Number(user?.user_rid ?? 2000)) / Math.pow(10, 6),
+              Number(user?.user_rid ?? 2000)) /
+            Math.pow(10, 6),
           walletAddress: res?.result?.superior_wallet_address ?? '',
         }))
       }
@@ -63,32 +70,48 @@ export default function Payment() {
     }
     dispatch(submitHash(currentState?.hash ?? '')).then((res) => {
       if (!(res?.result ?? '')) {
-        res?.msg && notification('error', res?.msg ?? 'Upgrade failed');
+        res?.msg && notification('error', res?.msg ?? 'Upgrade failed')
         return false
       }
       notification('success', res?.msg ?? 'Upgrade success!')
-      history.push('highest-level')
+      if (
+        res?.result?.user_level ??
+        0 === currentState?.levelList?.length ??
+        0
+      ) {
+        history.push('/highest-level')
+      } else {
+        history.push('/upgrade')
+      }
     })
   }
-
   const handleCopy = () => {
-    navigator.clipboard.writeText(currentState?.walletAddress ?? '')
+    copy(currentState?.walletAddress ?? '')
   }
-
+  console.log(currentState?.levelList?.length)
   const upgradeUser = (
     <>
       <div className="text-title text-left text-sm">
         <div className="flex items-center">
           <div className="relative">
             <UserLevelIcon
-              levelNum={Number(user?.user_level ?? 0) + 1}
+              levelNum={
+                Number(user?.user_level ?? 0) + 1 >
+                currentState?.levelList?.length
+                  ? currentState?.levelList?.length
+                  : Number(user?.user_level ?? 0) + 1
+              }
               alt="Star"
               className=" w-14 inline-block"
               iconClass="user-level-icon-large"
             />
           </div>
           <span className="text-2xl">
-            Upgrade V{Number(user?.user_level ?? 0) + 1} user
+            Upgrade V
+            {Number(user?.user_level ?? 0) + 1 > currentState?.levelList?.length
+              ? currentState?.levelList?.length ?? 0
+              : Number(user?.user_level ?? 0) + 1}{' '}
+            user
           </span>
         </div>
         <div>
@@ -156,7 +179,10 @@ export default function Payment() {
         {/* </Link> */}
         <MainTitle className="pt-8" />
       </Box>
-      <LevelAuthorityTable userLevel={Number(user?.user_level ?? 0)} />
+      <LevelAuthorityTable
+        levelList={currentState?.levelList ?? []}
+        userLevel={Number(user?.user_level ?? 0)}
+      />
     </Layout>
   )
 }

@@ -8,14 +8,13 @@ import LangSelect from 'components/LangSelect'
 import Logo from 'components/Logo'
 import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { register } from 'store/actions/auth'
-import notification from 'lib/notification'
 import checkValidEmail from 'lib/checkValidEmail'
+import notification from 'lib/notification'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
-import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { register } from 'store/actions/auth'
 
 const defaultUser = {
   email: '',
@@ -62,8 +61,8 @@ export default function Register() {
     )
       .then((res) => {
         if (res?.result ?? false) {
-          history.push({ pathname: '/home' })
           notification('success', res?.msg ?? 'success')
+          history.push({ pathname: '/home' })
         } else {
           notification(
             'error',

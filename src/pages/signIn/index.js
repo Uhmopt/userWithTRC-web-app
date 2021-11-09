@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
+// import CheckBoxIcon from '@mui/icons-material/CheckBox'
+// import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import LockIcon from '@mui/icons-material/Lock'
 import MailIcon from '@mui/icons-material/Mail'
 import { Button, Grid } from '@mui/material'
@@ -35,8 +35,11 @@ export default function SignIn() {
   }, [])
 
   const init = () => {
+    if ((auth?.isAuth ?? false) && (auth?.isAdmin ?? false) && (auth?.token ?? '')){
+      history.push('/back/settings');
+    }
     if ((auth?.isAuth ?? '') && (auth?.token ?? '')) {
-      history.push('home')
+      history.push('/home');
     }
   }
 
@@ -54,18 +57,28 @@ export default function SignIn() {
     }
     dispatch(
       login(currentState.email, currentState.password, currentState.isRemember),
-    ).then( async (res) => {
+    ).then(async (res) => {
       if (res?.isVerifyRequired ?? false) {
-        notification('error', res?.msg ?? 'Please make sure your network connection..')
+        notification(
+          'error',
+          res?.msg ?? 'Please make sure your network connection..',
+        )
         history.push({ pathname: 'verification', state: 'sign-in' })
         return false
       } else {
         Boolean(res?.result ?? false)
         if (res?.result ?? false) {
-            history.push('/home')
-            notification('success', res?.msg ?? 'success')
+          if (res?.result?.user_role === 3) {
+            history.push('/back/settings')
+          } else {
+          history.push('/home')
+        }
+          notification('success', res?.msg ?? 'success')
         } else {
-          notification('error', res?.msg ?? 'Please make sure your network connection..')
+          notification(
+            'error',
+            res?.msg ?? 'Please make sure your network connection..',
+          )
         }
       }
 
@@ -124,7 +137,7 @@ export default function SignIn() {
           </Grid>
           <Grid item xs={12}>
             <Grid container>
-              <Grid item xs={6}>
+              {/* <Grid item xs={6}>
                 <Box
                   className="cursor-pointer flex items-center text-main"
                   onClick={() => {
@@ -141,8 +154,8 @@ export default function SignIn() {
                   )}
                   <span>Remember me</span>
                 </Box>
-              </Grid>
-              <Grid item xs={6} className="text-right">
+              </Grid> */}
+              <Grid item xs={12} className="text-right">
                 <Link to={`forgot-password`} className="text-green-500">
                   <span>Forgot password</span>
                 </Link>

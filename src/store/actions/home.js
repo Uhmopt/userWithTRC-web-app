@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getTransInfo } from 'services/payment.service'
 
-const API_URL = 'http://66.42.111.49/app/home/'
+const API_URL = 'http://localhost:5000/app/home/'
 
 export const getUserInfo = (user_id = 0) => async (dispatch) => {
   const token =
@@ -92,6 +92,7 @@ export const getPaymentList = (user_id = '') => async (dispatch) => {
           },
         )
         .then((res) => {
+          console.log( res, 'get payment' )
           dispatch({
             type: 'GET_PAYMENTS',
             payload: {

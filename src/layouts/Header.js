@@ -14,6 +14,7 @@ export default function Header({
   isLogin = false,
   title = 'First level user',
   before = '#',
+  maxWidth = 'sm'
 }) {
   const dispatch = useDispatch()
   const onSignOut = () => {
@@ -21,7 +22,7 @@ export default function Header({
   }
   return isLogin ? (
     <div className="fixed top-0 z-30 w-full">
-      <CustomContainer>
+      <CustomContainer maxWidth = {maxWidth}>
         <div className="p-2 flex justify-between items-center bg-blue-500 shadow-default">
           <div>
             <Link to={before}>

@@ -6,7 +6,6 @@ import MainTitle from 'components/MainTitle'
 import StaticCard from 'components/StaticCard'
 import UserLevelIcon from 'components/UserLevelIcon'
 import {levelOrder, getMaxLevel, getLevels} from 'lib/levels'
-import notification from 'lib/notification'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
@@ -17,27 +16,23 @@ export default function Upgrade() {
   const history = useHistory()
   const [levelList, setLevelList] = useState([])
   const [upgradeNum, setUpgradeNum] = useState(0)
-  const LevelList = useSelector((state) => state?.home?.levelList ?? [])
+  const levels = useSelector((state) => state?.home?.levelList ?? [])
 
   useEffect(() => {
     init()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const init = () => {
-    const tmpLevelList = getLevels(LevelList)
+    const tmpLevelList = getLevels(levels)
     setLevelList(tmpLevelList ?? []);
     let tmpNum = Number(user?.user_level ?? 0) + 1
-    if (tmpNum > getMaxLevel( LevelList )) {
-      tmpNum = getMaxLevel( LevelList );
+    if (tmpNum > getMaxLevel( levels )) {
+      tmpNum = getMaxLevel( levels );
     }
     setUpgradeNum( tmpNum )
   }
 
   const handleClick = () => {
-    if (upgradeNum === levelList?.length) {
-      notification('success', 'You are reached at the last level.')
-      return false;
-    }
     history.push('/payment');
   }
 

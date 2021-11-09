@@ -19,7 +19,7 @@ export default function LevelCardTable({ levelList = [], onClick }) {
               />
             }
             levelUserNum={
-              (level ?? []).filter((x) => x.user_level >= index + 1).length
+              (level ?? []).length
             }
             level={index + 1}
             onClick={onClick}

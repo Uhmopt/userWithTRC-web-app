@@ -13,7 +13,9 @@ export default function Layout({
   isPadding = true,
   banner = '',
   children = <></>,
-  menuIndex = 0
+  menuIndex = 0,
+  maxWidth = 'sm',
+  admin = false
 }) {
   return (
     <div id="out_body" className="bg-gradient-to-b from-blue-50 to-green-50">
@@ -24,15 +26,16 @@ export default function Layout({
           title={title}
           before={before}
           isLogin={Boolean(isLogin)}
+          maxWidth={ maxWidth }
         />
       ) : null}
-      <CustomContainer>
+      <CustomContainer maxWidth = { maxWidth }>
         <div className="min-h-screen">
           {banner}
           <BodyContainer isLogin={isLogin} isPadding={isPadding}>{children}</BodyContainer>
         </div>
       </CustomContainer>
-      <Footer isLogin={Boolean(isLogin)} menuIndex = {menuIndex} />
+      {!admin&&<Footer isLogin={Boolean(isLogin)} menuIndex = {menuIndex} />}
     </div>
   )
 }

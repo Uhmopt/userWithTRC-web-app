@@ -10,6 +10,7 @@ import QRCode from 'react-qr-code'
 import generateQR from 'lib/qrgenerator'
 import { useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
+import copy from 'copy-to-clipboard';
 import { saveAs } from 'file-saver'
 import Layout from '../../layouts'
 
@@ -38,7 +39,22 @@ export default function Invite() {
     }))
   }
   const handleCopy = () => {
-    navigator.clipboard.writeText(currentState?.inviteLink ?? '')
+    // navigator.clipboard.writeText(currentState?.inviteLink ?? '')
+    
+    // console.log( navigator.clipboard )
+    // window.clipboardData.setData("Text", currentState?.inviteLink ?? '');
+
+    // if (navigator.clipboard !== undefined) {//Chrome
+    //     navigator.clipboard.writeText(currentState?.inviteLink ?? '').then(function () {
+    //         console.log('Async: Copying to clipboard was successful!');
+    //     }, function (err) {
+    //         console.error('Async: Could not copy text: ', err);
+    //     });
+    // }
+    // else if(window.clipboardData) { // Internet Explorer
+    //     window.clipboardData.setData("Text", currentState?.inviteLink ?? '');
+    // }
+    copy( currentState?.inviteLink ?? '' );
   }
   const handleClick = async () => {
     const tmpLink = await generateQR(currentState?.inviteLink ?? '')

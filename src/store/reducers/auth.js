@@ -5,6 +5,7 @@ import { jsonParse } from 'lib/json'
 const initialState = {
   user: {},
   isAuth: false,
+  isAdmin: false,
   token: '',
 }
 
@@ -14,12 +15,12 @@ const restoreState = {
 }
 
 const setAuth = (state = initialState, payload) => {
-  console.log( payload, 'payload' )
   const user = payload?.user ?? {}
   if ((user?.user_token ?? '')&&( user?.user_is_verified ?? false === 1 )) {
     state = {
       ...state,
       isAuth: true,
+      isAdmin: user?.user_role === 3,
       token: user?.user_token,
     }
   }

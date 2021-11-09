@@ -25,15 +25,31 @@ export default function Revenue() {
   const [currentState, setCurrentState] = useState(defaultState)
 
   useEffect(() => {
-    init()
+    dispatch(getPaymentList(user?.user_id ?? ''))
   }, [])
 
+  useEffect(() => {
+    init()
+  }, [paymentList])
+
   const init = () => {
-    dispatch(getPaymentList(user?.user_id ?? ''))
-    const tmpRevenue = revenue.calTotalRevenue(paymentList ?? [], user?.user_id ?? '');
-    const tmpEarning = revenue.calTotalEarning(paymentList ?? [], user?.user_id ?? '');
-    const tmpDayList = revenue.calRevenueList(paymentList ?? [], user?.user_id ?? '');
-    const tmpMonthList = revenue.calRevenueList(paymentList ?? [], user?.user_id ?? '', 'YYYY-MM');
+    const tmpRevenue = revenue.calTotalRevenue(
+      paymentList ?? [],
+      user?.user_id ?? '',
+    )
+    const tmpEarning = revenue.calTotalEarning(
+      paymentList ?? [],
+      user?.user_id ?? '',
+    )
+    const tmpDayList = revenue.calRevenueList(
+      paymentList ?? [],
+      user?.user_id ?? '',
+    )
+    const tmpMonthList = revenue.calRevenueList(
+      paymentList ?? [],
+      user?.user_id ?? '',
+      'YYYY-MM',
+    )
     setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
       totalRevenue: Number.parseFloat(tmpRevenue).toFixed(6),
@@ -49,7 +65,7 @@ export default function Revenue() {
 
   const totalEarning = (
     <div>
-      <span className=" text-main font-bold">Total Earning</span>
+      <span className=" text-main font-bold">Today Earning</span>
       <br />
       <span className="font-bold">{currentState?.totalEarning ?? ''}</span>
       <span className="font-bold text-sm">usdt</span>
@@ -83,8 +99,12 @@ export default function Revenue() {
       </div>
       <div className="pt-8 pb-20">
         <TableSwipeableViews
-          contentOne={<RevenueTable revenueList={currentState.dailyRevenueList} />}
-          contentTwo={<RevenueTable revenueList={currentState.monthlyRevenueList} />}
+          contentOne={
+            <RevenueTable revenueList={currentState.dailyRevenueList} />
+          }
+          contentTwo={
+            <RevenueTable revenueList={currentState.monthlyRevenueList} />
+          }
           contentNumber={tabNumber}
         />
       </div>

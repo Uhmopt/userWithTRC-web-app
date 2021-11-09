@@ -3,6 +3,7 @@ import './App.css'
 import 'toastr/build/toastr.min.css'
 import routes from './routes'
 import PrivateRoute from './routes/Private'
+import AdminRoute from './routes/Admin'
 import PublicRoute from './routes/Public'
 import SplitRoute from './routes/Split'
 
@@ -13,6 +14,8 @@ function App() {
       {routes.map((route) => {
         if (route.auth && route.fallback) {
           return <SplitRoute key={route.path} {...route} />
+        } else if (route.auth && route.admin) {
+          return <AdminRoute key={route.path} {...route} />
         } else if (route.auth) {
           return <PrivateRoute key={route.path} {...route} />
         }

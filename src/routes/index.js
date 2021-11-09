@@ -1,6 +1,7 @@
 import Home from '../pages/home'
 import auth from './routes/auth'
 import home from './routes/home'
+import admin from './routes/admin'
 
 const routes = [
   // page for guest
@@ -10,6 +11,7 @@ const routes = [
     auth: true,
     component: Home,
   },
+  ...admin,
   ...auth,
   ...home
 ]

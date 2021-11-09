@@ -38,7 +38,7 @@ class ReveService {
           (a, { pay_from, pay_amount }) =>
             a +
             (Number(pay_from) === Number(user_id)
-              ? -1 * Number(pay_amount ?? 0)
+              ? 0
               : Number(pay_amount ?? 0)),
           0,
         )
@@ -46,8 +46,12 @@ class ReveService {
     return tmpRevenue/Math.pow(10, 6) 
   }
 
-  // Note: Calculate the total Earning
+  // Note: Calculate the Today Earning
   calTotalEarning = (paymentList = [], user_id = '') => {
+    console.log( paymentList, 'PaymentLIst' )
+    paymentList = paymentList.filter((payment)=>{
+      return moment(payment?.pay_time ?? '').format('MM-DD') === moment().format('MM-DD')
+    })
     const tmpRevenue = user_id && Array.isArray( paymentList )
       ? (paymentList ?? []).reduce(
           (a, { pay_from, pay_amount }) =>
