@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-// import CheckBoxIcon from '@mui/icons-material/CheckBox'
-// import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import LockIcon from '@mui/icons-material/Lock'
 import MailIcon from '@mui/icons-material/Mail'
 import { Button, Grid } from '@mui/material'
@@ -37,9 +35,10 @@ export default function SignIn() {
   const init = () => {
     if ((auth?.isAuth ?? false) && (auth?.isAdmin ?? false) && (auth?.token ?? '')){
       history.push('/back/settings');
-    }
-    if ((auth?.isAuth ?? '') && (auth?.token ?? '')) {
-      history.push('/home');
+    } else {
+      if ((auth?.isAuth ?? '') && (auth?.token ?? '')) {
+        history.push('/home');
+      }
     }
   }
 

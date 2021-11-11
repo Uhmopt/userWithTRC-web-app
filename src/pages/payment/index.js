@@ -12,7 +12,7 @@ import notification from 'lib/notification'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { GetAmountAddress, submitHash } from 'store/actions/payment'
+import { getAmountAddress, submitHash } from 'store/actions/payment'
 import copy from 'copy-to-clipboard'
 import Layout from '../../layouts'
 
@@ -42,7 +42,7 @@ export default function Payment() {
       levelList: tmpLevelList,
     }))
     dispatch(
-      GetAmountAddress(user?.user_level, user?.user_superior_id ?? ''),
+      getAmountAddress(user?.user_level, user?.user_superior_id ?? ''),
     ).then((res) => {
       if (res?.result) {
         setCurrentState((prevState = defaultState) => ({

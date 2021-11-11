@@ -1,6 +1,7 @@
 import {
   Logout,
-  PeopleAltOutlined, SettingsOutlined
+  PeopleAltOutlined,
+  SettingsOutlined,
 } from '@mui/icons-material'
 import { IconButton, Tooltip } from '@mui/material'
 import CustomSvgs from 'components/CustomSvgs'
@@ -23,28 +24,28 @@ export default function AdminHeader({ maxWidth = 'xl' }) {
       <CustomContainer maxWidth={maxWidth}>
         <div className="p-2 flex justify-end items-center bg-blue-500 shadow-default">
           <Link to="users">
-            <Tooltip title="User List">
+            <Tooltip title="User List" arrow>
               <IconButton color="default">
                 <PeopleAltOutlined fontSize="large" className="text-white" />
               </IconButton>
             </Tooltip>
           </Link>
           <Link to="settings">
-            <Tooltip title="Settings">
+            <Tooltip title="Settings" arrow>
               <IconButton color="default">
                 <SettingsOutlined fontSize="large" className="text-white" />
               </IconButton>
             </Tooltip>
           </Link>
           <Link to="user-upgrade">
-            <Tooltip title="User Upgrade">
+            <Tooltip title="User Upgrade" arrow>
               <IconButton color="default">
                 <CustomSvgs name="UpgradeUser" className="w-7" />
               </IconButton>
             </Tooltip>
           </Link>
           <Link to="sign-in">
-            <Tooltip title="Logout">
+            <Tooltip title="Logout" arrow>
               <IconButton onClick={onSignOut} color="default">
                 <Logout fontSize="large" className="text-white" />
               </IconButton>

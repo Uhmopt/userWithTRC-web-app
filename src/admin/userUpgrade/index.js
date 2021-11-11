@@ -1,75 +1,157 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Search } from '@mui/icons-material'
-import { Grid, IconButton } from '@mui/material'
+import { Button, Card, CardHeader, Grid, IconButton } from '@mui/material'
 import CustomInput from 'components/CustomInput'
 import EditTable from 'components/EditTable'
 import Layout from 'layouts'
+import notification from 'lib/notification'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router'
-import { payTableItems } from 'services/payment.service'
-import { getUserPayment, getUser } from 'store/actions/user'
+import { useDispatch, useSelector } from 'react-redux'
+import { upgradeTableItems } from 'services/payment.service'
+import { getPaymentHistory } from 'store/actions/payment'
+import { useConfirm } from 'material-ui-confirm'
+import { deletePayment } from 'store/actions/payment'
+import { approvePayment } from 'store/actions/payment'
+
 const defaultState = {
-  paymentList: [],
+  payHistoryList: [],
+  previousPaymentList: [],
   searchItem: '',
   user: {},
 }
+
 export default function UserUpgrade(props) {
-  const history = useHistory()
-  const user_id = props.location.state
-  const tableItems = payTableItems()
   const dispatch = useDispatch()
-  const [currentState, setCurrentState] = useState({})
+  const [currentState, setCurrentState] = useState(defaultState)
+  const auth = useSelector((state) => state?.auth ?? {})
+  const confirm = useConfirm()
+  const upgradeHistoryItmes = upgradeTableItems()
 
   useEffect(() => {
-    if (!user_id) {
-      history.push('users')
-      return false
-    }
-    dispatch(getUser({ user_id: user_id })).then((res) => {
-      setCurrentState((prevState = defaultState) => ({
-        ...(prevState ?? defaultState),
-        user: res?.result ?? {},
-      }))
-    })
-    dispatch(getUserPayment(user_id)).then((res) => {
-      const tmpList = (res?.result ?? []).map((item) => {
-        return {
-          user_rid: item?.user_rid,
-          pay_amount: item?.pay_amount / Math.pow(10, 6),
-          user_wallet_address: item?.user_wallet_address,
-          user_email: item?.user_email,
-          pay_level: item?.pay_level,
-          pay_register_time: moment(item?.pay_register_time ?? '').format(
-            'YYYY-MM-DD HH:mm:ss',
-          ),
-          pay_time: moment(item?.pay_time ?? '').format('YYYY-MM-DD HH:mm:ss'),
-        }
-      })
-      setCurrentState((prevState = defaultState) => ({
-        ...(prevState ?? defaultState),
-        paymentList: tmpList,
-      }))
-    })
-  }, [user_id])
+    init()
+  }, [])
   useEffect(() => {
-    const tmpPayList = (currentState?.paymentList ?? []).filter((item) => {
-      return (
-        item?.user_email?.includes(currentState?.searchItem) ||
-        (item?.user_rid ?? '').toString().includes(currentState?.searchItem)
-      )
-    })
+    const tmpPayList = (currentState?.previousPaymentList ?? []).filter(
+      (item) => {
+        return (
+          item?.user_wallet_address?.includes(currentState?.searchItem) ||
+          item?.upper_wallet?.includes(currentState?.searchItem) ||
+          (item?.user_rid ?? '')
+            .toString()
+            .includes(currentState?.searchItem) ||
+          (item?.upper_id ?? '').toString().includes(currentState?.searchItem)
+        )
+      },
+    )
     setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
-      paymentList: tmpPayList,
+      payHistoryList: tmpPayList,
     }))
-  }, [currentState?.searchItem])
+  }, [currentState.searchItem])
+  const init = () => {
+    dispatch(getPaymentHistory()).then((res) => {
+      const tmpList = changePaymentHistory(res?.result ?? [])
+      setCurrentState((prevState = defaultState) => ({
+        ...(prevState ?? defaultState),
+        payHistoryList: tmpList,
+        previousPaymentList: tmpList,
+      }))
+    })
+  }
+  // Note: Change all payment History as table data
+  const changePaymentHistory = (paymentHistory = []) => {
+    const tmpList = paymentHistory.map((payment) => {
+      const operating = (
+        <>
+          {payment.pay_upgrade_state !== 1 && (
+            <Button onClick={() => handleApproved(payment.pay_id)}>
+              approved
+            </Button>
+          )}
+          <br />
+          <Button
+            onClick={() => handleDeletePayment(payment.pay_id)}
+            color="warning"
+          >
+            delete
+          </Button>
+        </>
+      )
+      return {
+        user_rid: payment.user_rid,
+        user_level: <label>{payment.user_level} star</label>,
+        pay_amount: payment.pay_amount / Math.pow(10, 6),
+        upper_wallet: payment.upper_wallet,
+        upper_id: payment.upper_id,
+        pay_state:
+          payment.pay_upgrade_state === 1 ? (
+            <label className="text-main">Upgraded</label>
+          ) : (
+            <label>Waiting for payment</label>
+          ),
+        pay_time: moment(payment.pay_time).format('YYYY-MM-DD HH:mm:ss'),
+        pay_upgrade_time: moment(payment.pay_upgrade_time ?? '').format(
+          'YYYY-MM-DD HH:mm:ss',
+        ),
+        operation: operating,
+      }
+    })
+    return tmpList
+  }
   const handleSearch = (e) => {
     setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
       searchItem: e.target.value,
     }))
+  }
+  // Note: Delete payment Data
+  const handleDeletePayment = (e) => {
+    confirm({ description: 'Do you want to delete the selected payment?' })
+      .then(() => {
+        const data = {
+          pay_id: e,
+          admin_id: auth?.user?.user_id ?? 0,
+        }
+        dispatch(deletePayment(data))
+          .then((res) => {
+            if (res?.result ?? false) {
+              notification('success', res?.msg ?? 'success')
+              init()
+            } else {
+              notification(
+                'error',
+                res?.msg ?? 'Please make sure your network connection.',
+              )
+            }
+          })
+          .catch((err) => {
+            console.log(err, 'err')
+          })
+      })
+      .catch(() => {})
+  }
+  // Note: Approve Payment
+  const handleApproved = (e) => {
+    const data = {
+      pay_id: e,
+      admin_id: auth?.user?.user_id ?? 0,
+    }
+    dispatch(approvePayment(data))
+      .then((res) => {
+        if (res?.result ?? false) {
+          notification('success', res?.msg ?? 'success')
+          init()
+        } else {
+          notification(
+            'error',
+            res?.msg ?? 'Please make sure your network connection.',
+          )
+        }
+      })
+      .catch((err) => {
+        console.log(err, 'err')
+      })
   }
   return (
     <Layout
@@ -95,27 +177,17 @@ export default function UserUpgrade(props) {
           />
         </Grid>
         <Grid item xs={12}>
-          <div className="pl-3 flex justify-start items-center text-main">
-            <label className="ml-3">
-              <span className="text-title font-bold">ID:</span>{' '}
-              {currentState?.user?.user_rid ?? ''}
-            </label>
-            <label className="ml-3">
-              <span className="text-title font-bold">Email:</span>{' '}
-              {currentState?.user?.user_email ?? ''}
-            </label>
-            <label className="ml-3">
-              <span className="text-title font-bold">Level:</span>{' '}
-              {currentState?.user?.user_level ?? ''}Star member
-            </label>
-          </div>
-          <div className="m-h-12 bg-white shadow-md">
-            <EditTable
-              rowList={currentState?.paymentList ?? []}
-              itemList={tableItems}
-              isEditAble={false}
-            />
-          </div>
+          <Card>
+            <CardHeader title={<h1>Upgrade Management</h1>} />
+
+            <div className="m-h-12 bg-white shadow-md">
+              <EditTable
+                rowList={currentState?.payHistoryList ?? []}
+                itemList={upgradeHistoryItmes}
+                isEditAble={false}
+              />
+            </div>
+          </Card>
         </Grid>
       </Grid>
     </Layout>

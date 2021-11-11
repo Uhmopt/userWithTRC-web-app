@@ -8,7 +8,7 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-  TextField
+  TextField,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import CustomAccordion from 'components/CustomAccordion'
@@ -22,7 +22,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getInitSetting } from 'services/setting.service'
 import { getAutoCompleteUsers } from 'services/user.service'
 import { getLeveList } from 'store/actions/home'
-import { getCurrentSetting, updateLevelAmount, updateSetting } from 'store/actions/setting'
+import {
+  getCurrentSetting,
+  updateLevelAmount,
+  updateSetting,
+} from 'store/actions/setting'
 
 const defaultSettings = {
   isLogin: true,
@@ -101,23 +105,27 @@ export default function Settings(props) {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log( currentState )
-    dispatch(updateSetting({ ...currentState, userId: user?.user_id })).then((res)=>{
-      console.log( res )
-      if (res?.result ?? false) {
-        init()
-        notification('success', res?.msg ?? 'success')
-      } else {
-        notification(
-          'error',
-          res?.msg ?? 'Please make sure your network connection.',
-        )
-      }
-    });
+    e.preventDefault()
+    console.log(currentState)
+    dispatch(updateSetting({ ...currentState, userId: user?.user_id })).then(
+      (res) => {
+        console.log(res)
+        if (res?.result ?? false) {
+          init()
+          notification('success', res?.msg ?? 'success')
+        } else {
+          notification(
+            'error',
+            res?.msg ?? 'Please make sure your network connection.',
+          )
+        }
+      },
+    )
   }
   const onSaveLevel = (event) => {
-    dispatch( updateLevelAmount( user?.user_id, event?.id, event?.level_amount  ) ).then((res)=>{
+    dispatch(
+      updateLevelAmount(user?.user_id, event?.id, event?.level_amount),
+    ).then((res) => {
       if (res?.result ?? false) {
         dispatch(getLeveList())
         notification('success', res?.msg ?? 'success')
@@ -127,7 +135,7 @@ export default function Settings(props) {
           res?.msg ?? 'Please make sure your network connection.',
         )
       }
-    });
+    })
   }
   const handleChange = (e) => {
     setCurrentSate((prevState = defaultSettings) => ({
@@ -147,7 +155,7 @@ export default function Settings(props) {
   const handlePassShow = () => {
     setCurrentSate((prevState = defaultSettings) => ({
       ...(prevState ?? defaultSettings),
-      showPass: !prevState?.showPass
+      showPass: !prevState?.showPass,
     }))
   }
 
@@ -239,12 +247,18 @@ export default function Settings(props) {
                   <Grid item xs={6} md={4} lg={2}>
                     <TextField
                       onChange={handleChange}
-                      type={currentState?.showPass ?? false ? 'text' :'password' }
+                      type={
+                        currentState?.showPass ?? false ? 'text' : 'password'
+                      }
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
                             <IconButton onClick={handlePassShow}>
-                              {currentState?.showPass?? false ? <Visibility /> : <VisibilityOff />}
+                              {currentState?.showPass ?? false ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
                             </IconButton>
                           </InputAdornment>
                         ),
@@ -280,7 +294,7 @@ export default function Settings(props) {
               itemList={levelItems}
               onSave={onSaveLevel}
               isDeleteAble={false}
-              disableEditList = {['level_degree']}
+              disableEditList={['level_degree']}
             />{' '}
           </CustomAccordion>
         </Grid>
