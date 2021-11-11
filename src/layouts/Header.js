@@ -7,6 +7,7 @@ import CustomContainer from './CustomContainer'
 import { Link } from 'react-router-dom'
 import { logout } from 'store/actions/auth'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
 
 export default function Header({
   onBack = () => {},
@@ -16,9 +17,11 @@ export default function Header({
   before = '#',
   maxWidth = 'sm'
 }) {
+  const history = useHistory()
   const dispatch = useDispatch()
   const onSignOut = () => {
     dispatch(logout())
+    history.push('/sign-in');
   }
   return isLogin ? (
     <div className="fixed top-0 z-30 w-full">

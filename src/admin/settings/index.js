@@ -8,7 +8,7 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-  TextField,
+  TextField
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import CustomAccordion from 'components/CustomAccordion'
@@ -21,8 +21,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getInitSetting } from 'services/setting.service'
 import { getAutoCompleteUsers } from 'services/user.service'
-import { getUserList, getLeveList } from 'store/actions/home'
-import { getCurrentSetting, updateSetting, updateLevelAmount } from 'store/actions/setting'
+import { getLeveList } from 'store/actions/home'
+import { getCurrentSetting, updateLevelAmount, updateSetting } from 'store/actions/setting'
 
 const defaultSettings = {
   isLogin: true,
@@ -60,8 +60,11 @@ export default function Settings(props) {
     },
   ]
   useEffect(() => {
-    init()
+    dispatch(getLeveList())
   }, [])
+  useEffect(() => {
+    init()
+  }, [home])
 
   const init = () => {
     dispatch(getCurrentSetting()).then((res) => {
@@ -77,8 +80,6 @@ export default function Settings(props) {
         adminEmail: tmpSetting?.adminEmail ?? '',
       }))
     })
-    dispatch(getUserList())
-    dispatch(getLeveList())
     const tmpLevelList = (home?.levelList ?? []).map((level) => {
       return {
         id: level.level_id,
@@ -86,7 +87,6 @@ export default function Settings(props) {
         level_degree: level.level_degree,
       }
     })
-    console.log( tmpLevelList, 'xxxxxxxxxxxx' );
     setCurrentSate((prevState = defaultSettings) => ({
       ...(prevState ?? defaultSettings),
       levelList: tmpLevelList,
@@ -102,9 +102,11 @@ export default function Settings(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log( currentState )
     dispatch(updateSetting({ ...currentState, userId: user?.user_id })).then((res)=>{
       console.log( res )
       if (res?.result ?? false) {
+        init()
         notification('success', res?.msg ?? 'success')
       } else {
         notification(
@@ -117,6 +119,7 @@ export default function Settings(props) {
   const onSaveLevel = (event) => {
     dispatch( updateLevelAmount( user?.user_id, event?.id, event?.level_amount  ) ).then((res)=>{
       if (res?.result ?? false) {
+        dispatch(getLeveList())
         notification('success', res?.msg ?? 'success')
       } else {
         notification(
@@ -277,6 +280,7 @@ export default function Settings(props) {
               itemList={levelItems}
               onSave={onSaveLevel}
               isDeleteAble={false}
+              disableEditList = {['level_degree']}
             />{' '}
           </CustomAccordion>
         </Grid>

@@ -15,7 +15,6 @@ const home = (state = restoreState, action) => {
   const { type, payload } = action
   switch (type) {
     case 'GET_LEVELS':
-      console.log(payload, 'Payment')
       return {
         ...state,
         ...payload,
@@ -31,7 +30,10 @@ const home = (state = restoreState, action) => {
         ...payload,
       }
     default:
-      return state
+      return {
+        ...state,
+        ...payload,
+      }
   }
 }
 export default home

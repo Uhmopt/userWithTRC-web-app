@@ -1,4 +1,5 @@
 import React from 'react'
+import AdminHeader from './AdminHeader'
 import BodyContainer from './BodyContainer'
 import CustomContainer from './CustomContainer'
 import Footer from './Footer'
@@ -20,6 +21,8 @@ export default function Layout({
   return (
     <div id="out_body" className="bg-gradient-to-b from-blue-50 to-green-50">
       {!banner ? (
+        <>
+        {admin?<AdminHeader />:
         <Header
           onBack={onBack}
           onSignOut={onSignOut}
@@ -28,6 +31,9 @@ export default function Layout({
           isLogin={Boolean(isLogin)}
           maxWidth={ maxWidth }
         />
+        }
+        
+        </>
       ) : null}
       <CustomContainer maxWidth = { maxWidth }>
         <div className="min-h-screen">

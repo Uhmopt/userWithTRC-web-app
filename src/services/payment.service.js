@@ -64,3 +64,41 @@ export const checkHashInfo = (data) => {
 	}
 	return data
 }
+// Note: Get the Const items of user table
+export const payTableItems = () => {
+	const userItems = [
+	  {
+		label: 'ID',
+		key: 'user_rid',
+	  },
+	  {
+		label: 'E-mail',
+		key: 'user_email',
+	  },
+	  {
+		label: 'Amount',
+		key: 'pay_amount',
+	  },
+	  {
+		label: 'USDT Address',
+		key: 'user_wallet_address',
+	  },
+	  {
+		label: 'Type',
+		key: 'pay_level',
+	  },
+	  {
+		label: 'Application time',
+		key: 'pay_register_time',
+	  },
+	  {
+		label: 'Upgrade time',
+		key: 'pay_time',
+	  },
+	]
+	return userItems
+}
+// Note Get PaymentList by User Id
+export const getPaymentById = ( paymentList =[], userId =0 ) => {
+
+}

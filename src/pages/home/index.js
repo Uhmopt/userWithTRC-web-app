@@ -5,7 +5,6 @@ import LevelCardTable from 'components/LevelCardTable'
 import MainTitle from 'components/MainTitle'
 import StaticCard from 'components/StaticCard'
 import UserLevelIcon from 'components/UserLevelIcon'
-import revenue from 'services/revenue.service'
 import { getFriendArray } from 'services/user.service'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,6 +18,7 @@ import {
 import { getMaxLevel } from 'lib/levels'
 import Layout from '../../layouts'
 import moment from 'moment'
+import { calTotalRevenue } from 'services/revenue.service'
 
 const defaultState = {
   levels: [],
@@ -50,7 +50,7 @@ export default function Home() {
       user?.user_id ?? -1,
       home?.userList ?? [],
     )
-    const tmpRevenue = revenue.calTotalRevenue(
+    const tmpRevenue = calTotalRevenue(
       home?.paymentList ?? [],
       user?.user_id ?? '',
     )

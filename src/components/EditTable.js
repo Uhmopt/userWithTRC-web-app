@@ -16,18 +16,20 @@ import { useEffect } from 'react'
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
     overflowX: 'auto',
   },
   table: {
-    minWidth: 650,
+    minWidth: 1020,
   },
   selectTableCell: {
     width: 60,
   },
   tableCell: {
-    width: 130,
+    maxWidth: 160,
     height: 40,
+    wordBreak: 'break-all',
+    textAlign: 'center',
   },
   input: {
     width: 130,
@@ -46,7 +48,7 @@ const CustomTableCell = ({
   const disabled = disableEditList.includes(name)
   disableEditList = ['level_degree']
   return (
-    <TableCell align="left" className={classes.tableCell}>
+    <TableCell align="center" className={classes.tableCell}>
       {isEditMode ? (
         <Input
           value={row[name]}
@@ -65,9 +67,11 @@ const CustomTableCell = ({
 function EditTable({
   rowList = [],
   itemList = [],
-  disableEditList = ['level_degree'],
+  disableEditList = [],
   onSave = () => {},
+  onDelete = () => {},
   isDeleteAble = true,
+  isEditAble = true
 }) {
   const [rows, setRows] = React.useState([])
   const [previous, setPrevious] = React.useState({})
@@ -85,7 +89,7 @@ function EditTable({
 
   const onToggleEditMode = (id) => {
     setRows((state) => {
-      return rows.map((row) => {
+      return state.map((row) => {
         if (row.id === id) {
           return { ...row, isEditMode: !row.isEditMode }
         }
@@ -95,7 +99,6 @@ function EditTable({
   }
 
   const onChange = (e, row) => {
-    console.log(e, row)
     if (!previous[row.id]) {
       setPrevious((state) => ({ ...state, [row.id]: row }))
     }
@@ -114,20 +117,18 @@ function EditTable({
   const onRevert = (id) => {
     const newRows = rows.map((row) => {
       if (row.id === id) {
+        console.log(previous[id], row.id, 'Revert')
         return previous[id] ? previous[id] : row
       }
       return row
     })
+    console.log(newRows, 'dddddddddddddddd')
     setRows(newRows)
     setPrevious((state) => {
       delete state[id]
       return state
     })
     onToggleEditMode(id)
-  }
-
-  const onDelete = (id) => {
-    alert(`Delete the ${id} User`)
   }
 
   const handleSave = (row) => {
@@ -141,9 +142,9 @@ function EditTable({
         {/* <caption>A barbone structure table example with a caption</caption> */}
         <TableHead>
           <TableRow>
-            <TableCell align="left">Action</TableCell>
+            {isEditAble?<TableCell align="left">Action</TableCell>:null}
             {(itemList ?? []).map((item, index) => (
-              <TableCell key={index} align="left">
+              <TableCell key={index} align="center">
                 {item?.label ?? ''}
               </TableCell>
             ))}
@@ -152,7 +153,8 @@ function EditTable({
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.id}>
-              <TableCell className={classes.selectTableCell}>
+              {
+                isEditAble?<TableCell className={classes.selectTableCell}>
                 {row?.isEditMode ?? false ? (
                   <>
                     <IconButton
@@ -184,7 +186,8 @@ function EditTable({
                     <Edit />
                   </IconButton>
                 )}
-              </TableCell>
+              </TableCell>:null
+              }
               {itemList.map((item, index) => (
                 <CustomTableCell
                   key={index}

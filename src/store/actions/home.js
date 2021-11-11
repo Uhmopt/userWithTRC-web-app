@@ -15,7 +15,6 @@ export const getUserInfo = (user_id = 0) => async (dispatch) => {
       },
     )
     .then((res) => {
-      console.log(res?.data?.result ?? {}, 'USER_INFORMATION')
       dispatch({
         type: 'GET_USER',
         payload: { user: res?.data?.result ?? {} },
@@ -83,7 +82,7 @@ export const getPaymentList = (user_id = '') => async (dispatch) => {
   const token =
     JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
   return Boolean(user_id)
-    ? axios
+    ? await axios
         .post(
           API_URL + 'get-payments',
           { user_id: user_id },
@@ -92,7 +91,7 @@ export const getPaymentList = (user_id = '') => async (dispatch) => {
           },
         )
         .then((res) => {
-          console.log( res, 'get payment' )
+          console.log(res, 'get payment')
           dispatch({
             type: 'GET_PAYMENTS',
             payload: {
@@ -108,6 +107,35 @@ export const getPaymentList = (user_id = '') => async (dispatch) => {
         })
     : false
 }
+
+export const getAllPaymentList = () => async (dispatch) => {
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
+  return await axios
+    .post(
+      API_URL + 'get-all-payments',
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+    .then((res) => {
+      console.log(res, 'get payment')
+      dispatch({
+        type: 'GET_PAYMENTS',
+        payload: {
+          paymentList: res?.data?.result ?? [],
+        },
+      })
+      return res?.data?.result ?? []
+    })
+    .catch((err) => {
+      if (err.response) {
+        console.log(err.response)
+      }
+    })
+}
+
 export const updateUser = (
   userId = '',
   email = '',

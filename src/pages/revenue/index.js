@@ -5,7 +5,9 @@ import StaticCard from 'components/StaticCard'
 import TableSwipeableViews from 'components/TableSwipeableViews'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import revenue from 'services/revenue.service'
+import { calTotalRevenue } from 'services/revenue.service'
+import { calTotalEarning } from 'services/revenue.service'
+import { calRevenueList } from 'services/revenue.service'
 import { getPaymentList } from 'store/actions/home'
 import Layout from '../../layouts'
 
@@ -33,19 +35,19 @@ export default function Revenue() {
   }, [paymentList])
 
   const init = () => {
-    const tmpRevenue = revenue.calTotalRevenue(
+    const tmpRevenue = calTotalRevenue(
       paymentList ?? [],
       user?.user_id ?? '',
     )
-    const tmpEarning = revenue.calTotalEarning(
+    const tmpEarning = calTotalEarning(
       paymentList ?? [],
       user?.user_id ?? '',
     )
-    const tmpDayList = revenue.calRevenueList(
+    const tmpDayList = calRevenueList(
       paymentList ?? [],
       user?.user_id ?? '',
     )
-    const tmpMonthList = revenue.calRevenueList(
+    const tmpMonthList = calRevenueList(
       paymentList ?? [],
       user?.user_id ?? '',
       'YYYY-MM',

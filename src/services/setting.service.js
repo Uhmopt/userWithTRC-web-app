@@ -25,7 +25,7 @@ export const getInitSetting = (settingList = []) => {
         settings.isLogin = setting.set_item_value === '1'
         break
       case 'set_allow_upgrade':
-        settings.isLogin = setting.set_item_value === '1'
+        settings.isUpgrade = setting.set_item_value === '1'
         break
       case 'set_smtp_pass':
         settings.smtpPass = setting.set_item_value
