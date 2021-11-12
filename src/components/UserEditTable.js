@@ -34,10 +34,10 @@ export default function UserEditTable({
   // const data
   const userItems = userTableUserItems()
   const disbleItems = userTableDisableItems()
-  const tableUserList = (tableUsers ?? []).map((user) => {
+  const tableUserList = (tableUsers ?? []).map((user, rowIndex) => {
     const user_cumulative = calTotalRevenue(paymentList, user?.user_id ?? '')
     // Note: Get User's Sub Friend List
-    const tmpUserSub = getFriendArray(user?.user_id, home?.userList)
+    const tmpUserSub = getFriendArray(user?.user_id)
     const tmpTotalNum = (tmpUserSub ?? []).reduce((x, y) => x + y.length, 0)
     const toFriendUser = (index = 0) => {
       setTableUsers(tmpUserSub[index])
@@ -105,7 +105,6 @@ export default function UserEditTable({
       user_level: user?.user_level ?? 0,
       user_cumulative: user_cumulative,
       user_subordinate: <div>{user_subordinate}</div>,
-      user_role: (user?.user_role ?? 0) === 3 ? 'admin' : 'user',
       user_wallet_address: user?.user_wallet_address ?? '',
       user_operating: user_operating,
       user_register_date:

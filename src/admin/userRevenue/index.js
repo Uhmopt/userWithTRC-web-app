@@ -41,8 +41,8 @@ export default function UserRevenue(props) {
           pay_amount: item?.pay_amount / Math.pow(10, 6),
           user_wallet_address: item?.user_wallet_address,
           user_email: item?.user_email,
-          pay_level: item?.pay_level,
-          pay_register_time: moment(item?.pay_register_time ?? '').format(
+          user_level: item?.user_level,
+          pay_upgrade_time: moment(item?.pay_upgrade_time ?? '').format(
             'YYYY-MM-DD HH:mm:ss',
           ),
           pay_time: moment(item?.pay_time ?? '').format('YYYY-MM-DD HH:mm:ss'),
@@ -99,18 +99,18 @@ export default function UserRevenue(props) {
           />
         </Grid>
         <Grid item xs={12}>
-          <div className="pl-3 flex justify-start items-center text-main">
+          <div className="pl-3 flex justify-start items-center">
             <label className="ml-3">
-              <span className="text-title font-bold">ID:</span>{' '}
-              {currentState?.user?.user_rid ?? ''}
+              ID: <span className="text-main font-bold"> {currentState?.user?.user_rid ?? ''}</span>{' '}
+              
             </label>
             <label className="ml-3">
-              <span className="text-title font-bold">Email:</span>{' '}
-              {currentState?.user?.user_email ?? ''}
+              Email: <span className="text-main font-bold">{currentState?.user?.user_email ?? ''}</span>{' '}
+              
             </label>
             <label className="ml-3">
-              <span className="text-title font-bold">Level:</span>{' '}
-              {currentState?.user?.user_level ?? ''}Star member
+              Level: <span className="text-main font-bold">{currentState?.user?.user_level ?? ''} Star member </span>{' '}
+              
             </label>
           </div>
           <div className="m-h-12 bg-white shadow-md">

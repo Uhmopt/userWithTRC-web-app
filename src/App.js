@@ -14,11 +14,12 @@ function App() {
     <ConfirmProvider>
       <Router basename={base}>
         {routes.map((route) => {
+          console.log( route.auth , route.admin )
           if (route.auth && route.fallback) {
             return <SplitRoute key={route.path} {...route} />
           } else if (route.auth && route.admin) {
             return <AdminRoute key={route.path} {...route} />
-          } else if (route.auth) {
+          } else if (route.auth && !route.admin) {
             return <PrivateRoute key={route.path} {...route} />
           }
           return <PublicRoute key={route.path} {...route} />

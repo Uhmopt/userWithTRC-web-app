@@ -4,13 +4,14 @@ import { Redirect, Route } from 'react-router-dom'
 
 const AdminRoute = ({ component: Component, ...rest }) => {
   
-  const isAuthenticated = useSelector((state) => Boolean(state?.auth?.isAuth));
-  const isAdministrator = useSelector((state) => Boolean(state?.auth?.isAdmin));
+  const isAuth = useSelector((state) => Boolean(state?.auth?.isAuth));
+  const isAdmin = useSelector((state) => Boolean(state?.auth?.isAdmin));
+  console.log('admin')
   return (
   <Route
     {...rest}
     render={(props) =>
-      isAuthenticated && isAdministrator ? (
+      isAuth && isAdmin ? (
         <>
           <Component {...props} />
         </>

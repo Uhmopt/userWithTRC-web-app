@@ -19,6 +19,7 @@ export default function CustomAutocomplete({label = "", userList = [], value = 0
         value={option}
         options={userList}
         onChange={onChange}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
         style={{ width: 160 }}
         renderInput={(params) => (
           <TextField

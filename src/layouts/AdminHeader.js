@@ -1,7 +1,8 @@
 import {
+  AdminPanelSettingsOutlined,
   Logout,
   PeopleAltOutlined,
-  SettingsOutlined,
+  SettingsOutlined
 } from '@mui/icons-material'
 import { IconButton, Tooltip } from '@mui/material'
 import CustomSvgs from 'components/CustomSvgs'
@@ -24,7 +25,7 @@ export default function AdminHeader({ maxWidth = 'xl' }) {
       <CustomContainer maxWidth={maxWidth}>
         <div className="p-2 flex justify-end items-center bg-blue-500 shadow-default">
           <Link to="users">
-            <Tooltip title="User List" arrow>
+            <Tooltip title="User management" arrow>
               <IconButton color="default">
                 <PeopleAltOutlined fontSize="large" className="text-white" />
               </IconButton>

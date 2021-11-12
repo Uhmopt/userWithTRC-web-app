@@ -78,15 +78,15 @@ export const payTableItems = () => {
     },
     {
       label: 'Type',
-      key: 'pay_level',
+      key: 'user_level',
     },
     {
       label: 'Application time',
-      key: 'pay_register_time',
+      key: 'pay_time',
     },
     {
       label: 'Upgrade time',
-      key: 'pay_time',
+      key: 'pay_upgrade_time',
     },
   ]
   return userItems

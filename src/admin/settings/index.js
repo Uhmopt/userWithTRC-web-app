@@ -21,7 +21,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getInitSetting } from 'services/setting.service'
 import { getAutoCompleteUsers } from 'services/user.service'
-import { getLeveList } from 'store/actions/home'
+import { getLeveList, getUserList } from 'store/actions/home'
 import {
   getCurrentSetting,
   updateLevelAmount,
@@ -65,6 +65,7 @@ export default function Settings(props) {
   ]
   useEffect(() => {
     dispatch(getLeveList())
+    dispatch(getUserList())
   }, [])
   useEffect(() => {
     init()

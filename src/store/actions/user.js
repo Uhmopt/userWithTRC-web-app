@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_URL = 'http://66.42.111.49/app/back/'
+const API_URL = 'http://localhost:5000/app/back/'
 
 export const isLoginUpgrade = (data) => async (dispatch) => {
   const token =
@@ -24,6 +24,25 @@ export const updateUserInfo = (data) => async (dispatch) => {
     JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
   return await axios
     .post(API_URL + 'update-user', data, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      console.log(res.data)
+      return res?.data ?? {}
+    })
+    .catch((err) => {
+      if (err.response) {
+        console.log(err.response)
+        return err?.response?.data ?? {}
+      }
+    })
+}
+
+export const updateAdmin = (data) => async (dispatch) => {
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
+  return await axios
+    .post(API_URL + 'update-admin', data, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => {
@@ -114,6 +133,24 @@ export const getUserPayment = (user_id) => async (dispatch) => {
       if (err.response) {
         console.log(err.response)
         return err?.response?.data ?? {}
+      }
+    })
+}
+
+export const getAdminList = (data) => async (dispatch) => {
+  const token =
+    JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
+  return await axios
+    .post(API_URL + 'get-admins', data, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      console.log(res?.data?.result ?? [], 'sssssssss')
+      return res?.data?.result ?? []
+    })
+    .catch((err) => {
+      if (err.response) {
+        console.log(err.response)
       }
     })
 }

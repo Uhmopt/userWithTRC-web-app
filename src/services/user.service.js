@@ -1,6 +1,6 @@
 // Note: Get the User's Sibordinate List
 // Core Function of Users
-export const getFriendArray = (userId, userList) => {
+export const getFriendArray = (userId = 0, userList = []) => {
   let levelUsers = []
   let tmpUserIds = []
   userList = userList.filter((user) => {
@@ -70,6 +70,24 @@ export const userTableUserItems = () => {
     {
       label: 'Operating',
       key: 'user_operating',
+    },
+  ]
+  return userItems
+}
+// Note: Get the Const items of user table
+export const adminTableUserItems = () => {
+  const userItems = [
+    {
+      label: 'E-mail',
+      key: 'user_email',
+    },
+    {
+      label: 'Join time',
+      key: 'user_register_date',
+    },
+    {
+      label: 'Operating',
+      key: 'operating',
     },
   ]
   return userItems

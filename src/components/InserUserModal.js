@@ -5,6 +5,7 @@ import Button from '@mui/material/Button'
 import Modal from '@mui/material/Modal'
 import checkValidEmail from 'lib/checkValidEmail'
 import * as React from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
 import CustomInput from './CustomInput'
 
@@ -20,14 +21,36 @@ export default function InsertUserModal({
   isOpen = false,
   openModal = () => {},
   onSubmit = () => {},
+  isInsert = true,
+  updateData = {},
+  onUpdate = () => {},
 }) {
   const handleClose = () => openModal()
   const [currentState, setCurrentState] = useState(defaultUser)
+  useEffect(() => {
+    if (!isInsert) {
+      setCurrentState((prevState = defaultUser) => ({
+        ...(prevState ?? defaultUser),
+        email: updateData?.user_email ?? '',
+      }))
+    }
+  }, [isInsert])
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (typeof onSubmit === 'function') {
-      onSubmit(currentState)
+    if (isInsert) {
+      if (typeof onSubmit === 'function') {
+        onSubmit(currentState)
+      }
+    } else {
+      if (typeof onUpdate === 'function') {
+        onUpdate({
+          user_email: currentState?.email,
+          user_password:  currentState?.password,
+          user_id: updateData?.user_id ?? 0
+        })
+      }
     }
+
     // dispatch(insertUser())
   }
   const handleChange = (e) => {
@@ -80,15 +103,17 @@ export default function InsertUserModal({
                   }
                 />
               </Grid>
-              <Grid item xs={12}>
-                <CustomInput
-                  label="USDT_TRC20"
-                  name="walletAddress"
-                  placeholder="Please enter your personal wallet address"
-                  value={currentState?.walletAddress ?? ''}
-                  onChange={handleChange}
-                />
-              </Grid>
+              {isInsert ? (
+                <Grid item xs={12}>
+                  <CustomInput
+                    label="USDT_TRC20"
+                    name="walletAddress"
+                    placeholder="Please enter your personal wallet address"
+                    value={currentState?.walletAddress ?? ''}
+                    onChange={handleChange}
+                  />
+                </Grid>
+              ) : null}
               <Grid item xs={12}>
                 <CustomInput
                   label="Password"
@@ -114,36 +139,41 @@ export default function InsertUserModal({
                   }
                 />
               </Grid>
-              <Grid item xs={12}>
-                <CustomInput
-                  label="Invites"
-                  name="invite"
-                  placeholder="Optional"
-                  required={false}
-                  value={currentState?.invite ?? ''}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <div>
-                  <span>Admin</span>
-                  <Radio
-                    checked={Number(currentState.role) === 1}
-                    onChange={handleCheck}
-                    value={1}
-                    name="admin"
-                    inputProps={{ 'aria-label': 'Admin' }}
-                  />
-                  <span>User</span>
-                  <Radio
-                    checked={Number(currentState.role) === 0}
-                    onChange={handleCheck}
-                    value={0}
-                    name="user"
-                    inputProps={{ 'aria-label': 'User' }}
-                  />
-                </div>
-              </Grid>
+              {isInsert ? (
+                <>
+                  <Grid item xs={12}>
+                    <CustomInput
+                      label="Invites"
+                      name="invite"
+                      placeholder="Optional"
+                      required={false}
+                      value={currentState?.invite ?? ''}
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <div>
+                      <span>Admin</span>
+                      <Radio
+                        checked={Number(currentState.role) === 1}
+                        onChange={handleCheck}
+                        value={1}
+                        name="admin"
+                        inputProps={{ 'aria-label': 'Admin' }}
+                      />
+                      <span>User</span>
+                      <Radio
+                        checked={Number(currentState.role) === 0}
+                        onChange={handleCheck}
+                        value={0}
+                        name="user"
+                        inputProps={{ 'aria-label': 'User' }}
+                      />
+                    </div>
+                  </Grid>
+                </>
+              ) : null}
+
               <Grid item xs={12}>
                 <Button
                   variant="contained"
@@ -151,7 +181,7 @@ export default function InsertUserModal({
                   type="submit"
                   fullWidth
                 >
-                  Insert
+                  {isInsert ? 'Insert' : 'Update'}
                 </Button>
               </Grid>
             </Grid>
