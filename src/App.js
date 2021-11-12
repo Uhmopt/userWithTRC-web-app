@@ -14,7 +14,6 @@ function App() {
     <ConfirmProvider>
       <Router basename={base}>
         {routes.map((route) => {
-          console.log( route.auth , route.admin )
           if (route.auth && route.fallback) {
             return <SplitRoute key={route.path} {...route} />
           } else if (route.auth && route.admin) {

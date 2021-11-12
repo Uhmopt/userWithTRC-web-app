@@ -26,8 +26,9 @@ export default function Upgrade() {
     const tmpLevelList = getLevels(levels)
     setLevelList(tmpLevelList ?? []);
     let tmpNum = Number(user?.user_level ?? 0) + 1
-    if (tmpNum > getMaxLevel( levels )) {
-      tmpNum = getMaxLevel( levels );
+    console.log( tmpNum )
+    if (tmpNum > getMaxLevel( tmpLevelList )) {
+      tmpNum = getMaxLevel( tmpLevelList );
     }
     setUpgradeNum( tmpNum )
   }

@@ -29,15 +29,17 @@ export const levelOrder = (numbre=0) => {
 
 export const getMaxLevel = (levelList=[]) => {
     const max = (levelList ?? []).find((level = {}) => level.devel_amount === 0)
-    ?.level_degree ?? (levelList ?? []).length - 1
+    ?.level_degree ?? (levelList ?? []).length
     return max ?? 16
 }
 
 export const getLevels = (levelList=[]) => {
-    
-    levelList = levelList.filter(
+    const degree = levelList.find(
         (level = {}) =>
-          (level?.level_amount ?? 0) > 0 && level?.level_degree !== 0
-    )
+          (level?.level_amount ?? 0) === 0
+    )?.level_degree ?? false
+    if (degree) {
+        levelList = levelList.slice(0, degree-1)
+    }
     return levelList ?? []
 }

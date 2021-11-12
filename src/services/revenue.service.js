@@ -23,7 +23,7 @@ export const calRevenueList = (
         acc =
           acc +
           (Number(cur?.pay_from ?? 0) === Number(user_id)
-            ? -1 * Number(cur?.pay_amount ?? 0)
+            ? 0
             : Number(cur?.pay_amount ?? 0))
         return acc
       }, 0)

@@ -9,6 +9,7 @@ const routes = [
     path: `/`,
     exact: true,
     auth: true,
+    admin: false,
     component: Home,
   },
   ...admin,

@@ -19,6 +19,7 @@ import { getMaxLevel } from 'lib/levels'
 import Layout from '../../layouts'
 import moment from 'moment'
 import { calTotalRevenue } from 'services/revenue.service'
+import { getLevels } from 'lib/levels'
 
 const defaultState = {
   levels: [],
@@ -46,6 +47,7 @@ export default function Home() {
   }, [home])
 
   const init = () => {
+    console.log( getLevels(home?.levelList) )
     const userListByLevelFriend = getFriendArray(
       user?.user_id ?? -1,
       home?.userList ?? [],
@@ -84,8 +86,8 @@ export default function Home() {
       upperIcon={
         <UserLevelIcon
           levelNum={
-            (user?.user_level ?? 0) + 1 > getMaxLevel(home?.levelList ?? [])
-              ? getMaxLevel(home?.levelList ?? [])
+            (user?.user_level ?? 0) + 1 > getMaxLevel(getLevels(home?.levelList))
+              ? getMaxLevel(getLevels(home?.levelList))
               : (user?.user_level ?? 0) + 1
           }
           alt="Star"

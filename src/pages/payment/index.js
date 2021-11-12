@@ -15,12 +15,14 @@ import { useHistory } from 'react-router-dom'
 import { getAmountAddress, submitHash } from 'store/actions/payment'
 import copy from 'copy-to-clipboard'
 import Layout from '../../layouts'
+import { getMaxLevel } from 'lib/levels'
 
 const defaultState = {
   hash: '',
   transforAmount: 10,
   walletAddress: '',
   levelList: [],
+  levelNum: 0,
 }
 
 export default function Payment() {
@@ -36,10 +38,17 @@ export default function Payment() {
 
   const init = () => {
     const tmpLevelList = getLevels(levels)
+    if(Number(user?.user_level ?? 0) + 1 > getMaxLevel(tmpLevelList ?? [])){
+      history.push('/highest-level')
+    }
     setCurrentState((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
       transforAmount: 10 + Number(user?.user_rid ?? 2000) / 1000000,
       levelList: tmpLevelList,
+      levelNum:
+        Number(user?.user_level ?? 0) + 1 > getMaxLevel(tmpLevelList ?? [])
+          ? getMaxLevel(tmpLevelList ?? [])
+          : Number(user?.user_level ?? 0) + 1,
     }))
     dispatch(
       getAmountAddress(user?.user_level, user?.user_superior_id ?? ''),
@@ -95,12 +104,7 @@ export default function Payment() {
         <div className="flex items-center">
           <div className="relative">
             <UserLevelIcon
-              levelNum={
-                Number(user?.user_level ?? 0) + 1 >
-                currentState?.levelList?.length
-                  ? currentState?.levelList?.length
-                  : Number(user?.user_level ?? 0) + 1
-              }
+              levelNum={currentState?.levelNum ?? 0}
               alt="Star"
               className=" w-14 inline-block"
               iconClass="user-level-icon-large"
@@ -108,9 +112,7 @@ export default function Payment() {
           </div>
           <span className="text-2xl">
             Upgrade V
-            {Number(user?.user_level ?? 0) + 1 > currentState?.levelList?.length
-              ? currentState?.levelList?.length ?? 0
-              : Number(user?.user_level ?? 0) + 1}{' '}
+            {currentState?.levelNum ?? 0}
             user
           </span>
         </div>

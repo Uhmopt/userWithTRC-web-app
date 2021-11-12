@@ -6,7 +6,6 @@ const AdminRoute = ({ component: Component, ...rest }) => {
   
   const isAuth = useSelector((state) => Boolean(state?.auth?.isAuth));
   const isAdmin = useSelector((state) => Boolean(state?.auth?.isAdmin));
-  console.log('admin')
   return (
   <Route
     {...rest}

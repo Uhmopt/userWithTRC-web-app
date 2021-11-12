@@ -3,17 +3,13 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
-  Link,
+  Link
 } from '@mui/material'
 import moment from 'moment'
-import React from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { calTotalRevenue } from 'services/revenue.service'
-import { userTableUserItems } from 'services/user.service'
-import { userTableDisableItems } from 'services/user.service'
-import { getFriendArray } from 'services/user.service'
+import { getFriendArray, userTableDisableItems, userTableUserItems } from 'services/user.service'
 import EditTable from './EditTable'
 
 export default function UserEditTable({
@@ -23,9 +19,8 @@ export default function UserEditTable({
   onDeleteUser = () => {},
   onToRevenue = () => {}
 }) {
-  const paymentList =
-    JSON.parse(localStorage.getItem('level-store'))?.home?.paymentList ?? ''
-  const home = useSelector((state) => state?.home ?? {})
+  console.log(userList, "USERLIST")
+  const paymentList = useSelector((state) => state?.home?.paymentList ?? [])
   const [tableUsers, setTableUsers] = useState([])
   useEffect(() => {
     setTableUsers(userList)
@@ -37,13 +32,13 @@ export default function UserEditTable({
   const tableUserList = (tableUsers ?? []).map((user, rowIndex) => {
     const user_cumulative = calTotalRevenue(paymentList, user?.user_id ?? '')
     // Note: Get User's Sub Friend List
-    const tmpUserSub = getFriendArray(user?.user_id)
+    const tmpUserSub = getFriendArray(user?.user_id, tableUsers)
     const tmpTotalNum = (tmpUserSub ?? []).reduce((x, y) => x + y.length, 0)
     const toFriendUser = (index = 0) => {
       setTableUsers(tmpUserSub[index])
     }
     const user_subordinate = (
-      <div className="text-center">
+      <div key={rowIndex} className="text-center">
         <label className="font-bold">Total: </label>
         <label>{tmpTotalNum}</label>
         {tmpUserSub.map((levelUsers, index) => (
