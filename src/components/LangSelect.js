@@ -31,13 +31,13 @@ export default function LangSelect() {
           input={<BootstrapInput />}
         >
           <MenuItem value={'GB'}>
-            <div className="flex">
+            <div className="flex items-center justify-between max-h-9">
               <img src={GB} alt="GB" className="m-2 w-5" />
               <label className="self-center">English</label>
             </div>
           </MenuItem>
           <MenuItem value={'CN'}>
-            <div className="flex">
+            <div className="flex items-center justify-between max-h-9">
               <img src={CN} alt="CN" className="m-2 w-5" />
               <label className="self-center">Chinese</label>
             </div>
