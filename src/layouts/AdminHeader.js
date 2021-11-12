@@ -1,5 +1,4 @@
 import {
-  AdminPanelSettingsOutlined,
   Logout,
   PeopleAltOutlined,
   SettingsOutlined
