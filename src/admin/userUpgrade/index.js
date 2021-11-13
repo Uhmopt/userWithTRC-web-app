@@ -82,7 +82,7 @@ export default function UserUpgrade(props) {
         user_rid: payment.user_rid,
         user_level: <label>{payment.user_level} star</label>,
         pay_amount: payment.pay_amount / Math.pow(10, 6),
-        upper_wallet: payment.upper_wallet,
+        upper_wallet: payment.user_wallet_address,
         upper_id: payment.upper_id,
         pay_state:
           payment.pay_upgrade_state === 1 ? (

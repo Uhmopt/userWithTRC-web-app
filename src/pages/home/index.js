@@ -51,6 +51,7 @@ export default function Home() {
     const userListByLevelFriend = getFriendArray(
       user?.user_id ?? -1,
       home?.userList ?? [],
+      getMaxLevel(getLevels(home?.levelList))
     )
     const tmpRevenue = calTotalRevenue(
       home?.paymentList ?? [],

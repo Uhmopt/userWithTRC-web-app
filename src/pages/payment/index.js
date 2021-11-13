@@ -85,8 +85,7 @@ export default function Payment() {
       notification('success', res?.msg ?? 'Upgrade success!')
       if (
         res?.result?.user_level ??
-        0 === currentState?.levelList?.length ??
-        0
+        0 === getMaxLevel(currentState?.levelList ?? [])
       ) {
         history.push('/highest-level')
       } else {

@@ -5,6 +5,8 @@ import {
   FormGroup,
   Link
 } from '@mui/material'
+import { getLevels } from 'lib/levels'
+import { getMaxLevel } from 'lib/levels'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -21,6 +23,7 @@ export default function UserEditTable({
 }) {
   console.log(userList, "USERLIST")
   const paymentList = useSelector((state) => state?.home?.paymentList ?? [])
+  const home = useSelector((state) => state?.home ?? [])
   const [tableUsers, setTableUsers] = useState([])
   useEffect(() => {
     setTableUsers(userList)
@@ -32,7 +35,7 @@ export default function UserEditTable({
   const tableUserList = (tableUsers ?? []).map((user, rowIndex) => {
     const user_cumulative = calTotalRevenue(paymentList, user?.user_id ?? '')
     // Note: Get User's Sub Friend List
-    const tmpUserSub = getFriendArray(user?.user_id, tableUsers)
+    const tmpUserSub = getFriendArray(user?.user_id, tableUsers, getMaxLevel(getLevels(home?.levelList)))
     const tmpTotalNum = (tmpUserSub ?? []).reduce((x, y) => x + y.length, 0)
     const toFriendUser = (index = 0) => {
       setTableUsers(tmpUserSub[index])

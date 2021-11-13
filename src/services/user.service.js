@@ -1,13 +1,13 @@
 // Note: Get the User's Sibordinate List
 // Core Function of Users
-export const getFriendArray = (userId = 0, userList = []) => {
+export const getFriendArray = (userId = 0, userList = [], maxLevel = 16) => {
   let levelUsers = []
   let tmpUserIds = []
   userList = userList.filter((user) => {
     return userId !== user.user_id
   })
   tmpUserIds.push(userId)
-  for (let i = 0; i <= 16; i++) {
+  for (let i = 0; i < maxLevel; i++) {
     levelUsers[i] = filterByIds(tmpUserIds, userList)
     if (levelUsers[i].length > 0) {
       tmpUserIds = Array.from(levelUsers[i], (user) => user?.user_id ?? 0)

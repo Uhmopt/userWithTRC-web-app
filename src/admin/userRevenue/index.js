@@ -35,6 +35,7 @@ export default function UserRevenue(props) {
       }))
     })
     dispatch(getUserPayment(user_id)).then((res) => {
+      console.log( res?.result ?? [] )
       const tmpList = (res?.result ?? []).map((item) => {
         return {
           user_rid: item?.user_rid,

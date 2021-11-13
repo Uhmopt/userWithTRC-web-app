@@ -1,18 +1,34 @@
 import { Button } from '@mui/material'
 import StaticCard from 'components/StaticCard'
+import { getMaxLevel, getLevels } from 'lib/levels'
 import React from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Layout from '../../layouts'
+import { useHistory } from 'react-router-dom'
 
 export default function HighestLevel() {
   const user = useSelector((state) => state?.auth?.user ?? {})
+  const home = useSelector((state) => state?.home ?? {})
+  const history = useHistory()
+  useEffect(() => {
+    const maxLevel = getMaxLevel(getLevels(home?.levelList))
+    if (maxLevel > (user?.user_level ?? 0)) {
+      history.push('/upgrade')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const upgradeUser = (
     <>
       <div className="text-title text-center">
-        <div className="text-2xl py-5">Current Lavel: {user?.user_level ?? 0} Star user</div>
+        <div className="text-2xl py-5">
+          Current Lavel: {user?.user_level ?? 0} Star user
+        </div>
         <div className="mb-8 p-3  bg-light rounded-md">
-         <span>Congratulations, You have reached the hightest level so far</span>
+          <span>
+            Congratulations, You have reached the hightest level so far
+          </span>
         </div>
         <Link to={`invite`}>
           <Button
