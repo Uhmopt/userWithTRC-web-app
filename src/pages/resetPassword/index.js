@@ -6,6 +6,7 @@ import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'
 import notification from 'lib/notification'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import { resetPassword } from 'store/actions/auth'
@@ -16,6 +17,7 @@ const defaultResetInfo = {
 }
 
 export default function ResetPassword() {
+	const {t} = useTranslation()
 	const [currentState, setCurrentState] = useState(defaultResetInfo)
 	const user = useSelector((state) => state.auth.user)
 	const dispatch = useDispatch()
@@ -45,9 +47,9 @@ export default function ResetPassword() {
 			Boolean(res?.result ?? false)
 			if (res?.result ?? false) {
 				history.push('/home')
-				notification('success', res?.msg ?? 'success')
+				notification('success', t(res?.msg) ?? 'success')
 			} else {
-				notification('error', res?.msg ?? 'Please make sure your network connection..')
+				notification('error', t(res?.msg) ?? 'Please make sure your network connection..')
 			}
 			Promise.resolve()
 		})
@@ -60,19 +62,19 @@ export default function ResetPassword() {
 						<Logo variant="icon" className="text-main m-auto" />
 					</Grid>
 					<Grid item xs={12}>
-						<MainTitle title="Reset Password" isLine={true} />
+						<MainTitle title={t('resetPassword')} isLine={true} />
 					</Grid>
 					<Grid item xs={12}>
 						<CustomInput
 							isPassword={true}
 							name="password"
-							label="Password"
+							label={t('password')}
 							type="password"
-							placeholder="Please enter your password"
+							placeholder={t('passwordDscrpt')}
 							startIcon={<LockIcon className="text-main" />}
 							value={currentState?.password ?? ''}
 							onChange={handleChange}
-							errorText="Password should be over 8 letters"
+							errorText={t('passwordOver')}
 							errorState={
 								!Boolean(currentState?.password)
 									? false
@@ -85,12 +87,12 @@ export default function ResetPassword() {
 							isPassword={true}
 							name="rePassword"
 							type="password"
-							label="Confirm Password"
-							placeholder="Please confirm password"
+							label={t('confirmPassword')}
+							placeholder={t('confirmPassword')}
 							startIcon={<LockIcon className="text-main" />}
 							value={currentState?.rePassword ?? ''}
 							onChange={handleChange}
-							errorText="Password is not matched"
+							errorText={t('passwordNotMatch')}
 							errorState={currentState?.password !== currentState.rePassword}
 						/>
 					</Grid>

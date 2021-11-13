@@ -44,7 +44,6 @@ export const getAmountAddress = (
 ) => async (dispatch) => {
   const token =
     JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
-  console.log('dnnnnnnn')
 
   return await axios
     .post(
@@ -59,7 +58,6 @@ export const getAmountAddress = (
     )
     .then(function (response) {
       const result = response?.data?.result ?? {}
-      console.log(response?.data, 'dnnnnnnn')
       dispatch({
         type: 'SET_PAYMENT',
         payload: result,

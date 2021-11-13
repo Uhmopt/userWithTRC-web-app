@@ -35,14 +35,13 @@ export default function UserRevenue(props) {
       }))
     })
     dispatch(getUserPayment(user_id)).then((res) => {
-      console.log( res?.result ?? [] )
       const tmpList = (res?.result ?? []).map((item) => {
         return {
           user_rid: item?.user_rid,
           pay_amount: item?.pay_amount / Math.pow(10, 6),
-          user_wallet_address: item?.user_wallet_address,
+          user_wallet_address: item?.pay_wallet_address,
           user_email: item?.user_email,
-          user_level: item?.user_level,
+          user_level: item?.pay_level,
           pay_upgrade_time: moment(item?.pay_upgrade_time ?? '').format(
             'YYYY-MM-DD HH:mm:ss',
           ),

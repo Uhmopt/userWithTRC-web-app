@@ -12,6 +12,7 @@ import { useHistory } from 'react-router'
 import notification from 'lib/notification'
 import { useDispatch } from 'react-redux'
 import { updateUser } from 'store/actions/home'
+import { useTranslation } from 'react-i18next'
 
 const defaultUpdateInfo = {
   email: '',
@@ -21,6 +22,7 @@ const defaultUpdateInfo = {
 }
 
 export default function UpdateUser() {
+  const {t} = useTranslation()
   const [currentState, setCurrentState] = useState(defaultUpdateInfo)
   const dispatch = useDispatch()
   const history = useHistory()
@@ -60,9 +62,9 @@ export default function UpdateUser() {
       .then((res) => {
         if (res?.result ?? false) {
           history.push({ pathname: 'verification', state: 'home' })
-          notification('success', res?.msg ?? 'success')
+          notification('success', t(res?.msg) ?? 'success')
         } else {
-          notification('error', res?.msg ?? 'Please make sure your network connection!')
+          notification('error', t(res?.msg) ?? t('makeSureNetConnection'))
         }
       })
       .catch((err) => {
@@ -92,8 +94,8 @@ export default function UpdateUser() {
               isEmail={true}
               name="email"
               type="email"
-              label="Email"
-              placeholder="Please enter your email"
+              label={t('email')}
+              placeholder={t('eamilDscrpt')}
               startIcon={<MailIcon className="text-main" />}
               value={currentState?.email ?? ''}
               onChange={handleChange}
@@ -114,18 +116,17 @@ export default function UpdateUser() {
             />
           </Grid>
           <Grid item xs={12} className="text-xs text-title pt-4">
-            Tip: Please use your personal wallet, other wise it cannot be
-            upgraded automatically
+            {t('updateTip')}
           </Grid>
           <MainTitle />
           <Grid item xs={12}>
             <CustomInput
               isPassword={true}
               name="password"
-              label="Password"
+              label={t('password')}
               type="password"
               required={false}
-              placeholder="Please enter your password"
+              placeholder={t('passwordDscrpt')}
               startIcon={<LockIcon className="text-main" />}
               value={currentState?.password ?? ''}
               onChange={handleChange}
@@ -142,12 +143,12 @@ export default function UpdateUser() {
               name="rePassword"
               type="password"
               required={false}
-              label="Confirm Password"
-              placeholder="Please confirm password"
+              label={t('confirmPassword')}
+              placeholder={t('confirmPassword')}
               startIcon={<LockIcon className="text-main" />}
               value={currentState.rePassword}
               onChange={handleChange}
-              errorText="Password is not matched"
+              errorText={t('passwordNotMatch')}
               errorState={currentState?.password !== currentState.rePassword}
             />
           </Grid>

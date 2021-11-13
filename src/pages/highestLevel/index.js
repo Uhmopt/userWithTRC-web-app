@@ -7,8 +7,10 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Layout from '../../layouts'
 import { useHistory } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function HighestLevel() {
+  const {t} = useTranslation()
   const user = useSelector((state) => state?.auth?.user ?? {})
   const home = useSelector((state) => state?.home ?? {})
   const history = useHistory()
@@ -23,11 +25,11 @@ export default function HighestLevel() {
     <>
       <div className="text-title text-center">
         <div className="text-2xl py-5">
-          Current Lavel: {user?.user_level ?? 0} Star user
+          {t('currentLevel')}: {user?.user_level ?? 0} {t('starUser')}
         </div>
         <div className="mb-8 p-3  bg-light rounded-md">
           <span>
-            Congratulations, You have reached the hightest level so far
+          {t('hightLevelDscrpt')}
           </span>
         </div>
         <Link to={`invite`}>
@@ -38,7 +40,7 @@ export default function HighestLevel() {
             fullWidth
             className="capitalize"
           >
-            Invite Friend
+            {t('inviteFriend')}
           </Button>
         </Link>
       </div>
@@ -48,7 +50,7 @@ export default function HighestLevel() {
   return (
     <Layout
       isLogin={true}
-      title="Current Highest Level"
+      title={t('currentHightLevel')}
       before="payment"
       menuIndex={2}
     >

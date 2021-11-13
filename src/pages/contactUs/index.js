@@ -5,6 +5,7 @@ import CustomInput from 'components/CustomInput'
 import MainTitle from 'components/MainTitle'
 import notification from 'lib/notification'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { contactUs } from 'store/actions/home'
 import Layout from '../../layouts'
@@ -17,6 +18,7 @@ const defaultContact = {
 }
 
 export default function ContactUs() {
+  const {t} = useTranslation()
   const [currentState, setCurrentState] = useState(defaultContact)
   const dispatch = useDispatch()
   const user = useSelector((state) => state?.auth?.user ?? {})
@@ -38,7 +40,7 @@ export default function ContactUs() {
     dispatch(contactUs({ ...currentState, userId: user?.user_id ?? '' }))
       .then((res) => {
         if (res?.result ?? false) {
-          notification('success', res?.msg ?? 'success')
+          notification('success', t(res?.msg) ?? 'success')
           // history.push({ pathname: 'verification', state: 'contact-us', params: res?.result?.contact_id ?? 0 })
           setCurrentState((prvState = defaultContact) => ({
             ...(prvState ?? defaultContact),
@@ -48,7 +50,7 @@ export default function ContactUs() {
         } else {
           notification(
             'error',
-            res?.msg ?? 'Please make sure your network connection!',
+            t(res?.msg) ?? 'Please make sure your network connection!',
           )
         }
       })
@@ -57,9 +59,9 @@ export default function ContactUs() {
       })
   }
   return (
-    <Layout isLogin={true} title="Contact Us" before="home" menuIndex={4}>
+    <Layout isLogin={true} title={t('contactUs')} before="home" menuIndex={4}>
       <MainTitle
-        title={<label className="text-xl text-title">Write to me</label>}
+        title={<label className="text-xl text-title">{t('writeMe')}</label>}
         isLogin={true}
       />
       <div className="py-7"></div>
@@ -74,8 +76,8 @@ export default function ContactUs() {
               isEmail={true}
               name="email"
               type="email"
-              label="Email"
-              placeholder="Please enter your email"
+              label={t('email')}
+              placeholder={t('eamilDscrpt')}
               startIcon={<MailIcon color="primary" />}
               value={currentState?.email ?? ''}
               onChange={handleChange}
@@ -91,17 +93,16 @@ export default function ContactUs() {
           </Grid>
           <Grid item xs={12}>
             <CustomInput
-              label="Theme"
+              label={t('theme')}
               name="theme"
               value={currentState?.theme ?? ''}
               onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12}>
-            <span className="text-main">Contact</span>
+            <span className="text-main">{t('contact')}</span>
             <TextareaAutosize
               aria-label="empty textarea"
-              placeholder="Empty"
               minRows="4"
               className="bg-light w-full rounded-md p-3 h-24 outline-none"
               name="contact"

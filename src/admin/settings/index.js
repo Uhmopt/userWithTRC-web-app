@@ -107,10 +107,8 @@ export default function Settings(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(currentState)
     dispatch(updateSetting({ ...currentState, userId: user?.user_id })).then(
       (res) => {
-        console.log(res)
         if (res?.result ?? false) {
           init()
           notification('success', res?.msg ?? 'success')
@@ -146,7 +144,6 @@ export default function Settings(props) {
   }
 
   const handleAutocompete = (event, value) => {
-    console.log(value)
     setCurrentSate((prevState = defaultSettings) => ({
       ...(prevState ?? defaultSettings),
       specifiedUser: value?.user_id ?? 0,

@@ -56,8 +56,6 @@ return await axios
 
 export const updateLevelAmount = (user_id=0, level_id=0, level_amount=0) => async (dispatch) => {
 
-  console.log( user_id, level_id, level_amount )
-
   const token = JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
   return await axios
     .post(

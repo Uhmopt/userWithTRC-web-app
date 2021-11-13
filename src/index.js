@@ -8,6 +8,7 @@ import App from './App'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { theme } from './theme'
+import './i18n'
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

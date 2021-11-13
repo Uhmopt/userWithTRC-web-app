@@ -11,6 +11,7 @@ import Layout from 'layouts'
 import checkValidEmail from 'lib/checkValidEmail'
 import notification from 'lib/notification'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -24,8 +25,11 @@ const defaultUser = {
   vCode: '',
   invite: '',
   walletAddress: '',
+  lang: 'en'
 }
 export default function Register() {
+  const { i18n } = useTranslation();
+  const { t } = useTranslation()
   const [currentState, setCurrentState] = useState(defaultUser)
   const dispatch = useDispatch()
   const history = useHistory()
@@ -61,12 +65,12 @@ export default function Register() {
     )
       .then((res) => {
         if (res?.result ?? false) {
-          notification('success', res?.msg ?? 'success')
+          notification('success', t(res?.msg) ?? 'success')
           history.push({ pathname: '/home' })
         } else {
           notification(
             'error',
-            res?.msg ?? 'Please make sure your network connection.',
+            t(res?.msg) ?? t('makeSureNetConnection'),
           )
         }
       })
@@ -74,6 +78,17 @@ export default function Register() {
         console.log(err, 'err')
       })
   }
+
+  const handleLangSelect = async (e) => {
+    i18n.changeLanguage(e.target.value ?? "en");
+    localStorage.setItem("language", e.target.value ?? "en");
+    setCurrentState((prevState = defaultUser) => ({
+      ...(prevState ?? defaultUser),
+      lang: e.target.value,
+    }))
+  }
+
+
   return (
     <Layout>
       <form onSubmit={handleSubmit}>
@@ -82,22 +97,22 @@ export default function Register() {
             <Logo variant="icon" className="text-main m-auto" />
           </Grid>
           <Grid item xs={12}>
-            <MainTitle title="Register" isLine={true} />
+            <MainTitle title={t('register')} isLine={true} />
           </Grid>
           <Box className="w-full text-right -mt-14">
-            <LangSelect />
+            <LangSelect lang={currentState.lang} onChange={handleLangSelect} />
           </Box>
           <Grid item xs={12}>
             <CustomInput
               isEmail={true}
               name="email"
               type="email"
-              label="Email"
-              placeholder="Please enter your email"
+              label={t('email')}
+              placeholder={t('eamilDscrpt')}
               startIcon={<MailIcon className="text-main" />}
               value={currentState?.email ?? ''}
               onChange={handleChange}
-              errorText="Email type is not matched"
+              errorText={t('emailNotMatch')}
               errorState={
                 !Boolean(currentState?.email)
                   ? false
@@ -109,13 +124,13 @@ export default function Register() {
             <CustomInput
               isPassword={true}
               name="password"
-              label="Password"
+              label={t('password')}
               type="password"
-              placeholder="Please enter your password"
+              placeholder={t('passwordDscrpt')}
               startIcon={<LockIcon className="text-main" />}
               value={currentState?.password ?? ''}
               onChange={handleChange}
-              errorText="Password should be over 8 letters"
+              errorText={t('passwordOver')}
               errorState={
                 !Boolean(currentState?.password)
                   ? false
@@ -128,12 +143,12 @@ export default function Register() {
               isPassword={true}
               name="rePassword"
               type="password"
-              label="Confirm Password"
-              placeholder="Please confirm password"
+              label={t('confirmPassword')}
+              placeholder={t('passwordDscrpt')}
               startIcon={<LockIcon className="text-main" />}
               value={currentState?.rePassword ?? ''}
               onChange={handleChange}
-              errorText="Password is not matched"
+              errorText={t('passwordNotMatch')}
               errorState={currentState?.password !== currentState.rePassword}
             />
           </Grid>
@@ -141,7 +156,7 @@ export default function Register() {
             <CustomInput
               label="USDT_TRC20"
               name="walletAddress"
-              placeholder="Please enter your personal wallet address"
+              placeholder=""
               value={currentState?.walletAddress ?? ''}
               onChange={handleChange}
             />
@@ -149,9 +164,9 @@ export default function Register() {
           <Grid item xs={12}>
             <CustomInput
               disabled={inviteDisabled}
-              label="Invites"
+              label={t('invites')}
               name="invite"
-              placeholder="Optional"
+              placeholder=""
               required={false}
               value={currentState?.invite ?? ''}
               onChange={handleChange}
@@ -159,13 +174,13 @@ export default function Register() {
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" size="large" type="submit" fullWidth>
-              Sign Up
+            {t('register')}
             </Button>
           </Grid>
 
           <Grid item xs={12} className="text-center text-main">
-            <label className="text-title">Do you have a account?</label>
-            <Link to={`/sign-in`}>Sign in now</Link>
+            <label className="text-title">{t('isAccount')}</label>
+            <Link to={`/sign-in`}>{t('signInNow')}</Link>
           </Grid>
         </Grid>
       </form>

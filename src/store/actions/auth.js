@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://66.42.111.49/app/user/'
+const API_URL = 'http://localhost:5000/app/user/'
 export const register = (email = '', password = '', walletAddress = '', invite = '') => async (
   dispatch,
 ) => {
@@ -13,8 +13,6 @@ export const register = (email = '', password = '', walletAddress = '', invite =
     })
     .then(function (response) {
       const user = response?.data?.result ?? {}
-      console.log(user, "register");
-
       dispatch({
         type: 'SET_REGISTER',
         payload: { user: user },

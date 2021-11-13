@@ -1,5 +1,4 @@
 import axios from 'axios'
-import notification from 'lib/notification'
 import moment from 'moment'
 
 // Note: Get transaction information by hash code
@@ -14,7 +13,6 @@ export const getTransInfo = async (hash = '') => {
   }
   return await axios(config)
     .then(function (response) {
-      console.log(response)
       const data = response?.data ?? {}
       if (Object.keys(data).length === 0) {
         return false
@@ -38,17 +36,12 @@ export const getTransInfo = async (hash = '') => {
 }
 // Note: Check hash information that's result, confirmation, amount and so on
 export const checkHashInfo = (data) => {
-  const neccesary_amount =
-    JSON.parse(localStorage.getItem('level-store'))?.payment
-      ?.neccesary_amount ?? ''
   const user = JSON.parse(localStorage.getItem('level-store'))?.auth?.user ?? {}
-  const amount = Number(neccesary_amount ?? 0) + Number(user?.user_rid ?? 2000)
-  console.log(data?.amount, amount)
   const walletAddress =
     JSON.parse(localStorage.getItem('level-store'))?.payment
       ?.superior_wallet_address ?? ''
+      console.log(data, walletAddress)
   if (data?.to !== walletAddress) {
-    notification('error', 'Wallet address not matched.')
     return false
   }
   data = {

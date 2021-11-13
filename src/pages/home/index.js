@@ -20,6 +20,7 @@ import Layout from '../../layouts'
 import moment from 'moment'
 import { calTotalRevenue } from 'services/revenue.service'
 import { getLevels } from 'lib/levels'
+import { useTranslation } from 'react-i18next'
 
 const defaultState = {
   levels: [],
@@ -29,6 +30,7 @@ const defaultState = {
 }
 
 export default function Home() {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector((state) => state?.auth?.user ?? {})
@@ -47,7 +49,6 @@ export default function Home() {
   }, [home])
 
   const init = () => {
-    console.log( getLevels(home?.levelList) )
     const userListByLevelFriend = getFriendArray(
       user?.user_id ?? -1,
       home?.userList ?? [],
@@ -104,7 +105,7 @@ export default function Home() {
   const totalContent = (
     <>
       <div>
-        <label className="text-main font-bold">Total Revenue</label>
+        <label className="text-main font-bold">{t('totalRevenue')}</label>
         <br />
         <label className="font-bold text-title">
           {currentState?.totalRevenue ?? 0}
@@ -121,7 +122,7 @@ export default function Home() {
       <MainTitle
         title={
           <div>
-            <span className="text-title mr-3">Total People:</span>
+            <span className="text-title mr-3">{t('totalPeople')}:</span>
             <span>{currentState?.totalPeople ?? 0}</span>
           </div>
         }

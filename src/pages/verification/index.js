@@ -5,6 +5,7 @@ import MainTitle from 'components/MainTitle'
 import Layout from 'layouts'
 import notification from 'lib/notification'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import VerificationInput from 'react-verification-input'
@@ -15,6 +16,7 @@ const defaultVerification = {
   verifyCode: '',
 }
 export default function Verification(props) {
+  const {t} = useTranslation()
   const dispatch = useDispatch()
   const user = useSelector((state) => state.auth.user)
   const history = useHistory()
@@ -30,9 +32,9 @@ export default function Verification(props) {
     dispatch(forgotPassword(user.user_email)).then((res) => {
       Boolean(res?.result ?? false)
       if (res?.result ?? false) {
-        notification('success', res?.msg ?? 'success')
+        notification('success', t(res?.msg) ?? 'success')
       } else {
-        notification('error', res?.msg ?? 'Please make sure your network connection..')
+        notification('error', t(res?.msg) ?? 'Please make sure your network connection..')
       }
       Promise.resolve()
     })
@@ -45,10 +47,10 @@ export default function Verification(props) {
       .then((res) => {
         if (Boolean(res?.result ?? false)) {
           history.push(`${url}`)
-          notification('success', res?.msg ?? 'success')
+          notification('success', t(res?.msg) ?? 'success')
         } else {
           console.log(res)
-          notification('error', res?.msg ?? 'Please make sure your network connection!')
+          notification('error', t(res?.msg) ?? 'Please make sure your network connection!')
         }
         Promise.resolve()
       })
@@ -61,10 +63,10 @@ export default function Verification(props) {
           .then((res) => {
             if (Boolean(res?.result ?? false)) {
               history.push(`${url}`)
-              notification('success', res?.msg ?? 'success')
+              notification('success', t(res?.msg) ?? 'success')
             } else {
               console.log(res)
-              notification('error', res?.msg ?? 'Please make sure your network connection!')
+              notification('error', t(res?.msg) ?? 'Please make sure your network connection!')
             }
             Promise.resolve()
           })
@@ -83,12 +85,12 @@ export default function Verification(props) {
             <Logo variant="icon" className="text-main m-auto" />
           </Grid>
           <Grid item xs={12}>
-            <MainTitle title="Verify your account" isLine={true} />
+            <MainTitle title={t('verifyAccount')} isLine={true} />
           </Grid>
           <Grid item xs={12}>
             <div className="pt-8">
               <label className="text-main mx-2 sm:mx-4 mg:mx-4 lg:mx-4 xl:mx-4">
-                verify code
+                {t('verifyCode')}
               </label>
               <VerificationInput
                 removeDefaultStyles
@@ -106,13 +108,13 @@ export default function Verification(props) {
             <Grid container className="flex items-center pt-8">
               <Grid item xs={8}>
                 <p className="text-md text-title">
-                  Didn't get a code?{' '}
+                    {t('getCode')}
                   <a
                     className="text-main hover:underline"
                     href="#"
                     onClick={handleResend}
                   >
-                    Resend
+                    {t('resend')}
                   </a>
                 </p>
               </Grid>
@@ -123,7 +125,7 @@ export default function Verification(props) {
                   type="submit"
                   fullWidth
                 >
-                  Submit
+                  {t('submit')}
                 </Button>
               </Grid>
             </Grid>

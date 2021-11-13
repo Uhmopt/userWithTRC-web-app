@@ -5,6 +5,7 @@ import { IconButton } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from 'store/actions/auth'
+import { useTranslation } from 'react-i18next'
 
 export default function Banner({
   icon = '',
@@ -13,6 +14,7 @@ export default function Banner({
   mail = '',
   joinTime = '',
 }) {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const handleLogout = () => {
     dispatch(logout())
@@ -33,15 +35,15 @@ export default function Banner({
             <div className="bg-white text-main px-1 rounded-full text-sm self-center shadow-lg">
               <Link to="update-user">
                 {' '}
-                <Info /> Update Info
+                <Info /> {t('banner')}
               </Link>
             </div>
           </div>
           <div>
-            <span>Mail:</span> <span>{mail}</span>
+            <span>{t('mail')}:</span> <span>{mail}</span>
           </div>
           <div>
-            <span>Join time:</span> <span>{joinTime}</span>
+            <span>{t('joinTime')}:</span> <span>{joinTime}</span>
           </div>
         </div>
       </div>

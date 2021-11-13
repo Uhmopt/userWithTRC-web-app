@@ -58,7 +58,6 @@ export default function Users(props) {
   const init = () => {
     // Note: Set the level list of store as the dropdown list
     const tmpLevelList = getDropDownLevelList(home?.levelList ?? [])
-    console.log(home?.userList ?? [])
     const tmpUserList = (home?.userList ?? []).filter((user) => {
       return (
         (user?.user_email?.includes(currentState?.searItem) ||
@@ -66,7 +65,6 @@ export default function Users(props) {
         user?.user_level.toString().includes(currentState?.sortBy?.toString())
       )
     })
-    console.log(tmpUserList ?? [])
     // Note: Set UserList by Search Item
     setCurrentSate((prevState = defaultState) => ({
       ...(prevState ?? defaultState),
@@ -108,7 +106,6 @@ export default function Users(props) {
   }
   // Note: Update the user's Login and Upgrade
   const handleLoginUpgrade = (e) => {
-    console.log({ [e.target.name]: e.target.checked }, e.target.value)
     const data = {
       user_id: auth?.user?.user_id ?? 0,
       update_user_id: e.target.value,
@@ -155,7 +152,6 @@ export default function Users(props) {
       .catch((err) => {
         console.log(err, 'err')
       })
-    console.log(updateData, 'This is the Update Data')
   }
   // Note Update User Data
   const handleDeleteUser = (e) => {
@@ -194,7 +190,6 @@ export default function Users(props) {
   }
   // Note Go to Revenue page
   const handleToRevenue = (e) => {
-    console.log(e)
     history.push({ pathname: 'user-revenue', state: e })
   }
   // Note: Insert New User

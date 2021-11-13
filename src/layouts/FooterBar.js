@@ -1,28 +1,29 @@
 import CustomSvgs from 'components/CustomSvgs'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-const menuItems = [
-  { label: 'Home', icon: <CustomSvgs className="icon" />, link: 'home' },
-  {
-    label: 'Revenue',
-    icon: <CustomSvgs name="Revenue" className="icon m-auto" />,
-    link: 'revenue',
-  },
-  { label: ' ', icon: ' ' },
-  {
-    label: 'Invite friend',
-    icon: <CustomSvgs name="Invite" className="icon m-auto" />,
-    link: 'invite',
-  },
-  {
-    label: 'Contact',
-    icon: <CustomSvgs name="Contact" className="icon m-auto" />,
-    link: 'contact-us',
-  },
-]
-
 export default function FooterBar({ menuIndex = 2 }) {
+  const { t } = useTranslation()
+  const menuItems = [
+    { label: t('home'), icon: <CustomSvgs className="icon" />, link: 'home' },
+    {
+      label:  t('revenue'),
+      icon: <CustomSvgs name="Revenue" className="icon m-auto" />,
+      link: 'revenue',
+    },
+    { label: ' ', icon: ' ' },
+    {
+      label:  t('inviteFriend'),
+      icon: <CustomSvgs name="Invite" className="icon m-auto" />,
+      link: 'invite',
+    },
+    {
+      label:  t('contact'),
+      icon: <CustomSvgs name="Contact" className="icon m-auto" />,
+      link: 'contact-us',
+    },
+  ]
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0)
 
   useEffect(() => {

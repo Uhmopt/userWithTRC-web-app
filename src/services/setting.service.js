@@ -30,11 +30,9 @@ export const getInitSetting = (settingList = []) => {
       case 'set_smtp_pass':
         settings.smtpPass = setting.set_item_value
         break
-      case 'set_smtp_user':
-        settings.smtpUser = setting.set_item_value
-        break
       default:
-        console.log('sss')
+        settings.smtpUser = setting.set_item_value
+
     }
   })
   return settings

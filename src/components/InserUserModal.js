@@ -54,14 +54,12 @@ export default function InsertUserModal({
     // dispatch(insertUser())
   }
   const handleChange = (e) => {
-    console.log(e)
     setCurrentState((prevState = defaultUser) => ({
       ...(prevState ?? defaultUser),
       [e.target.name]: e.target.value,
     }))
   }
   const handleCheck = (e) => {
-    console.log(e.target.value)
     setCurrentState((prevState = defaultUser) => ({
       ...(prevState ?? defaultUser),
       role: e.target.value,

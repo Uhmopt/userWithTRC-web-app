@@ -21,7 +21,6 @@ export default function UserEditTable({
   onDeleteUser = () => {},
   onToRevenue = () => {}
 }) {
-  console.log(userList, "USERLIST")
   const paymentList = useSelector((state) => state?.home?.paymentList ?? [])
   const home = useSelector((state) => state?.home ?? [])
   const [tableUsers, setTableUsers] = useState([])

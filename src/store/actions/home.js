@@ -91,7 +91,6 @@ export const getPaymentList = (user_id = '') => async (dispatch) => {
           },
         )
         .then((res) => {
-          console.log(res, 'get payment')
           dispatch({
             type: 'GET_PAYMENTS',
             payload: {
@@ -120,7 +119,6 @@ export const getAllPaymentList = () => async (dispatch) => {
       },
     )
     .then((res) => {
-      console.log(res, 'get payment')
       dispatch({
         type: 'GET_PAYMENTS',
         payload: {
@@ -196,8 +194,6 @@ export const contactUs = (contactData = {}) => async (dispatch) => {
       },
     )
     .then(function (response) {
-      const result = response?.data?.result ?? {}
-      console.log(result)
       return response?.data ?? {}
     })
     .catch(function (error) {
@@ -212,7 +208,6 @@ export const contactVerify = (contactId = '', verifyCode = '') => async (
 ) => {
   const token =
     JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
-  console.log(contactId, verifyCode)
   if (!contactId || !verifyCode) {
     return false
   }
@@ -252,12 +247,6 @@ export const submitHash = (hash = '') => async (dispatch) => {
           },
         )
         .then(function (response) {
-          // const user = response?.data?.result ?? {}
-          // console.log(response)
-          // dispatch({
-          //   type: 'SET_UPDATE',
-          //   payload: { user: user },
-          // })
           return response?.data ?? false
         })
         .catch(function (error) {
@@ -267,4 +256,11 @@ export const submitHash = (hash = '') => async (dispatch) => {
           return false
         })
     : false
+}
+export const setLanguage = (lang = 'en')  => async (dispatch) => {
+  dispatch({
+    type: 'SET_LANGUAGE',
+    payload: { lang: lang },
+  })
+      
 }

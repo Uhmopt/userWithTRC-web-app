@@ -4,6 +4,7 @@ import { jsonParse } from 'lib/json'
 const initialState = {
   userList: [],
   levelList: [],
+  lang: 'en'
 }
 
 const restoreState = {
@@ -25,6 +26,11 @@ const home = (state = restoreState, action) => {
         ...payload,
       }
     case 'GET_PAYMENTS':
+      return {
+        ...state,
+        ...payload,
+      }    
+    case 'SET_LANGUAGE':
       return {
         ...state,
         ...payload,

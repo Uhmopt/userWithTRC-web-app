@@ -20,7 +20,6 @@ export default function SelectBox({
   onChange = () => {},
 }) {
   const style = useStyles()
-  console.log( itemList, 'Selectbox' )
   return (
     <FormControl required sx={{minWidth: 120 }}>
       <InputLabel id="demo-simple-select-required-label">{label}</InputLabel>

@@ -145,7 +145,6 @@ export const getAdminList = (data) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => {
-      console.log(res?.data?.result ?? [], 'sssssssss')
       return res?.data?.result ?? []
     })
     .catch((err) => {

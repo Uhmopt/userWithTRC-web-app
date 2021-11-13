@@ -27,7 +27,6 @@ class AuthService {
         user_wallet_address: walletAddress,
       })
       .then(function (response) {
-        console.log(response.data)
         return response.data
       })
       .catch(function (error) {

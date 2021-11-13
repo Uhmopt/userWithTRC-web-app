@@ -55,7 +55,6 @@ export const calTotalRevenue = (paymentList = [], user_id = '') => {
 
 // Note: Calculate the Today Earning
 export const calTotalEarning = (paymentList = [], user_id = '') => {
-  console.log(paymentList, 'PaymentLIst')
   paymentList = paymentList.filter((payment) => {
     return (
       moment(payment?.pay_time ?? '').format('MM-DD') ===

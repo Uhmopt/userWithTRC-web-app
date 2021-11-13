@@ -4,6 +4,7 @@ import RevenueTable from 'components/RevenueTable'
 import StaticCard from 'components/StaticCard'
 import TableSwipeableViews from 'components/TableSwipeableViews'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { calTotalRevenue } from 'services/revenue.service'
 import { calTotalEarning } from 'services/revenue.service'
@@ -20,6 +21,7 @@ const defaultState = {
 }
 
 export default function Revenue() {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const [tabNumber, setTabNumber] = useState(0)
   const paymentList = useSelector((state) => state?.home?.paymentList ?? {})
@@ -67,7 +69,7 @@ export default function Revenue() {
 
   const totalEarning = (
     <div>
-      <span className=" text-main font-bold">Today Earning</span>
+      <span className=" text-main font-bold">{t('todayEarning')}</span>
       <br />
       <span className="font-bold">{currentState?.totalEarning ?? ''}</span>
       <span className="font-bold text-sm">usdt</span>
@@ -75,7 +77,7 @@ export default function Revenue() {
   )
   const totalRevenue = (
     <div>
-      <span className="text-main font-bold">Total Revenue</span>
+      <span className="text-main font-bold">{t('totalRevenue')}</span>
       <br />
       <span className="font-bold">{currentState?.totalRevenue ?? ''}</span>
       <span className="font-bold text-sm">usdt</span>
@@ -84,7 +86,7 @@ export default function Revenue() {
   return (
     <Layout
       isLogin={true}
-      title="Revenue statistics"
+      title={t('revenueStatistics')}
       before="home"
       menuIndex={1}
     >
@@ -93,8 +95,8 @@ export default function Revenue() {
       </div>
       <div className="pt-8">
         <NavButton
-          tabLabelOne="Daily Revenue"
-          tabLabelTwo="Monthly Revenue"
+          tabLabelOne={t('dailyRevenue')}
+          tabLabelTwo={t('monthlyRevenue')}
           tabNumber={tabNumber}
           onChange={handleChange}
         />

@@ -117,12 +117,10 @@ function EditTable({
   const onRevert = (id) => {
     const newRows = rows.map((row) => {
       if (row.id === id) {
-        console.log(previous[id], row.id, 'Revert')
         return previous[id] ? previous[id] : row
       }
       return row
     })
-    console.log(newRows, 'dddddddddddddddd')
     setRows(newRows)
     setPrevious((state) => {
       delete state[id]

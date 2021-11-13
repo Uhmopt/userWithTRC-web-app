@@ -16,13 +16,17 @@ import { Link } from 'react-router-dom'
 import { login } from 'store/actions/auth'
 import checkValidEmail from 'lib/checkValidEmail'
 import { useEffect } from 'react'
+import { useTranslation } from "react-i18next";
 
 const defaultSignInfo = {
   email: '',
   password: '',
   isRemember: false,
+  lang: 'en'
 }
 export default function SignIn() {
+  const { t } = useTranslation()
+  const { i18n } = useTranslation();
   const [currentState, setCurrentState] = useState(defaultSignInfo)
   const dispatch = useDispatch()
   const history = useHistory()
@@ -60,29 +64,37 @@ export default function SignIn() {
       if (res?.isVerifyRequired ?? false) {
         notification(
           'error',
-          res?.msg ?? 'Please make sure your network connection..',
+          t(res?.msg) ?? t('verifyAccount'),
         )
         history.push({ pathname: 'verification', state: 'sign-in' })
         return false
       } else {
-        Boolean(res?.result ?? false)
         if (res?.result ?? false) {
           if (res?.result?.user_role === 3) {
             history.push('/back/settings')
           } else {
           history.push('/home')
         }
-          notification('success', res?.msg ?? 'success')
+          notification('success', t(res?.msg))
         } else {
           notification(
             'error',
-            res?.msg ?? 'Please make sure your network connection..',
+            t('makeSureNetConnection'),
           )
         }
       }
 
       Promise.resolve()
     })
+  }
+
+  const handleLangSelect = async (e) => {
+    i18n.changeLanguage(e.target.value ?? "en");
+    localStorage.setItem("language", e.target.value ?? "en");
+    setCurrentState((prevState = defaultSignInfo) => ({
+      ...(prevState ?? defaultSignInfo),
+      lang: e.target.value,
+    }))
   }
 
   return (
@@ -93,22 +105,22 @@ export default function SignIn() {
             <Logo variant="icon" className="text-main m-auto" />
           </Grid>
           <Grid item xs={12}>
-            <MainTitle title="Sign In" isLine={true} />
+            <MainTitle title={t('signIn')} isLine={true} />
           </Grid>
           <Box className="w-full text-right -mt-14">
-            <LangSelect />
+            <LangSelect lang={currentState.lang} onChange={handleLangSelect} />
           </Box>
           <Grid item xs={12}>
             <CustomInput
               isEmail={true}
               name="email"
               type="email"
-              label="Email"
-              placeholder="Please enter your email"
+              label={t('email')}
+              placeholder={t('eamilDscrpt')}
               startIcon={<MailIcon className="text-main" />}
               value={currentState?.email ?? ''}
               onChange={handleChange}
-              errorText="Email type is not matched"
+              errorText={t('emailNotMatch')}
               errorState={
                 !Boolean(currentState?.email)
                   ? false
@@ -120,13 +132,13 @@ export default function SignIn() {
             <CustomInput
               isPassword={true}
               name="password"
-              label="Password"
+              label={t('password')}
               type="password"
-              placeholder="Please enter your password"
+              placeholder={t('passwordDscrpt')}
               startIcon={<LockIcon className="text-main" />}
               value={currentState?.password ?? ''}
               onChange={handleChange}
-              errorText="Password should be over 8 letters"
+              errorText={t('passwordOver')}
               errorState={
                 !Boolean(currentState?.password)
                   ? false
@@ -136,40 +148,22 @@ export default function SignIn() {
           </Grid>
           <Grid item xs={12}>
             <Grid container>
-              {/* <Grid item xs={6}>
-                <Box
-                  className="cursor-pointer flex items-center text-main"
-                  onClick={() => {
-                    setCurrentState({
-                      ...currentState,
-                      isRemember: !Boolean(currentState?.isRemember ?? ''),
-                    })
-                  }}
-                >
-                  {Boolean(currentState?.isRemember ?? '') ? (
-                    <CheckBoxIcon />
-                  ) : (
-                    <CheckBoxOutlineBlankIcon />
-                  )}
-                  <span>Remember me</span>
-                </Box>
-              </Grid> */}
               <Grid item xs={12} className="text-right">
                 <Link to={`forgot-password`} className="text-green-500">
-                  <span>Forgot password</span>
+                  <span>{t('forgotPassword')}</span>
                 </Link>
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" size="large" fullWidth>
-              Login
+              {t('signIn')}
             </Button>
           </Grid>
           <Grid item xs={12} className="text-center text-main">
-            <label className="text-title">Don't you have a account?</label>
+            <label className="text-title">{t('noAccount')}</label>
             <Link to={`register`}>
-              <span>Register now</span>
+              <span>{t('registerNow')}</span>
             </Link>
           </Grid>
         </Grid>

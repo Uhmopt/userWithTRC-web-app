@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux'
 import Layout from '../../layouts'
 import {levelOrder} from 'lib/levels'
 import { getFriendArray } from 'services/user.service'
+import { useTranslation } from 'react-i18next'
 
 const defaultState = {
   tabNumber: 0,
@@ -20,6 +21,7 @@ const defaultState = {
   searItem: '',
 }
 export default function LevelUsers(props) {
+  const { t } = useTranslation()
   const home = useSelector((state) => state?.home ?? {})
   const user = useSelector((state) => state?.auth?.user ?? {})
   const [currentState, setCurrentState] = useState(defaultState)
@@ -75,7 +77,7 @@ export default function LevelUsers(props) {
   const totalUser = (
     <>
       <div>
-        <label className="text-title font-bold">Total User</label>
+        <label className="text-title font-bold">{t('totalUser')}</label>
         <br />
         <label className="font-bold text-main">
           {currentState?.allUsersByLevel?.length ?? 0}
@@ -86,7 +88,7 @@ export default function LevelUsers(props) {
   const upgraded = (
     <>
       <div>
-        <label className="text-title font-bold">Upgraded</label>
+        <label className="text-title font-bold">{t('upgraded')}</label>
         <br />
         <label className="font-bold text-main">
           {currentState?.usersByLevel?.length ?? 0}
@@ -101,8 +103,8 @@ export default function LevelUsers(props) {
       </div>
       <div className="pt-8">
         <NavButton
-          tabLabelOne="All Users"
-          tabLabelTwo="Upgraded"
+          tabLabelOne={t('allUsers')}
+          tabLabelTwo={t('upgraded')}
           tabNumber={currentState.tabNumber}
           onChange={handleTabChange}
         />
@@ -117,7 +119,7 @@ export default function LevelUsers(props) {
             </IconButton>
           }
           className="bg-white"
-          placeholder="Please enter ID/Email"
+          placeholder={t('searchDscrpt')}
           onChange={handleSearch}
         />
       </div>

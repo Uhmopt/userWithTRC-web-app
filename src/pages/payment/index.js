@@ -16,6 +16,7 @@ import { getAmountAddress, submitHash } from 'store/actions/payment'
 import copy from 'copy-to-clipboard'
 import Layout from '../../layouts'
 import { getMaxLevel } from 'lib/levels'
+import { useTranslation } from 'react-i18next'
 
 const defaultState = {
   hash: '',
@@ -31,6 +32,7 @@ export default function Payment() {
   const levels = useSelector((state) => state?.home?.levelList ?? [])
   const dispatch = useDispatch()
   const history = useHistory()
+  const {t} = useTranslation()
 
   useEffect(() => {
     init()
@@ -74,15 +76,20 @@ export default function Payment() {
 
   const handleClick = async () => {
     if (!(currentState?.hash ?? '')) {
-      notification('error', 'Please enter the hash code!')
+      notification('error', t('enterHash'))
       return false
     }
     dispatch(submitHash(currentState?.hash ?? '')).then((res) => {
       if (!(res?.result ?? '')) {
-        res?.msg && notification('error', res?.msg ?? 'Upgrade failed')
+        if (res?.msg) {
+           notification('error', t(res?.msg) ?? 'Upgrade failed')
+        } else {
+          notification('error', t('walletNotMatch'))
+        }
+        
         return false
       }
-      notification('success', res?.msg ?? 'Upgrade success!')
+      notification('success', t(res?.msg) ?? 'Upgrade success!')
       if (
         res?.result?.user_level ??
         0 === getMaxLevel(currentState?.levelList ?? [])
@@ -96,7 +103,6 @@ export default function Payment() {
   const handleCopy = () => {
     copy(currentState?.walletAddress ?? '')
   }
-  console.log(currentState?.levelList?.length)
   const upgradeUser = (
     <>
       <div className="text-title text-left text-sm">
@@ -110,26 +116,26 @@ export default function Payment() {
             />
           </div>
           <span className="text-2xl">
-            Upgrade V
+            {t('upgrade')} V
             {currentState?.levelNum ?? 0}
-            user
+            {t('user')}
           </span>
         </div>
         <div>
-          <span>Please transfer</span>{' '}
+          <span>{t('pleaseTransfer')}</span>{' '}
           <span className="text-main">
             {currentState?.transforAmount ?? 10}
           </span>{' '}
-          <span>usdt (trc20) to the following wallet.</span>
+          <span>usdt (trc20) {t('toFollowingWallet')}</span>
         </div>
         <div className="pt-3">
-          <span className="font-bold">USDT Amount:</span>{' '}
+          <span className="font-bold">USDT {t('amount')}:</span>{' '}
           <span className="text-main">
             {currentState?.transforAmount ?? 10}
           </span>
         </div>
         <div className="items-center sm:flex pt-3">
-          <span className="font-bold">Wallet address :</span>
+          <span className="font-bold">{t('walletAddress')} :</span>
           <div className="text-main m-3">
             <span>{currentState?.walletAddress ?? ''}</span>
             <IconButton onClick={handleCopy}>
@@ -138,15 +144,14 @@ export default function Payment() {
           </div>
         </div>
         <div className="text-warnning text-sm pb-3">
-          <span className="font-bold">Warning :</span>
+          <span className="font-bold">{t('warning')} :</span>
           <span>
             {' '}
-            Please pay {currentState?.transforAmount ?? 10} usdt strictly,
-            otherwise it cannot be upgraded automatically.
+            {t('pleasePay')} {currentState?.transforAmount ?? 10} {t('usdtStrictly')}
           </span>
         </div>
         <div className="flex items-center text-title pt-3">
-          <span>Hash:</span>
+          <span>{t('hash')}:</span>
           <div className="w-full ml-3">
             <CustomInput
               name="hash"
@@ -160,7 +165,7 @@ export default function Payment() {
   )
 
   return (
-    <Layout isLogin={true} title="Payment" before="upgrade" menuIndex={2}>
+    <Layout isLogin={true} title={t('payment')} before="upgrade" menuIndex={2}>
       <Box className="rounded-md h-20 self-center align-middle text-center">
         <StaticCard content1={upgradeUser} />
       </Box>
@@ -175,7 +180,7 @@ export default function Payment() {
           fullWidth
           className="capitalize"
         >
-          Submit
+          {t('submit')}
         </Button>
         {/* </Link> */}
         <MainTitle className="pt-8" />
