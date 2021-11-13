@@ -74,12 +74,12 @@ export default function UpdateUser() {
   return (
     <Layout
       isLogin={true}
-      title="Update Information"
+      title={t('updateUser')}
       before="home"
       menuIndex={2}
     >
       <MainTitle
-        title={<label className="text-xl text-title">Revise resume</label>}
+        title={<label className="text-xl text-title">{t('reviseResume')}</label>}
         isLogin={true}
         className="pb-12"
       />
