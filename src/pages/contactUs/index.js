@@ -18,7 +18,7 @@ const defaultContact = {
 }
 
 export default function ContactUs() {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [currentState, setCurrentState] = useState(defaultContact)
   const dispatch = useDispatch()
   const user = useSelector((state) => state?.auth?.user ?? {})
@@ -112,7 +112,7 @@ export default function ContactUs() {
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" size="large" fullWidth>
-              Submit
+              {t('upgraded')}
             </Button>
           </Grid>
         </Grid>

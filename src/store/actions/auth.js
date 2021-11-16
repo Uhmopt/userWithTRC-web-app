@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:5000/app/user/'
+const API_URL = 'http://108.61.220.88:5001/app/user/'
 export const register = (email = '', password = '', walletAddress = '', invite = '') => async (
   dispatch,
 ) => {
@@ -57,6 +57,7 @@ export const login = (email, password, isRemember) => async (dispatch) => {
       isRemember: isRemember,
     })
     .then(function (response) {
+      console.log(response)
       const user = response?.data?.result ?? {}
       dispatch({
         type: 'SET_LOGIN',
@@ -66,6 +67,7 @@ export const login = (email, password, isRemember) => async (dispatch) => {
     })
     .catch(function (error) {
       if (error.response) {
+        console.log(error.response)
         return error?.response?.data ?? false
       }
       return false

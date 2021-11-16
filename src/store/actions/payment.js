@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getTransInfo } from 'services/payment.service'
 // import httpConfig from 'lib/httpConfig'
 
-const API_URL = 'http://localhost:5000/app/payment/'
+const API_URL = 'http://108.61.220.88:5001/app/payment/'
 
 export const submitHash = (hash = '') => async (dispatch) => {
   const token =
@@ -74,7 +74,7 @@ export const getAmountAddress = (
 
 // Note: Get superior wallet address and necessary amount to pay to superior
 export const getPaymentHistory = () => async (dispatch) => {
-  const toURL = 'http://localhost:5000/app/back/'
+  const toURL = 'http://108.61.220.88:5001/app/back/'
   const token =
     JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
 
@@ -104,7 +104,7 @@ export const getPaymentHistory = () => async (dispatch) => {
 
 // Note: Delete Payment By ID
 export const deletePayment = (data = {}) => async (dispatch) => {
-  const toURL = 'http://localhost:5000/app/back/'
+  const toURL = 'http://108.61.220.88:5001/app/back/'
   const token =
     JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
 
@@ -130,7 +130,7 @@ export const deletePayment = (data = {}) => async (dispatch) => {
 
 // Note: Delete Payment By ID
 export const approvePayment = (data = {}) => async (dispatch) => {
-  const toURL = 'http://localhost:5000/app/back/'
+  const toURL = 'http://108.61.220.88:5001/app/back/'
   const token =
     JSON.parse(localStorage.getItem('level-store'))?.auth?.token ?? ''
 

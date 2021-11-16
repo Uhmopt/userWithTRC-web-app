@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_URL = 'http://localhost:5000/app/back/'
+const API_URL = 'http://108.61.220.88:5001/app/back/'
 
 export const getCurrentSetting = () => async (dispatch) => {
 

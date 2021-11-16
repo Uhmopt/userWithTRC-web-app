@@ -78,7 +78,7 @@ export default function SignIn() {
           notification('success', t(res?.msg))
         } else {
           notification(
-            'error',
+            'error', t(res?.msg) ??
             t('makeSureNetConnection'),
           )
         }
