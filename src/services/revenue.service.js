@@ -52,7 +52,6 @@ export const calTotalRevenue = (paymentList = [], user_id = '') => {
       : 0
   return tmpRevenue / Math.pow(10, 6)
 }
-
 // Note: Calculate the Today Earning
 export const calTotalEarning = (paymentList = [], user_id = '') => {
   paymentList = paymentList.filter((payment) => {
